@@ -3,11 +3,10 @@ Public Class PixelBuffer(Of TPixel As Structure)
 
     Private ReadOnly pixels As TPixel()
 
-    Sub New(columns As Integer, rows As Integer)
+    Sub New(columns As Integer, rows As Integer, Optional pixels As TPixel() = Nothing)
         Me.Columns = columns
         Me.Rows = rows
-        Dim pixel As TPixel = Nothing
-        Me.pixels = Enumerable.Range(0, columns * rows).Select(Function(x) pixel).ToArray
+        Me.pixels = If(pixels, Enumerable.Range(0, columns * rows).Select(Function(x) CType(Nothing, TPixel)).ToArray)
     End Sub
 
     Public ReadOnly Property Columns As Integer Implements IPixelBuffer(Of TPixel).Columns

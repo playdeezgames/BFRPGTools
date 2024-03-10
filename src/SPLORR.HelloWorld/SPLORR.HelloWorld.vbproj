@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SPLORR.HelloWorld</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+    <OptionStrict>On</OptionStrict>
+    <ImportedNamespaces>SPLORR.HelloWorld.UI=False,SPLORR.Presentation=False,SPLORR.UI=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,SPLORR.HelloWorld=True</ImportedNamespaces>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SPLORR.HelloWorld.UI\SPLORR.HelloWorld.UI.vbproj" />
+    <ProjectReference Include="..\SPLORR.Presentation\SPLORR.Presentation.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="SPLORR.HelloWorld.UI" />
+    <Import Include="SPLORR.Presentation" />
+    <Import Include="SPLORR.UI" />
+  </ItemGroup>
+
+</Project>
