@@ -1,18 +1,17 @@
 ﻿Public Class BaseGameController(Of TState, TPixel As Structure, TCommand, TSfx)
     Implements IGameController(Of TPixel, TCommand, TSfx)
 
-    Private ReadOnly config As IHostConfig
     Private ReadOnly sfxQueue As New List(Of TSfx)
-    Private ReadOnly states As IReadOnlyDictionary(Of TState, Func(Of IPixelBuffer(Of TPixel), ICommandBuffer(Of TCommand), Action(Of TSfx), TState))
+    Private ReadOnly states As IReadOnlyDictionary(Of TState, Func(Of IUIContext(Of TPixel, TCommand, TSfx), TState))
     Private state As TState
-    Private checkQuitRequested As Func(Of Boolean)
+    Private checkQuitRequested As Func(Of TState, Boolean)
     Sub New(
            config As IHostConfig,
            windowTitle As String,
-           checkQuitRequested As Func(Of Boolean),
-           states As IReadOnlyDictionary(Of TState, Func(Of IPixelBuffer(Of TPixel), ICommandBuffer(Of TCommand), Action(Of TSfx), TState)),
+           checkQuitRequested As Func(Of TState, Boolean),
+           states As IReadOnlyDictionary(Of TState, Func(Of IUIContext(Of TPixel, TCommand, TSfx), TState)),
            state As TState)
-        Me.config = config
+        Me.Config = config
         Me.WindowTitle = windowTitle
         Me.Display = New PixelBuffer(Of TPixel)(config.ViewWidth, config.ViewHeight)
         Me.Command = New CommandBuffer(Of TCommand)
@@ -59,7 +58,7 @@
 
     Public ReadOnly Property IsQuitRequested As Boolean Implements IGameController(Of TPixel, TCommand, TSfx).IsQuitRequested
         Get
-            Return checkQuitRequested()
+            Return checkQuitRequested(state)
         End Get
     End Property
 
@@ -81,7 +80,14 @@
         End Get
     End Property
 
+    Public ReadOnly Property Config As IHostConfig Implements IUIContext(Of TPixel, TCommand, TSfx).Config
+
     Public Sub Update() Implements IGameController(Of TPixel, TCommand, TSfx).Update
-        state = states(state)(Display, Command, AddressOf sfxQueue.Add)
+        state = states(state)(Me)
+        sfxQueue.Clear()
+    End Sub
+
+    Public Sub Play(sfx As TSfx) Implements IUIContext(Of TPixel, TCommand, TSfx).Play
+        sfxQueue.Add(sfx)
     End Sub
 End Class

@@ -1,6 +1,5 @@
 ﻿Public Interface IGameController(Of TPixel As Structure, TCommand, TSfx)
-    ReadOnly Property Display As IPixelBuffer(Of TPixel)
-    ReadOnly Property Command As ICommandBuffer(Of TCommand)
+    Inherits IUIContext(Of TPixel, TCommand, TSfx)
     ReadOnly Property ViewWidth As Integer
     ReadOnly Property ViewHeight As Integer
     ReadOnly Property FrameWidth As Integer
