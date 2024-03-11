@@ -20,6 +20,12 @@ Public Class PixelBuffer(Of TPixel As Structure)
         pixels(column + row * Columns) = pixel
     End Sub
 
+    Public Sub WriteAll(pixel As TPixel) Implements IPixelBuffer(Of TPixel).WriteAll
+        For Each index In Enumerable.Range(0, pixels.Length)
+            pixels(index) = pixel
+        Next
+    End Sub
+
     Public Function Read(column As Integer, row As Integer) As TPixel Implements IPixelBuffer(Of TPixel).Read
         If column < 0 OrElse row < 0 OrElse column >= Columns OrElse row >= Rows Then
             Throw New ArgumentOutOfRangeException()

@@ -1,16 +1,18 @@
-﻿Public Class BaseGameController(Of TState, TPixel As Structure, TCommand, TSfx)
-    Implements IGameController(Of TPixel, TCommand, TSfx)
+﻿Public Class BaseGameController(Of TState, TPixel As Structure, TCommand, TSfx, TModel)
+    Implements IGameController(Of TPixel, TCommand, TSfx, TModel)
 
     Private ReadOnly sfxQueue As New List(Of TSfx)
-    Private ReadOnly states As IReadOnlyDictionary(Of TState, Func(Of IUIContext(Of TPixel, TCommand, TSfx), TState))
+    Private ReadOnly states As IReadOnlyDictionary(Of TState, Func(Of IUIContext(Of TPixel, TCommand, TSfx, TModel), TState))
     Private state As TState
     Private checkQuitRequested As Func(Of TState, Boolean)
     Sub New(
            config As IHostConfig,
            windowTitle As String,
            checkQuitRequested As Func(Of TState, Boolean),
-           states As IReadOnlyDictionary(Of TState, Func(Of IUIContext(Of TPixel, TCommand, TSfx), TState)),
-           state As TState)
+           states As IReadOnlyDictionary(Of TState, Func(Of IUIContext(Of TPixel, TCommand, TSfx, TModel), TState)),
+           state As TState,
+           model As TModel)
+        Me.Model = model
         Me.Config = config
         Me.WindowTitle = windowTitle
         Me.Display = New PixelBuffer(Of TPixel)(config.ViewWidth, config.ViewHeight)
@@ -20,74 +22,76 @@
         Me.state = state
     End Sub
 
-    Public ReadOnly Property Display As IPixelBuffer(Of TPixel) Implements IGameController(Of TPixel, TCommand, TSfx).Display
+    Public ReadOnly Property Display As IPixelBuffer(Of TPixel) Implements IGameController(Of TPixel, TCommand, TSfx, TModel).Display
 
-    Public ReadOnly Property Command As ICommandBuffer(Of TCommand) Implements IGameController(Of TPixel, TCommand, TSfx).Command
+    Public ReadOnly Property Command As ICommandBuffer(Of TCommand) Implements IGameController(Of TPixel, TCommand, TSfx, TModel).Command
 
-    Public ReadOnly Property ViewWidth As Integer Implements IGameController(Of TPixel, TCommand, TSfx).ViewWidth
+    Public ReadOnly Property ViewWidth As Integer Implements IGameController(Of TPixel, TCommand, TSfx, TModel).ViewWidth
         Get
-            Return config.ViewWidth
+            Return Config.ViewWidth
         End Get
     End Property
 
-    Public ReadOnly Property ViewHeight As Integer Implements IGameController(Of TPixel, TCommand, TSfx).ViewHeight
+    Public ReadOnly Property ViewHeight As Integer Implements IGameController(Of TPixel, TCommand, TSfx, TModel).ViewHeight
         Get
-            Return config.ViewHeight
+            Return Config.ViewHeight
         End Get
     End Property
 
-    Public ReadOnly Property FrameWidth As Integer Implements IGameController(Of TPixel, TCommand, TSfx).FrameWidth
+    Public ReadOnly Property FrameWidth As Integer Implements IGameController(Of TPixel, TCommand, TSfx, TModel).FrameWidth
         Get
-            Return config.ViewWidth * config.ViewScale
+            Return Config.ViewWidth * Config.ViewScale
         End Get
     End Property
 
-    Public ReadOnly Property FrameHeight As Integer Implements IGameController(Of TPixel, TCommand, TSfx).FrameHeight
+    Public ReadOnly Property FrameHeight As Integer Implements IGameController(Of TPixel, TCommand, TSfx, TModel).FrameHeight
         Get
-            Return config.ViewHeight * config.ViewScale
+            Return Config.ViewHeight * Config.ViewScale
         End Get
     End Property
 
-    Public ReadOnly Property WindowTitle As String Implements IGameController(Of TPixel, TCommand, TSfx).WindowTitle
+    Public ReadOnly Property WindowTitle As String Implements IGameController(Of TPixel, TCommand, TSfx, TModel).WindowTitle
 
-    Public ReadOnly Property IsFullScreen As Boolean Implements IGameController(Of TPixel, TCommand, TSfx).IsFullScreen
+    Public ReadOnly Property IsFullScreen As Boolean Implements IGameController(Of TPixel, TCommand, TSfx, TModel).IsFullScreen
         Get
-            Return config.IsFullScreen
+            Return Config.IsFullScreen
         End Get
     End Property
 
-    Public ReadOnly Property IsQuitRequested As Boolean Implements IGameController(Of TPixel, TCommand, TSfx).IsQuitRequested
+    Public ReadOnly Property IsQuitRequested As Boolean Implements IGameController(Of TPixel, TCommand, TSfx, TModel).IsQuitRequested
         Get
             Return checkQuitRequested(state)
         End Get
     End Property
 
-    Public ReadOnly Property Volume As Single Implements IGameController(Of TPixel, TCommand, TSfx).Volume
+    Public ReadOnly Property Volume As Single Implements IGameController(Of TPixel, TCommand, TSfx, TModel).Volume
         Get
-            Return config.Volume
+            Return Config.Volume
         End Get
     End Property
 
-    Public ReadOnly Property IsMuted As Boolean Implements IGameController(Of TPixel, TCommand, TSfx).IsMuted
+    Public ReadOnly Property IsMuted As Boolean Implements IGameController(Of TPixel, TCommand, TSfx, TModel).IsMuted
         Get
-            Return config.IsMuted
+            Return Config.IsMuted
         End Get
     End Property
 
-    Public ReadOnly Property QueuedSfx As IEnumerable(Of TSfx) Implements IGameController(Of TPixel, TCommand, TSfx).QueuedSfx
+    Public ReadOnly Property QueuedSfx As IEnumerable(Of TSfx) Implements IGameController(Of TPixel, TCommand, TSfx, TModel).QueuedSfx
         Get
             Return sfxQueue
         End Get
     End Property
 
-    Public ReadOnly Property Config As IHostConfig Implements IUIContext(Of TPixel, TCommand, TSfx).Config
+    Public ReadOnly Property Config As IHostConfig Implements IUIContext(Of TPixel, TCommand, TSfx, TModel).Config
 
-    Public Sub Update() Implements IGameController(Of TPixel, TCommand, TSfx).Update
+    Public ReadOnly Property Model As TModel Implements IUIContext(Of TPixel, TCommand, TSfx, TModel).Model
+
+    Public Sub Update() Implements IGameController(Of TPixel, TCommand, TSfx, TModel).Update
         state = states(state)(Me)
         sfxQueue.Clear()
     End Sub
 
-    Public Sub Play(sfx As TSfx) Implements IUIContext(Of TPixel, TCommand, TSfx).Play
+    Public Sub Play(sfx As TSfx) Implements IUIContext(Of TPixel, TCommand, TSfx, TModel).Play
         sfxQueue.Add(sfx)
     End Sub
 End Class

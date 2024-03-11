@@ -1,8 +1,8 @@
-Public Class Host(Of TPixel As Structure, TCommand, TSfx)
+Public Class Host(Of TPixel As Structure, TCommand, TSfx, TModel)
     Inherits Game
 
     Private ReadOnly graphicsDeviceManager As GraphicsDeviceManager
-    Private ReadOnly controller As IGameController(Of TPixel, TCommand, TSfx)
+    Private ReadOnly controller As IGameController(Of TPixel, TCommand, TSfx, TModel)
     Private buffer As Color()
     Private pixelBuffer As IPixelBuffer(Of Color)
     Private texture As Texture2D
@@ -12,7 +12,7 @@ Public Class Host(Of TPixel As Structure, TCommand, TSfx)
     Private ReadOnly inputManager As IInputManager(Of TCommand)
 
     Sub New(
-           controller As IGameController(Of TPixel, TCommand, TSfx),
+           controller As IGameController(Of TPixel, TCommand, TSfx, TModel),
            renderer As IRenderer(Of TPixel, Color),
            inputManager As IInputManager(Of TCommand),
            sfxManager As ISfxManager(Of TSfx))
@@ -45,7 +45,9 @@ Public Class Host(Of TPixel As Structure, TCommand, TSfx)
     End Sub
 
     Private Sub HandleInput()
-        inputManager.GetCommands(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One))
+        For Each cmd In inputManager.GetCommands(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One))
+            controller.Command.WriteCommand(cmd)
+        Next
     End Sub
 
     Private Sub PlayQueuedSfx()

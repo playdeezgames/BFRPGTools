@@ -1,5 +1,5 @@
-﻿Public Interface IGameController(Of TPixel As Structure, TCommand, TSfx)
-    Inherits IUIContext(Of TPixel, TCommand, TSfx)
+﻿Public Interface IGameController(Of TPixel As Structure, TCommand, TSfx, TModel)
+    Inherits IUIContext(Of TPixel, TCommand, TSfx, TModel)
     ReadOnly Property ViewWidth As Integer
     ReadOnly Property ViewHeight As Integer
     ReadOnly Property FrameWidth As Integer
