@@ -17,7 +17,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\WooHoo.wav" />
     <None Remove="Icon.bmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Content\WooHoo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

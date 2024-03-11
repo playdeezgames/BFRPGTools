@@ -87,8 +87,8 @@
     Public ReadOnly Property Model As TModel Implements IUIContext(Of TPixel, TCommand, TSfx, TModel).Model
 
     Public Sub Update() Implements IGameController(Of TPixel, TCommand, TSfx, TModel).Update
-        state = states(state)(Me)
         sfxQueue.Clear()
+        state = states(state)(Me)
     End Sub
 
     Public Sub Play(sfx As TSfx) Implements IUIContext(Of TPixel, TCommand, TSfx, TModel).Play
