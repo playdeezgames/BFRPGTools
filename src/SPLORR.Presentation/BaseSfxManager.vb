@@ -1,17 +1,13 @@
 ﻿Imports Microsoft.Xna.Framework.Audio
 
-Public Class SfxManager
-    Implements ISfxManager(Of Sfx)
-    Private ReadOnly fileNames As IReadOnlyDictionary(Of Sfx, String)
-    Private ReadOnly soundEffects As New Dictionary(Of Sfx, SoundEffect)
-    Sub New()
-        fileNames = New Dictionary(Of Sfx, String) From
-            {
-                {Sfx.Ok, "Content/WooHoo.wav"}
-            }
+Public Class BaseSfxManager(Of TSfx)
+    Implements ISfxManager(Of TSfx)
+    Private ReadOnly fileNames As IReadOnlyDictionary(Of TSfx, String)
+    Private ReadOnly soundEffects As New Dictionary(Of TSfx, SoundEffect)
+    Sub New(fileNames As IReadOnlyDictionary(Of TSfx, String))
+        Me.fileNames = fileNames
     End Sub
-
-    Public Sub Play(sfx As Sfx, volume As Single) Implements ISfxManager(Of Sfx).Play
+    Public Sub Play(sfx As TSfx, volume As Single) Implements ISfxManager(Of TSfx).Play
         If fileNames.ContainsKey(sfx) Then
             Dim soundEffect As SoundEffect = Nothing
             If Not soundEffects.TryGetValue(sfx, soundEffect) Then
