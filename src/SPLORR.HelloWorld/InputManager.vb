@@ -12,14 +12,16 @@ Public Class InputManager
     End Function
     Private Sub CheckForCommands(commands As HashSet(Of Command), isPressed As Boolean, command As Command)
         If isPressed Then
-            If nextCommandTimes.ContainsKey(command) Then
-                If DateTimeOffset.Now > nextCommandTimes(command) Then
+            Dim nextCommandTime As DateTimeOffset = Nothing
+            Dim currentCommandTime = DateTimeOffset.Now
+            If nextCommandTimes.TryGetValue(command, nextCommandTime) Then
+                If currentCommandTime > nextCommandTime Then
                     commands.Add(command)
-                    nextCommandTimes(command) = DateTimeOffset.Now.AddSeconds(0.3)
+                    nextCommandTimes(command) = currentCommandTime.AddSeconds(0.3)
                 End If
             Else
                 commands.Add(command)
-                nextCommandTimes(command) = DateTimeOffset.Now.AddSeconds(1.0)
+                nextCommandTimes(command) = currentCommandTime.AddSeconds(1.0)
             End If
         Else
             nextCommandTimes.Remove(command)

@@ -6,7 +6,7 @@
             config,
             "SPLORR!!",
             Function(x) x = GameState.Quit,
-            New Dictionary(Of GameState, Func(Of IUIContext(Of Hue, Command, Sfx, Model.Model), GameState)) From
+            New Dictionary(Of GameState, Func(Of IUIContext(Of Hue, Command, Sfx, Model.Model), TimeSpan, GameState)) From
             {
                 {GameState.Title, AddressOf TitleState.Update}
             },

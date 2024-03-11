@@ -9,6 +9,6 @@
     ReadOnly Property IsQuitRequested As Boolean
     ReadOnly Property Volume As Single
     ReadOnly Property IsMuted As Boolean
-    Sub Update()
+    Sub Update(elapsedTime As TimeSpan)
     ReadOnly Property QueuedSfx As IEnumerable(Of TSfx)
 End Interface
