@@ -13,10 +13,12 @@ Public Class SfxManager
 
     Public Sub Play(sfx As Sfx, volume As Single) Implements ISfxManager(Of Sfx).Play
         If fileNames.ContainsKey(sfx) Then
-            If Not soundEffects.ContainsKey(sfx) Then
-                soundEffects(sfx) = SoundEffect.FromFile(fileNames(sfx))
+            Dim soundEffect As SoundEffect = Nothing
+            If Not soundEffects.TryGetValue(sfx, soundEffect) Then
+                soundEffect = SoundEffect.FromFile(fileNames(sfx))
+                soundEffects(sfx) = soundEffect
             End If
-            soundEffects(sfx).Play(volume, 0.0F, 0.0F)
+            soundEffect.Play(volume, 0.0F, 0.0F)
         End If
     End Sub
 End Class

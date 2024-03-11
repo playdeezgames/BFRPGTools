@@ -1,10 +1,29 @@
+Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Input
 
 Module Program
     Sub Main(args As String())
         Using host As New Host(Of Hue, Command, Sfx, Model.Model)(
             New GameController(New HostConfig()),
-            New Renderer(),
+            New PaletteRenderer(Of Hue, Color)(New Dictionary(Of Hue, Color) From
+            {
+                {Hue.Black, New Color(0, 0, 0)},
+                {Hue.Blue, New Color(0, 0, 170)},
+                {Hue.Green, New Color(0, 170, 0)},
+                {Hue.Cyan, New Color(0, 170, 170)},
+                {Hue.Red, New Color(170, 0, 0)},
+                {Hue.Magenta, New Color(170, 0, 170)},
+                {Hue.Orange, New Color(170, 85, 0)},
+                {Hue.LightGray, New Color(170, 170, 170)},
+                {Hue.DarkGray, New Color(85, 85, 85)},
+                {Hue.LightBlue, New Color(85, 85, 255)},
+                {Hue.LightGreen, New Color(85, 255, 85)},
+                {Hue.LightCyan, New Color(85, 255, 255)},
+                {Hue.LightRed, New Color(255, 85, 85)},
+                {Hue.LightMagenta, New Color(255, 85, 255)},
+                {Hue.Yellow, New Color(255, 255, 85)},
+                {Hue.White, New Color(255, 255, 255)}
+            }),
             New BaseInputManager(Of Command)(New Dictionary(Of Command, Func(Of KeyboardState, GamePadState, Boolean)) From
             {
                 {Command.A, Function(keyboard, gamePad) keyboard.IsKeyDown(Keys.Space) OrElse keyboard.IsKeyDown(Keys.Enter) OrElse gamePad.IsButtonDown(Buttons.A)},
