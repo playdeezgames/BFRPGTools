@@ -2,14 +2,14 @@
     Implements IGameController(Of TPixel, TCommand, TSfx, TModel, TAssets)
 
     Private ReadOnly sfxQueue As New List(Of TSfx)
-    Private ReadOnly states As IReadOnlyDictionary(Of TState, Func(Of IUIContext(Of TPixel, TCommand, TSfx, TModel, TAssets), TimeSpan, TState))
+    Private ReadOnly states As IReadOnlyDictionary(Of TState, BaseGameState(Of TState, TPixel, TCommand, TSfx, TModel, TAssets))
     Private state As TState
     Private checkQuitRequested As Func(Of TState, Boolean)
     Sub New(
            config As IHostConfig,
            windowTitle As String,
            checkQuitRequested As Func(Of TState, Boolean),
-           states As IReadOnlyDictionary(Of TState, Func(Of IUIContext(Of TPixel, TCommand, TSfx, TModel, TAssets), TimeSpan, TState)),
+           states As IReadOnlyDictionary(Of TState, BaseGameState(Of TState, TPixel, TCommand, TSfx, TModel, TAssets)),
            state As TState,
            model As TModel,
            assets As TAssets)
@@ -92,7 +92,7 @@
 
     Public Sub Update(elapsedTime As TimeSpan) Implements IGameController(Of TPixel, TCommand, TSfx, TModel, TAssets).Update
         sfxQueue.Clear()
-        state = states(state)(Me, elapsedTime)
+        state = states(state).Update(Me, elapsedTime)
     End Sub
 
     Public Sub Play(sfx As TSfx) Implements IUIContext(Of TPixel, TCommand, TSfx, TModel, TAssets).Play
