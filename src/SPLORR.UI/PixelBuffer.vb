@@ -1,4 +1,5 @@
 Public Class PixelBuffer(Of TPixel As Structure)
+    Inherits BasePixelSink(Of TPixel)
     Implements IPixelBuffer(Of TPixel)
 
     Private ReadOnly pixels As TPixel()
@@ -13,7 +14,7 @@ Public Class PixelBuffer(Of TPixel As Structure)
 
     Public ReadOnly Property Rows As Integer Implements IPixelBuffer(Of TPixel).Rows
 
-    Public Sub Write(column As Integer, row As Integer, pixel As TPixel) Implements IPixelBuffer(Of TPixel).Write
+    Public Overrides Sub Write(column As Integer, row As Integer, pixel As TPixel) Implements IPixelBuffer(Of TPixel).Write
         If column < 0 OrElse row < 0 OrElse column >= Columns OrElse row >= Rows Then
             Throw New ArgumentOutOfRangeException()
         End If
