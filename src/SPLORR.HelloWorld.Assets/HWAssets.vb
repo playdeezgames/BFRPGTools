@@ -1,6 +1,6 @@
 ﻿Imports System.Text.Json
 Imports System.IO
-Public Class Assets
+Public Class HWAssets
     Private _font As Font = Nothing
     ReadOnly Property Font As Font
         Get

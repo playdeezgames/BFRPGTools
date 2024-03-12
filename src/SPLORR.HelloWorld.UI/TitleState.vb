@@ -1,5 +1,5 @@
 ﻿Friend Module TitleState
-    Function Update(context As IUIContext(Of Hue, Command, Sfx, Model.Model, Assets), elapsedTime As TimeSpan) As GameState
+    Function Update(context As IUIContext(Of Hue, Command, Sfx, Model.HWModel, HWAssets), elapsedTime As TimeSpan) As GameState
         While context.Command.HasCommand
             context.Command.ReadCommand()
         End While

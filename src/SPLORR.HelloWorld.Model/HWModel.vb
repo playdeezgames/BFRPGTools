@@ -1,4 +1,4 @@
-﻿Public Class Model
+﻿Public Class HWModel
 
     Public Sub New()
     End Sub

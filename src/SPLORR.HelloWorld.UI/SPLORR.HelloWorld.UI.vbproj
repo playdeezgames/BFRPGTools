@@ -4,7 +4,7 @@
     <RootNamespace>SPLORR.HelloWorld.UI</RootNamespace>
     <TargetFramework>netstandard2.1</TargetFramework>
     <OptionStrict>On</OptionStrict>
-    <ImportedNamespaces>SPLORR.HelloWorld.Model=False,SPLORR.UI=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,SPLORR.HelloWorld.UI=True</ImportedNamespaces>
+    <ImportedNamespaces>SPLORR.HelloWorld.Assets=False,SPLORR.HelloWorld.Model=False,SPLORR.UI=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,SPLORR.HelloWorld.UI=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,17 +16,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SPLORR.HelloWorld.Assets\SPLORR.HelloWorld.Assets.vbproj" />
     <ProjectReference Include="..\SPLORR.HelloWorld.Model\SPLORR.HelloWorld.Model.vbproj" />
     <ProjectReference Include="..\SPLORR.UI\SPLORR.UI.vbproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Import Include="SPLORR.HelloWorld.Assets" />
     <Import Include="SPLORR.HelloWorld.Model" />
     <Import Include="SPLORR.UI" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="8.0.2" />
   </ItemGroup>
 
 </Project>

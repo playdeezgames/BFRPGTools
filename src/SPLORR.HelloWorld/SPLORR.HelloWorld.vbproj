@@ -5,7 +5,7 @@
     <RootNamespace>SPLORR.HelloWorld</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
     <OptionStrict>On</OptionStrict>
-    <ImportedNamespaces>SPLORR.HelloWorld.Model=False,SPLORR.HelloWorld.UI=False,SPLORR.Presentation=False,SPLORR.UI=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,SPLORR.HelloWorld=True</ImportedNamespaces>
+    <ImportedNamespaces>SPLORR.HelloWorld.Assets=False,SPLORR.HelloWorld.Model=False,SPLORR.HelloWorld.UI=False,SPLORR.Presentation=False,SPLORR.UI=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,SPLORR.HelloWorld=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -53,6 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Import Include="SPLORR.HelloWorld.Assets" />
     <Import Include="SPLORR.HelloWorld.Model" />
     <Import Include="SPLORR.HelloWorld.UI" />
     <Import Include="SPLORR.Presentation" />

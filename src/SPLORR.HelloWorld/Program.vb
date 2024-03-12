@@ -38,7 +38,7 @@ Module Program
             }
     Sub Main(args As String())
 
-        Using host As New Host(Of Hue, Command, Sfx, Model.Model, Assets)(
+        Using host As New Host(Of Hue, Command, Sfx, Model.HWModel, HWAssets)(
             New GameController(New HostConfig()),
             New PaletteRenderer(Of Hue, Color)(palette),
             New BaseInputManager(Of Command)(commandTable),
