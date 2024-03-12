@@ -2,7 +2,7 @@
     Implements IHostConfig
 
     Sub New()
-        ViewScale = 8
+        ViewScale = 4
         IsFullScreen = False
         IsMuted = False
         Volume = 1
@@ -10,13 +10,13 @@
 
     Public ReadOnly Property ViewWidth As Integer Implements IHostConfig.ViewWidth
         Get
-            Return 160
+            Return 320
         End Get
     End Property
 
     Public ReadOnly Property ViewHeight As Integer Implements IHostConfig.ViewHeight
         Get
-            Return 90
+            Return 180
         End Get
     End Property
 

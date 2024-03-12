@@ -33,14 +33,15 @@ Public Class Host(Of TPixel As Structure, TCommand, TSfx, TModel, TAssets)
     End Sub
 
     Protected Overrides Sub Update(gameTime As GameTime)
-        CheckForQuit()
-        UpdateWindowTitle()
-        UpdateWindowSize()
-        PlayQueuedSfx()
-        HandleInput()
-        controller.Update(gameTime.ElapsedGameTime)
-        renderer.Render(controller.Display, pixelBuffer)
-        texture.SetData(buffer)
+        If Not CheckForQuit() Then
+            UpdateWindowTitle()
+            UpdateWindowSize()
+            PlayQueuedSfx()
+            HandleInput()
+            controller.Update(gameTime.ElapsedGameTime)
+            renderer.Render(controller.Display, pixelBuffer)
+            texture.SetData(buffer)
+        End If
         MyBase.Update(gameTime)
     End Sub
 
@@ -58,11 +59,13 @@ Public Class Host(Of TPixel As Structure, TCommand, TSfx, TModel, TAssets)
         End If
     End Sub
 
-    Private Sub CheckForQuit()
+    Private Function CheckForQuit() As Boolean
         If controller.IsQuitRequested Then
             Me.Exit()
+            Return True
         End If
-    End Sub
+        Return False
+    End Function
 
     Private Sub UpdateWindowSize()
         If graphicsDeviceManager.PreferredBackBufferWidth <> controller.FrameWidth OrElse graphicsDeviceManager.PreferredBackBufferHeight <> controller.FrameHeight OrElse graphicsDeviceManager.IsFullScreen <> controller.IsFullScreen Then

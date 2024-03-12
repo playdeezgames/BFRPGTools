@@ -8,7 +8,8 @@
             Function(x) x = GameState.Quit,
             New Dictionary(Of GameState, BaseGameState(Of GameState, Hue, Command, Sfx, Model.HWModel, HWAssets)) From
             {
-                {GameState.Title, New TitleState()}
+                {GameState.Title, New TitleState()},
+                {GameState.MainMenu, New MainMenu()}
             },
             GameState.Title,
             New Model.HWModel(),

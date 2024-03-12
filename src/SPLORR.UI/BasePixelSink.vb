@@ -42,7 +42,7 @@
     Public Sub WriteFill(location As (column As Integer, row As Integer), size As (columns As Integer, rows As Integer), pixel As TPixel) Implements IPixelSink(Of TPixel).WriteFill
         For Each y In Enumerable.Range(0, size.rows)
             For Each x In Enumerable.Range(0, size.columns)
-                Write(x, y, pixel)
+                Write(x + location.column, y + location.row, pixel)
             Next
         Next
     End Sub
