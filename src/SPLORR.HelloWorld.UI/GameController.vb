@@ -9,7 +9,8 @@
             New Dictionary(Of GameState, BaseGameState(Of GameState, Hue, Command, Sfx, Model.HWModel, HWAssets)) From
             {
                 {GameState.Title, New TitleState()},
-                {GameState.MainMenu, New MainMenu()}
+                {GameState.MainMenu, New MainMenuState()},
+                {GameState.ConfirmQuit, New ConfirmQuitState()}
             },
             GameState.Title,
             New Model.HWModel(),

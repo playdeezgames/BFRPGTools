@@ -1,4 +1,4 @@
-﻿Friend Class MainMenu
+﻿Friend Class MainMenuState
     Inherits BaseMenuState
     Const EmbarkText = "Embark!"
     Const ScumLoadText = "Scum Load"
@@ -22,7 +22,7 @@
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
         Select Case menuItem
             Case QuitText
-                Return GameState.Quit
+                Return GameState.ConfirmQuit
         End Select
         Return GameState.MainMenu
     End Function
