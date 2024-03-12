@@ -1,8 +1,8 @@
-Public Class Host(Of TPixel As Structure, TCommand, TSfx, TModel)
+Public Class Host(Of TPixel As Structure, TCommand, TSfx, TModel, TAssets)
     Inherits Game
 
     Private ReadOnly graphicsDeviceManager As GraphicsDeviceManager
-    Private ReadOnly controller As IGameController(Of TPixel, TCommand, TSfx, TModel)
+    Private ReadOnly controller As IGameController(Of TPixel, TCommand, TSfx, TModel, TAssets)
     Private buffer As Color()
     Private pixelBuffer As IPixelBuffer(Of Color)
     Private texture As Texture2D
@@ -12,7 +12,7 @@ Public Class Host(Of TPixel As Structure, TCommand, TSfx, TModel)
     Private ReadOnly inputManager As IInputManager(Of TCommand)
 
     Sub New(
-           controller As IGameController(Of TPixel, TCommand, TSfx, TModel),
+           controller As IGameController(Of TPixel, TCommand, TSfx, TModel, TAssets),
            renderer As IRenderer(Of TPixel, Color),
            inputManager As IInputManager(Of TCommand),
            sfxManager As ISfxManager(Of TSfx))

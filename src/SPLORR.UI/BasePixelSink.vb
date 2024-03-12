@@ -31,7 +31,7 @@
                                                           xform As Func(Of TSourcePixel, TPixel?)) Implements IPixelSink(Of TPixel).ColorizeWrite
         For Each y In Enumerable.Range(0, size.rows)
             For Each x In Enumerable.Range(0, size.columns)
-                Dim destinationPixel As TPixel? = xform(source.Read(x + fromLocation.column, y + toLocation.row))
+                Dim destinationPixel As TPixel? = xform(source.Read(x + fromLocation.column, y + fromLocation.row))
                 If destinationPixel IsNot Nothing Then
                     Write(x + toLocation.column, y + toLocation.row, destinationPixel.Value)
                 End If

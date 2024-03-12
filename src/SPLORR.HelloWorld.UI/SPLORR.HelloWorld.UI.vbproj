@@ -25,4 +25,8 @@
     <Import Include="SPLORR.UI" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.2" />
+  </ItemGroup>
+
 </Project>
