@@ -18,18 +18,16 @@
         End While
         Dim font = context.Assets.Font
         Dim display = context.Display
-        Dim text = "SPLORR!!"
         display.WriteAll(Hue.Black)
-        font.WriteText(
+        font.WriteCenterText(
             display,
-            ((display.Size.Columns - font.TextWidth(text)) \ 2, (display.Size.Rows - font.Height) \ 2),
-            text,
+            (display.Size.Rows - font.Height) \ 2,
+            "SPLORR!!",
             RNG.FromList(hues))
-        text = "Press <START>/<Enter>"
-        font.WriteText(
+        font.WriteCenterText(
             display,
-            ((display.Size.Columns - font.TextWidth(text)) \ 2, display.Size.Rows - font.Height),
-            text,
+            display.Size.Rows - font.Height,
+            "Press <START>/<Enter>",
             Hue.DarkGray)
         Return GameState.Title
     End Function
