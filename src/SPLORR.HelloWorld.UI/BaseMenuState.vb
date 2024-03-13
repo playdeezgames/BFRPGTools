@@ -3,9 +3,11 @@
     Private ReadOnly menuItems As String()
     Private ReadOnly title As String
     Private ReadOnly state As GameState
+    Private ReadOnly backState As GameState?
     Private menuItemIndex As Integer = 0
 
-    Sub New(title As String, menuItems As String(), state As GameState)
+    Sub New(title As String, menuItems As String(), state As GameState, backState As GameState?)
+        Me.backState = backState
         Me.menuItems = menuItems
         Me.title = title
         Me.state = state
@@ -20,6 +22,10 @@
                     menuItemIndex = (menuItemIndex + menuItems.Length - 1) Mod menuItems.Length
                 Case Command.Start, Command.A
                     Return HandleMenuItem(menuItems(menuItemIndex))
+                Case Command.B
+                    If backState.HasValue Then
+                        Return backState.Value
+                    End If
             End Select
         End While
         Dim display = context.Display

@@ -4,7 +4,7 @@
     Const YesText = "Yes"
 
     Public Sub New()
-        MyBase.New("Are you sure you want to quit?", {NoText, YesText}, GameState.ConfirmQuit)
+        MyBase.New("Are you sure you want to quit?", {NoText, YesText}, GameState.ConfirmQuit, GameState.MainMenu)
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
