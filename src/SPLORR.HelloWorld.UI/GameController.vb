@@ -12,8 +12,9 @@
                 {GameState.MainMenu, New MainMenuState()},
                 {GameState.ConfirmQuit, New ConfirmQuitState()},
                 {GameState.About, New AboutState()},
-                {GameState.Options, New OptionsState()},
-                {GameState.Embark, New EmbarkState()}
+                {GameState.Options, New OptionsState(config)},
+                {GameState.Embark, New EmbarkState()},
+                {GameState.ChangeWindowSize, New ChangeWindowSizeState(config)}
             },
             GameState.Title,
             New Model.HWModel(),

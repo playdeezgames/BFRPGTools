@@ -6,15 +6,19 @@ Friend Class OptionsState
     Const ToggleFullScreenText = "Toggle Full Screen"
     Const WindowSizeText = "Window Size..."
     Const SfxVolumeText = "Sfx Volume..."
+    ReadOnly config As IHostConfig
 
-    Public Sub New()
+    Public Sub New(config As IHostConfig)
         MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options, GameState.MainMenu)
+        Me.config = config
     End Sub
 
-    Protected Overrides Function HandleMenuItem(menuItem As String, context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets)) As GameState
+    Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
         Select Case menuItem
             Case ToggleFullScreenText
-                context.Config.IsFullScreen = Not context.Config.IsFullScreen
+                config.IsFullScreen = Not config.IsFullScreen
+            Case WindowSizeText
+                Return GameState.ChangeWindowSize
         End Select
         Return GameState.Options
     End Function

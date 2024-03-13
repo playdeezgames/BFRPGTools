@@ -7,7 +7,7 @@
         MyBase.New("Are you sure you want to quit?", {NoText, YesText}, GameState.ConfirmQuit, GameState.MainMenu)
     End Sub
 
-    Protected Overrides Function HandleMenuItem(menuItem As String, context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets)) As GameState
+    Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
         If menuItem = YesText Then
             Return GameState.Quit
         End If

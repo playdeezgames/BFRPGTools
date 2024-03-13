@@ -16,7 +16,7 @@
                    GameState.ConfirmQuit)
     End Sub
 
-    Protected Overrides Function HandleMenuItem(menuItem As String, context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets)) As GameState
+    Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
         Select Case menuItem
             Case EmbarkText
                 Return GameState.Embark

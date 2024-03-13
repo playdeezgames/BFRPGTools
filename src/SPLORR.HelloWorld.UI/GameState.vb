@@ -6,4 +6,5 @@
     Embark
     Options
     About
+    ChangeWindowSize
 End Enum
