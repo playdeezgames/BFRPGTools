@@ -1,17 +1,21 @@
-﻿Friend Class OptionsState
-    Inherits BaseGameState(Of GameState, Hue, Command, Sfx, HWModel, HWAssets)
+﻿Imports System.Net.Http
 
-    Public Overrides Function Update(context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets), elapsedTime As TimeSpan) As GameState
-        While context.Command.HasCommand
-            Select Case context.Command.ReadCommand()
-                Case Command.B
-                    Return GameState.MainMenu
-            End Select
-        End While
-        Dim display = context.Display
-        Dim font = context.Assets.Font
-        display.WriteAll(Hue.Black)
-        font.WriteText(display, (0, 0), "Options!", Hue.White)
+Friend Class OptionsState
+    Inherits BaseMenuState
+    Const OptionsText = "Options"
+    Const ToggleFullScreenText = "Toggle Full Screen"
+    Const WindowSizeText = "Window Size..."
+    Const SfxVolumeText = "Sfx Volume..."
+
+    Public Sub New()
+        MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options, GameState.MainMenu)
+    End Sub
+
+    Protected Overrides Function HandleMenuItem(menuItem As String, context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets)) As GameState
+        Select Case menuItem
+            Case ToggleFullScreenText
+                context.Config.IsFullScreen = Not context.Config.IsFullScreen
+        End Select
         Return GameState.Options
     End Function
 End Class

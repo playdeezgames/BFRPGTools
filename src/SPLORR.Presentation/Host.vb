@@ -69,6 +69,7 @@ Public Class Host(Of TPixel As Structure, TCommand, TSfx, TModel, TAssets)
 
     Private Sub UpdateWindowSize()
         If graphicsDeviceManager.PreferredBackBufferWidth <> controller.FrameWidth OrElse graphicsDeviceManager.PreferredBackBufferHeight <> controller.FrameHeight OrElse graphicsDeviceManager.IsFullScreen <> controller.IsFullScreen Then
+            graphicsDeviceManager.IsFullScreen = controller.IsFullScreen
             graphicsDeviceManager.PreferredBackBufferWidth = controller.FrameWidth
             graphicsDeviceManager.PreferredBackBufferHeight = controller.FrameHeight
             graphicsDeviceManager.ApplyChanges()

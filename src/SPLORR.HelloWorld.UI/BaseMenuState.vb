@@ -21,7 +21,7 @@
                 Case Command.Up
                     menuItemIndex = (menuItemIndex + menuItems.Length - 1) Mod menuItems.Length
                 Case Command.Start, Command.A
-                    Return HandleMenuItem(menuItems(menuItemIndex))
+                    Return HandleMenuItem(menuItems(menuItemIndex), context)
                 Case Command.B
                     If backState.HasValue Then
                         Return backState.Value
@@ -44,5 +44,5 @@
         Return state
     End Function
 
-    Protected MustOverride Function HandleMenuItem(menuItem As String) As GameState
+    Protected MustOverride Function HandleMenuItem(menuItem As String, context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets)) As GameState
 End Class
