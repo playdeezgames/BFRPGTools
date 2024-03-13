@@ -14,7 +14,7 @@
                 {GameState.About, New AboutState()},
                 {GameState.Options, New OptionsState(config)},
                 {GameState.Embark, New EmbarkState()},
-                {GameState.ChangeWindowSize, New ChangeWindowSizeState(config)}
+                {GameState.ChangeWindowSize, New ChangeWindowSizeState(config, {2, 4, 6, 8, 10, 12})}
             },
             GameState.Title,
             New Model.HWModel(),
