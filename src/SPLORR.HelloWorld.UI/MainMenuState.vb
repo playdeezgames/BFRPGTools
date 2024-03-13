@@ -1,8 +1,6 @@
 ﻿Friend Class MainMenuState
     Inherits BaseMenuState
     Const EmbarkText = "Embark!"
-    Const ScumLoadText = "Scum Load"
-    Const LoadText = "Load..."
     Const OptionsText = "Options..."
     Const AboutText = "About..."
     Const QuitText = "Quit"
@@ -10,8 +8,6 @@
         MyBase.New("Main Menu",
                    {
                         EmbarkText,
-                        ScumLoadText,
-                        LoadText,
                         OptionsText,
                         AboutText,
                         QuitText
@@ -21,6 +17,12 @@
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
         Select Case menuItem
+            Case EmbarkText
+                Return GameState.Embark
+            Case OptionsText
+                Return GameState.Options
+            Case AboutText
+                Return GameState.About
             Case QuitText
                 Return GameState.ConfirmQuit
         End Select

@@ -1,6 +1,8 @@
 ﻿Public MustInherit Class BasePixelSink(Of TPixel As Structure)
     Implements IPixelSink(Of TPixel)
 
+    Public MustOverride ReadOnly Property Size As (Columns As Integer, Rows As Integer) Implements IPixelSink(Of TPixel).Size
+
     Public MustOverride Sub Write(
                                  column As Integer,
                                  row As Integer,

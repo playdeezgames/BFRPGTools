@@ -22,13 +22,13 @@
         display.WriteAll(Hue.Black)
         font.WriteText(
             display,
-            ((display.Columns - font.TextWidth(text)) \ 2, (display.Rows - font.Height) \ 2),
+            ((display.Size.Columns - font.TextWidth(text)) \ 2, (display.Size.Rows - font.Height) \ 2),
             text,
             RNG.FromList(hues))
         text = "Press <START>/<Enter>"
         font.WriteText(
             display,
-            ((display.Columns - font.TextWidth(text)) \ 2, display.Rows - font.Height),
+            ((display.Size.Columns - font.TextWidth(text)) \ 2, display.Size.Rows - font.Height),
             text,
             Hue.DarkGray)
         Return GameState.Title

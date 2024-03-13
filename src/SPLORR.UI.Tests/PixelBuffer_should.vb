@@ -6,8 +6,8 @@ Public Class PixelBuffer_should
 
         Dim subject As IPixelBuffer(Of Integer) = New PixelBuffer(Of Integer)(Columns, Rows)
 
-        subject.Columns.ShouldBe(Columns)
-        subject.Rows.ShouldBe(Rows)
+        subject.Size.Columns.ShouldBe(Columns)
+        subject.Size.Rows.ShouldBe(Rows)
     End Sub
 
     <Fact>
@@ -26,12 +26,11 @@ Public Class PixelBuffer_should
     <InlineData(2, 3, 0, -1)>
     <InlineData(2, 3, 2, 0)>
     <InlineData(2, 3, 0, 3)>
-    Sub throw_exceptions_for_reading_out_of_bounds(columns As Integer, rows As Integer, column As Integer, row As Integer)
+    Sub return_default_value_for_reading_out_of_bounds(columns As Integer, rows As Integer, column As Integer, row As Integer)
         Dim subject As IPixelBuffer(Of Integer) = New PixelBuffer(Of Integer)(columns, rows)
-        Should.Throw(Of ArgumentOutOfRangeException)(
-            Sub()
-                Dim actual = subject.Read(column, row)
-            End Sub)
+        Dim actual = subject.Read(column, row)
+        Dim expected As Integer = Nothing
+        actual.ShouldBe(expected)
     End Sub
 
     <Fact>
@@ -52,9 +51,9 @@ Public Class PixelBuffer_should
     <InlineData(2, 3, 0, -1)>
     <InlineData(2, 3, 2, 0)>
     <InlineData(2, 3, 0, 3)>
-    Sub throw_exceptions_when_writing_out_of_bounds(columns As Integer, rows As Integer, column As Integer, row As Integer)
+    Sub not_throw_exceptions_when_writing_out_of_bounds(columns As Integer, rows As Integer, column As Integer, row As Integer)
         Dim subject As IPixelBuffer(Of Integer) = New PixelBuffer(Of Integer)(columns, rows)
-        Should.Throw(Of ArgumentOutOfRangeException)(
+        Should.NotThrow(
             Sub()
                 subject.Write(column, row, 1)
             End Sub)

@@ -26,13 +26,13 @@
         Dim font = context.Assets.Font
         display.WriteAll(Hue.Black)
         Dim text = title
-        font.WriteText(display, ((display.Columns - font.TextWidth(text)) \ 2, 0), text, Hue.Orange)
+        font.WriteText(display, ((display.Size.Columns - font.TextWidth(text)) \ 2, 0), text, Hue.Orange)
 
-        display.WriteFill((0, (display.Rows - font.Height) \ 2), (display.Columns, font.Height), Hue.LightBlue)
-        Dim y = (display.Rows - font.Height) \ 2 - menuItemIndex * font.Height
+        display.WriteFill((0, (display.Size.Rows - font.Height) \ 2), (display.Size.Columns, font.Height), Hue.LightBlue)
+        Dim y = (display.Size.Rows - font.Height) \ 2 - menuItemIndex * font.Height
         For Each index In Enumerable.Range(0, menuItems.Length)
             text = menuItems(index)
-            font.WriteText(display, ((display.Columns - font.TextWidth(text)) \ 2, y), text, If(index = menuItemIndex, Hue.Black, Hue.LightBlue))
+            font.WriteText(display, ((display.Size.Columns - font.TextWidth(text)) \ 2, y), text, If(index = menuItemIndex, Hue.Black, Hue.LightBlue))
             y += font.Height
         Next
         Return state

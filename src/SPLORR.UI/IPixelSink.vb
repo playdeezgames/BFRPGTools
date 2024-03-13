@@ -1,4 +1,5 @@
 ﻿Public Interface IPixelSink(Of TPixel As Structure)
+    ReadOnly Property Size As (Columns As Integer, Rows As Integer)
     Sub Write(column As Integer, row As Integer, pixel As TPixel)
     Sub StretchWrite(
                     source As IPixelSource(Of TPixel),

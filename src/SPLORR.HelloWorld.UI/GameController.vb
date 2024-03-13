@@ -10,7 +10,10 @@
             {
                 {GameState.Title, New TitleState()},
                 {GameState.MainMenu, New MainMenuState()},
-                {GameState.ConfirmQuit, New ConfirmQuitState()}
+                {GameState.ConfirmQuit, New ConfirmQuitState()},
+                {GameState.About, New AboutState()},
+                {GameState.Options, New OptionsState()},
+                {GameState.Embark, New EmbarkState()}
             },
             GameState.Title,
             New Model.HWModel(),

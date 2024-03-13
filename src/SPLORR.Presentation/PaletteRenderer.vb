@@ -5,8 +5,8 @@
         Me.palette = palette
     End Sub
     Public Sub Render(bufferFrom As IPixelBuffer(Of TPixelFrom), bufferTo As IPixelBuffer(Of TPixelTo)) Implements IRenderer(Of TPixelFrom, TPixelTo).Render
-        For Each y In Enumerable.Range(0, bufferFrom.Rows)
-            For Each x In Enumerable.Range(0, bufferFrom.Columns)
+        For Each y In Enumerable.Range(0, bufferFrom.Size.Rows)
+            For Each x In Enumerable.Range(0, bufferFrom.Size.Columns)
                 bufferTo.Write(x, y, palette(bufferFrom.Read(x, y)))
             Next
         Next
