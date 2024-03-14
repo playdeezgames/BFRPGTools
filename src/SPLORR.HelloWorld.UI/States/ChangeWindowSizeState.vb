@@ -18,7 +18,7 @@
         If needsInitialization Then
             Dim index = 0
             For Each entry In table
-                If entry.Value > config.ViewScale Then
+                If entry.Value >= config.ViewScale Then
                     Exit For
                 End If
                 index += 1
@@ -35,6 +35,7 @@
     End Function
 
     Protected Overrides Function HandleGoBack() As GameState?
+        needsInitialization = True
         Return GameState.Options
     End Function
 End Class
