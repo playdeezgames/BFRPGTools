@@ -17,6 +17,8 @@
                 config.IsFullScreen = Not config.IsFullScreen
             Case WindowSizeText
                 Return GameState.ChangeWindowSize
+            Case SfxVolumeText
+                Return GameState.ChangeSfxVolume
         End Select
         Return GameState.Options
     End Function

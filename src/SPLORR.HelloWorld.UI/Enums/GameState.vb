@@ -7,4 +7,5 @@
     Options
     About
     ChangeWindowSize
+    ChangeSfxVolume
 End Enum
