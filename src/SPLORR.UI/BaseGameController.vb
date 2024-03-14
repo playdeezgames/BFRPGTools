@@ -74,7 +74,7 @@
 
     Public ReadOnly Property IsMuted As Boolean Implements IGameController(Of TPixel, TCommand, TSfx, TModel, TAssets).IsMuted
         Get
-            Return Config.IsMuted
+            Return Config.Volume <= 0.0F
         End Get
     End Property
 

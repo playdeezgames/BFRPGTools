@@ -4,5 +4,4 @@
     Property ViewScale As Integer
     Property IsFullScreen As Boolean
     Property Volume As Single
-    Property IsMuted As Boolean
 End Interface

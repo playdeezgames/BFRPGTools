@@ -4,7 +4,6 @@
     Sub New()
         ViewScale = 4
         IsFullScreen = False
-        IsMuted = False
         Volume = 1
     End Sub
 
@@ -26,5 +25,4 @@
 
     Public Property Volume As Single Implements IHostConfig.Volume
 
-    Public Property IsMuted As Boolean Implements IHostConfig.IsMuted
 End Class
