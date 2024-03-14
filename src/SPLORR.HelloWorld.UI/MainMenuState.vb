@@ -12,8 +12,7 @@
                         AboutText,
                         QuitText
                    },
-                   GameState.MainMenu,
-                   GameState.ConfirmQuit)
+                   GameState.MainMenu)
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
@@ -28,5 +27,9 @@
                 Return GameState.ConfirmQuit
         End Select
         Return GameState.MainMenu
+    End Function
+
+    Protected Overrides Function HandleGoBack() As GameState?
+        Return GameState.ConfirmQuit
     End Function
 End Class

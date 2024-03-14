@@ -1,6 +1,4 @@
-﻿Imports System.Net.Http
-
-Friend Class OptionsState
+﻿Friend Class OptionsState
     Inherits BaseMenuState
     Const OptionsText = "Options"
     Const ToggleFullScreenText = "Toggle Full Screen"
@@ -9,7 +7,7 @@ Friend Class OptionsState
     ReadOnly config As IHostConfig
 
     Public Sub New(config As IHostConfig)
-        MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options, GameState.MainMenu)
+        MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options)
         Me.config = config
     End Sub
 
@@ -21,5 +19,9 @@ Friend Class OptionsState
                 Return GameState.ChangeWindowSize
         End Select
         Return GameState.Options
+    End Function
+
+    Protected Overrides Function HandleGoBack() As GameState?
+        Return GameState.MainMenu
     End Function
 End Class

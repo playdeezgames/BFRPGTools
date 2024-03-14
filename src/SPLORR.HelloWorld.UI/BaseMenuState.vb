@@ -3,11 +3,12 @@
     Private ReadOnly menuItems As String()
     Private ReadOnly title As String
     Private ReadOnly state As GameState
-    Private ReadOnly backState As GameState?
     Private menuItemIndex As Integer = 0
+    Protected Sub SetMenuItemIndex(index As Integer)
+        menuItemIndex = Math.Clamp(index, 0, menuItems.Length - 1)
+    End Sub
 
-    Sub New(title As String, menuItems As String(), state As GameState, backState As GameState?)
-        Me.backState = backState
+    Sub New(title As String, menuItems As String(), state As GameState)
         Me.menuItems = menuItems
         Me.title = title
         Me.state = state
@@ -23,6 +24,7 @@
                 Case Command.Start, Command.A
                     Return HandleMenuItem(menuItems(menuItemIndex))
                 Case Command.B
+                    Dim backState = HandleGoBack()
                     If backState.HasValue Then
                         Return backState.Value
                     End If
@@ -45,4 +47,5 @@
     End Function
 
     Protected MustOverride Function HandleMenuItem(menuItem As String) As GameState
+    Protected MustOverride Function HandleGoBack() As GameState?
 End Class
