@@ -8,6 +8,7 @@
                     Return GameState.MainMenu
             End Select
         End While
+
         Dim display = context.Display
         Dim font = context.Assets.Font
         display.WriteAll(Hue.Black)
