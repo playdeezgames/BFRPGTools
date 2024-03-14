@@ -8,4 +8,8 @@
     About
     ChangeWindowSize
     ChangeSfxVolume
+    Neutral
+    InPlay
+    GameMenu
+    ConfirmAbandon
 End Enum
