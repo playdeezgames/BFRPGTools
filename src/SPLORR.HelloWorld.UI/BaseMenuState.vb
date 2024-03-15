@@ -43,6 +43,9 @@
             font.WriteCenterText(display, y, text, If(index = menuItemIndex, Hue.Black, Hue.LightBlue))
             y += font.Height
         Next
+
+        display.WriteFill((0, display.Size.Rows - font.Height), (display.Size.Columns, font.Height), Hue.LightGray)
+        font.WriteCenterText(display, display.Size.Rows - font.Height, "Up/Down/Select | A/Start/Space | B/Esc", Hue.Black)
         Return state
     End Function
 

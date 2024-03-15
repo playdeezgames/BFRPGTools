@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FontMaker": {
+      "commandName": "Project",
+      "commandLineArgs": "source.png 12 12 output.json"
+    }
+  }
+}
