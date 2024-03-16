@@ -3,18 +3,26 @@
 Friend Class InPlayState
     Inherits BaseGameState(Of GameState, Hue, Command, Sfx, HWModel, HWAssets)
 
-    Private Function HandleInput(commandBuffer As ICommandBuffer(Of Command)) As GameState?
+    Private Function HandleInput(commandBuffer As ICommandBuffer(Of Command), model As HWModel) As GameState?
         While commandBuffer.HasCommand
             Select Case commandBuffer.ReadCommand()
                 Case Command.B
                     Return GameState.GameMenu
+                Case Command.Down
+                    model.World.MoveDown()
+                Case Command.Left
+                    model.World.MoveLeft()
+                Case Command.Right
+                    model.World.MoveRight()
+                Case Command.Up
+                    model.World.MoveUp()
             End Select
         End While
         Return Nothing
     End Function
 
     Public Overrides Function Update(context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets), elapsedTime As TimeSpan) As GameState
-        Dim result = HandleInput(context.Command)
+        Dim result = HandleInput(context.Command, context.Model)
         If result.HasValue Then
             Return result.Value
         End If

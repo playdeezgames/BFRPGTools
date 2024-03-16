@@ -19,9 +19,33 @@ Public Class World
         End Get
     End Property
 
-    Public Property SelectedColumn As Integer Implements IWorld.SelectedColumn
+    Public ReadOnly Property SelectedColumn As Integer Implements IWorld.SelectedColumn
+        Get
+            Return data.SelectedColumn
+        End Get
+    End Property
 
-    Public Property SelectedRow As Integer Implements IWorld.SelectedRow
+    Public ReadOnly Property SelectedRow As Integer Implements IWorld.SelectedRow
+        Get
+            Return data.SelectedRow
+        End Get
+    End Property
+
+    Public Sub MoveDown() Implements IWorld.MoveDown
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub MoveLeft() Implements IWorld.MoveLeft
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub MoveRight() Implements IWorld.MoveRight
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub MoveUp() Implements IWorld.MoveUp
+        Throw New NotImplementedException()
+    End Sub
 
     Public Function GetCell(column As Integer, row As Integer) As ICell Implements IWorld.GetCell
         If column < 0 OrElse row < 0 OrElse column >= Columns OrElse row >= Rows Then
