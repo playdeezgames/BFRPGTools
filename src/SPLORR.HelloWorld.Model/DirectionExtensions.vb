@@ -17,6 +17,13 @@ Public Module DirectionExtensions
 
     <Extension>
     Public Function StepY(direction As Direction, x As Integer, y As Integer) As Integer
-        Return y - 1
+        Select Case direction
+            Case Direction.North
+                Return y - 1
+            Case Direction.South
+                Return y + 1
+            Case Else
+                Throw New NotImplementedException
+        End Select
     End Function
 End Module

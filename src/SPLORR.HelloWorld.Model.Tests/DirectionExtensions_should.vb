@@ -11,6 +11,7 @@ Public Class DirectionExtensions_should
 
     <Theory>
     <InlineData(Direction.North, 1, 2, 1)>
+    <InlineData(Direction.South, 1, 2, 3)>
     Sub step_in_y_direction(givenDirection As Direction, givenX As Integer, givenY As Integer, expectedY As Integer)
         Dim actual = givenDirection.StepY(givenX, givenY)
         actual.ShouldBe(expectedY)
