@@ -1,4 +1,6 @@
-﻿Friend Class Cell
+﻿Imports System.Diagnostics.CodeAnalysis
+
+Friend Class Cell
     Implements ICell
 
     Private ReadOnly data As WorldData
@@ -11,7 +13,13 @@
         Me.row = row
     End Sub
 
+    Protected ReadOnly Property BoardCellData As BoardCellData
+        Get
+            Return data.BoardColumn(column).Cell(row)
+        End Get
+    End Property
+
     Public Function HasConnection(direction As Direction) As Boolean Implements ICell.HasConnection
-        Return False
+        Return BoardCellData.Connections.Contains(direction)
     End Function
 End Class

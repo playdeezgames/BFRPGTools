@@ -19,6 +19,10 @@ Public Class World
         End Get
     End Property
 
+    Public Property SelectedColumn As Integer Implements IWorld.SelectedColumn
+
+    Public Property SelectedRow As Integer Implements IWorld.SelectedRow
+
     Public Function GetCell(column As Integer, row As Integer) As ICell Implements IWorld.GetCell
         If column < 0 OrElse row < 0 OrElse column >= Columns OrElse row >= Rows Then
             Return Nothing

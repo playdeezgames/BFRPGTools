@@ -46,6 +46,9 @@ Friend Class InPlayState
                     characterCode += 8
                 End If
                 pipes.WriteText(display, (x, y), ChrW(characterCode), Hue.Red)
+                If column = world.SelectedColumn AndAlso row = world.SelectedRow Then
+                    pipes.WriteText(display, (x, y), ChrW(16), Hue.Yellow)
+                End If
                 y += rowHeight
             Next
             x += columnWidth
