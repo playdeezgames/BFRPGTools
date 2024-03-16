@@ -22,6 +22,8 @@ Public Module DirectionExtensions
                 Return y - 1
             Case Direction.South
                 Return y + 1
+            Case Direction.East, Direction.West
+                Return y
             Case Else
                 Throw New NotImplementedException
         End Select
