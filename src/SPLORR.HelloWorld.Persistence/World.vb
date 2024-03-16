@@ -36,7 +36,7 @@ Public Class World
     End Sub
 
     Public Sub MoveLeft() Implements IWorld.MoveLeft
-        Throw New NotImplementedException()
+        data.SelectedColumn = Math.Max(data.SelectedColumn - 1, 0)
     End Sub
 
     Public Sub MoveRight() Implements IWorld.MoveRight
@@ -44,7 +44,7 @@ Public Class World
     End Sub
 
     Public Sub MoveUp() Implements IWorld.MoveUp
-        Throw New NotImplementedException()
+        data.SelectedRow = Math.Max(data.SelectedRow - 1, 0)
     End Sub
 
     Public Function GetCell(column As Integer, row As Integer) As ICell Implements IWorld.GetCell

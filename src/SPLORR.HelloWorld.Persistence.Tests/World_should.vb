@@ -1,5 +1,3 @@
-Imports System
-Imports Xunit
 Public Class World_should
     <Fact>
     Sub have_properties()
@@ -30,6 +28,40 @@ Public Class World_should
         Dim subject As IWorld = New World(data)
 
         subject.MoveDown()
+
+        subject.SelectedColumn.ShouldBe(expectedColumn)
+        subject.SelectedRow.ShouldBe(expectedRow)
+    End Sub
+
+    <Theory>
+    <InlineData(2, 3, 0, 1, 0, 0)>
+    <InlineData(2, 3, 0, 0, 0, 0)>
+    <InlineData(2, 3, 0, 2, 0, 1)>
+    Sub move_up(givenColumns As Integer, givenRows As Integer, initialColumn As Integer, initialRow As Integer, expectedColumn As Integer, expectedRow As Integer)
+        Dim data As New WorldData(givenColumns, givenRows) With
+            {
+                .SelectedColumn = initialColumn,
+                .SelectedRow = initialRow
+            }
+        Dim subject As IWorld = New World(data)
+
+        subject.MoveUp()
+
+        subject.SelectedColumn.ShouldBe(expectedColumn)
+        subject.SelectedRow.ShouldBe(expectedRow)
+    End Sub
+
+    <Theory>
+    <InlineData(2, 3, 1, 0, 0, 0)>
+    Sub move_left(givenColumns As Integer, givenRows As Integer, initialColumn As Integer, initialRow As Integer, expectedColumn As Integer, expectedRow As Integer)
+        Dim data As New WorldData(givenColumns, givenRows) With
+            {
+                .SelectedColumn = initialColumn,
+                .SelectedRow = initialRow
+            }
+        Dim subject As IWorld = New World(data)
+
+        subject.MoveLeft()
 
         subject.SelectedColumn.ShouldBe(expectedColumn)
         subject.SelectedRow.ShouldBe(expectedRow)
