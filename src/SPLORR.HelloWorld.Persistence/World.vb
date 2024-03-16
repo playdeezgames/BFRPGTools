@@ -32,7 +32,7 @@ Public Class World
     End Property
 
     Public Sub MoveDown() Implements IWorld.MoveDown
-        data.SelectedRow = 1
+        data.SelectedRow = Math.Min(data.SelectedRow + 1, Rows - 1)
     End Sub
 
     Public Sub MoveLeft() Implements IWorld.MoveLeft

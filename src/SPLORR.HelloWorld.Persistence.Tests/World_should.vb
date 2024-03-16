@@ -19,6 +19,8 @@ Public Class World_should
 
     <Theory>
     <InlineData(2, 3, 0, 0, 0, 1)>
+    <InlineData(2, 3, 0, 1, 0, 2)>
+    <InlineData(2, 3, 0, 2, 0, 2)>
     Sub move_down(givenColumns As Integer, givenRows As Integer, initialColumn As Integer, initialRow As Integer, expectedColumn As Integer, expectedRow As Integer)
         Dim data As New WorldData(givenColumns, givenRows) With
             {
@@ -29,8 +31,8 @@ Public Class World_should
 
         subject.MoveDown()
 
-        subject.SelectedColumn.ShouldBe(ExpectedColumn)
-        subject.SelectedRow.ShouldBe(ExpectedRow)
+        subject.SelectedColumn.ShouldBe(expectedColumn)
+        subject.SelectedRow.ShouldBe(expectedRow)
     End Sub
 End Class
 
