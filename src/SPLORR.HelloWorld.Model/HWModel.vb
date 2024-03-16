@@ -14,8 +14,10 @@ Public Class HWModel
             Return worldData IsNot Nothing
         End Get
     End Property
+    Const BoardColumnCount = 15
+    Const BoardRowCount = 15
     Sub CreateWorld()
-        worldData = New WorldData
+        worldData = New WorldData(BoardColumnCount, BoardRowCount)
     End Sub
 
     Public Sub AbandonWorld()

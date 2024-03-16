@@ -2,10 +2,11 @@
     Inherits BaseMenuState
     Const NoText = "No"
     Const YesText = "Yes"
+    Const PromptText = "Are you sure you want to abandon the game?"
     Private model As HWModel = Nothing
 
     Public Sub New()
-        MyBase.New("Are you sure you want to abandon the game?", {NoText, YesText}, GameState.ConfirmAbandon)
+        MyBase.New(PromptText, {NoText, YesText}, GameState.ConfirmAbandon)
     End Sub
 
     Public Overrides Function Update(context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets), elapsedTime As TimeSpan) As GameState

@@ -21,6 +21,7 @@
     <None Remove="Content\CyFont4x6.json" />
     <None Remove="Content\CyFont5x7.json" />
     <None Remove="Content\CyFont8x8.json" />
+    <None Remove="Content\pipes.json" />
     <None Remove="Content\WooHoo.wav" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
@@ -36,6 +37,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\CyFont8x8.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\pipes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\WooHoo.wav">

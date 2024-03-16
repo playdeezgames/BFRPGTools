@@ -4,7 +4,7 @@
     <RootNamespace>SPLORR.HelloWorld.UI</RootNamespace>
     <TargetFramework>netstandard2.1</TargetFramework>
     <OptionStrict>On</OptionStrict>
-    <ImportedNamespaces>SPLORR.Game=False,SPLORR.HelloWorld.Assets=False,SPLORR.HelloWorld.Model=False,SPLORR.UI=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,SPLORR.HelloWorld.UI=True</ImportedNamespaces>
+    <ImportedNamespaces>SPLORR.Game=False,SPLORR.HelloWorld.Assets=False,SPLORR.HelloWorld.Data=False,SPLORR.HelloWorld.Model=False,SPLORR.UI=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,SPLORR.HelloWorld.UI=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,6 +25,7 @@
   <ItemGroup>
     <Import Include="SPLORR.Game" />
     <Import Include="SPLORR.HelloWorld.Assets" />
+    <Import Include="SPLORR.HelloWorld.Data" />
     <Import Include="SPLORR.HelloWorld.Model" />
     <Import Include="SPLORR.UI" />
   </ItemGroup>
