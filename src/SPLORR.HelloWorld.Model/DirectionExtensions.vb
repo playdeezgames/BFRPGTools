@@ -8,6 +8,8 @@ Public Module DirectionExtensions
                 Return x
             Case Direction.East
                 Return x + 1
+            Case Direction.West
+                Return x - 1
             Case Else
                 Throw New NotImplementedException
         End Select
