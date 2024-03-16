@@ -1,14 +1,7 @@
-Imports System
-Imports Xunit
-
 Public Class DirectionExtensions_should
-    <Fact>
-    Sub step_in_x_direction()
-        Const givenDirection = Direction.North
-        Const givenX = 1
-        Const givenY = 2
-        Const expectedX = 1
-
+    <Theory>
+    <InlineData(Direction.North, 1, 2, 1)>
+    Sub step_in_x_direction(givenDirection As Direction, givenX As Integer, givenY As Integer, expectedX As Integer)
         Dim actual = givenDirection.StepX(givenX, givenY)
         actual.ShouldBe(expectedX)
     End Sub
