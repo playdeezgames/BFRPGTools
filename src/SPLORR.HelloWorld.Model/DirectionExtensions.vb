@@ -4,7 +4,7 @@ Public Module DirectionExtensions
     <Extension>
     Public Function StepX(direction As Direction, x As Integer, y As Integer) As Integer
         Select Case direction
-            Case Direction.North
+            Case Direction.North, Direction.South
                 Return x
             Case Else
                 Throw New NotImplementedException
