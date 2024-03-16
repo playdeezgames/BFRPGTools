@@ -40,7 +40,7 @@ Public Class World
     End Sub
 
     Public Sub MoveRight() Implements IWorld.MoveRight
-        Throw New NotImplementedException()
+        data.SelectedColumn = Math.Min(data.SelectedColumn + 1, Columns - 1)
     End Sub
 
     Public Sub MoveUp() Implements IWorld.MoveUp
