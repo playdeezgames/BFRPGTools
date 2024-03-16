@@ -32,7 +32,7 @@ Public Class World
     End Property
 
     Public Sub MoveDown() Implements IWorld.MoveDown
-        Throw New NotImplementedException()
+        data.SelectedRow = 1
     End Sub
 
     Public Sub MoveLeft() Implements IWorld.MoveLeft
