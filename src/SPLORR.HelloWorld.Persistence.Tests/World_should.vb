@@ -17,25 +17,20 @@ Public Class World_should
         subject.SelectedRow.ShouldBe(0)
     End Sub
 
-    <Fact>
-    Sub move_down()
-        Const GivenColumns = 2
-        Const GivenRows = 3
-        Const InitialColumn = 0
-        Const InitialRow = 0
-        Const ExpectedColumn = 0
-        Const ExpectedRow = 1
-        Dim data As New WorldData(GivenColumns, GivenRows) With
+    <Theory>
+    <InlineData(2, 3, 0, 0, 0, 1)>
+    Sub move_down(givenColumns As Integer, givenRows As Integer, initialColumn As Integer, initialRow As Integer, expectedColumn As Integer, expectedRow As Integer)
+        Dim data As New WorldData(givenColumns, givenRows) With
             {
-                .SelectedColumn = InitialColumn,
-                .SelectedRow = InitialRow
+                .SelectedColumn = initialColumn,
+                .SelectedRow = initialRow
             }
         Dim subject As IWorld = New World(data)
 
         subject.MoveDown()
 
-        subject.SelectedColumn.ShouldBe(expectedColumn)
-        subject.SelectedRow.ShouldBe(expectedRow)
+        subject.SelectedColumn.ShouldBe(ExpectedColumn)
+        subject.SelectedRow.ShouldBe(ExpectedRow)
     End Sub
 End Class
 
