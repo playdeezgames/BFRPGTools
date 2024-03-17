@@ -1,11 +1,7 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-
-Friend Class Cell
+﻿Friend Class Cell
     Implements ICell
 
     Private ReadOnly data As WorldData
-    Private ReadOnly column As Integer
-    Private ReadOnly row As Integer
 
     Public Sub New(data As WorldData, column As Integer, row As Integer)
         Me.data = data
@@ -13,9 +9,13 @@ Friend Class Cell
         Me.row = row
     End Sub
 
+    Public ReadOnly Property Column As Integer Implements ICell.Column
+
+    Public ReadOnly Property Row As Integer Implements ICell.Row
+
     Protected ReadOnly Property BoardCellData As BoardCellData
         Get
-            Return data.BoardColumn(column).Cell(row)
+            Return data.BoardColumn(Column).Cell(Row)
         End Get
     End Property
 
