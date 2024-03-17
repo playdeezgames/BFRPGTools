@@ -31,20 +31,28 @@ Public Class World
         End Get
     End Property
 
+    Private Sub SetSelectedRow(newRow As Integer)
+        data.SelectedRow = Math.Clamp(newRow, 0, Rows - 1)
+    End Sub
+
+    Private Sub SetSelectedColumn(newColumn As Integer)
+        data.SelectedColumn = Math.Clamp(newColumn, 0, Columns - 1)
+    End Sub
+
     Public Sub MoveDown() Implements IWorld.MoveDown
-        data.SelectedRow = Math.Min(data.SelectedRow + 1, Rows - 1)
+        SetSelectedRow(SelectedRow + 1)
     End Sub
 
     Public Sub MoveLeft() Implements IWorld.MoveLeft
-        data.SelectedColumn = Math.Max(data.SelectedColumn - 1, 0)
+        SetSelectedColumn(SelectedColumn - 1)
     End Sub
 
     Public Sub MoveRight() Implements IWorld.MoveRight
-        data.SelectedColumn = Math.Min(data.SelectedColumn + 1, Columns - 1)
+        SetSelectedColumn(SelectedColumn + 1)
     End Sub
 
     Public Sub MoveUp() Implements IWorld.MoveUp
-        data.SelectedRow = Math.Max(data.SelectedRow - 1, 0)
+        SetSelectedRow(SelectedRow - 1)
     End Sub
 
     Public Function GetCell(column As Integer, row As Integer) As ICell Implements IWorld.GetCell
