@@ -18,6 +18,7 @@ Public Class HWModel
     Const BoardRowCount = 15
     Sub CreateWorld()
         worldData = New WorldData(BoardColumnCount, BoardRowCount)
+        World.GetCell(0, 0).SetConnection(Direction.North)
     End Sub
 
     Public Sub AbandonWorld()
