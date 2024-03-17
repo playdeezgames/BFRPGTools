@@ -31,4 +31,22 @@
         Dim actual = subject.HasConnection(givenDirection)
         actual.ShouldBe(ExpectedConnection)
     End Sub
+
+    <Fact>
+    Sub set_connection()
+        Const GivenColumns = 2
+        Const GivenRows = 3
+        Const GivenColumn = 0
+        Const GivenRow = 1
+        Const GivenDirection = Direction.North
+        Const ExpectedConnection = True
+        Dim data As New WorldData(GivenColumns, GivenRows)
+        Dim world As New World(data)
+        Dim subject = world.GetCell(GivenColumn, GivenRow)
+
+        subject.SetConnection(GivenDirection)
+
+        Dim actual = subject.HasConnection(GivenDirection)
+        actual.ShouldBe(ExpectedConnection)
+    End Sub
 End Class

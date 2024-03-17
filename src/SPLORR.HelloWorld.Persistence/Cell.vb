@@ -19,6 +19,10 @@
         End Get
     End Property
 
+    Public Sub SetConnection(direction As Direction) Implements ICell.SetConnection
+        BoardCellData.Connections.Add(direction)
+    End Sub
+
     Public Function HasConnection(direction As Direction) As Boolean Implements ICell.HasConnection
         Return BoardCellData.Connections.Contains(direction)
     End Function
