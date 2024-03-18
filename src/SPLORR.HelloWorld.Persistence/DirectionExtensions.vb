@@ -14,49 +14,42 @@ Public Module DirectionExtensions
         Return stepXTable(direction) + x
     End Function
 
+    ReadOnly stepYTable As IReadOnlyDictionary(Of Direction, Integer) =
+        New Dictionary(Of Direction, Integer) From
+        {
+            {Direction.North, -1},
+            {Direction.East, 0},
+            {Direction.South, 1},
+            {Direction.West, 0}
+        }
     <Extension>
     Public Function StepY(direction As Direction, x As Integer, y As Integer) As Integer
-        Select Case direction
-            Case Direction.North
-                Return y - 1
-            Case Direction.South
-                Return y + 1
-            Case Direction.East, Direction.West
-                Return y
-            Case Else
-                Throw New NotImplementedException
-        End Select
+        Return stepYTable(direction) + y
     End Function
 
+    ReadOnly rightDirectionTable As IReadOnlyDictionary(Of Direction, Direction) =
+        New Dictionary(Of Direction, Direction) From
+        {
+            {Direction.North, Direction.East},
+            {Direction.East, Direction.South},
+            {Direction.South, Direction.West},
+            {Direction.West, Direction.North}
+        }
     <Extension>
     Public Function RightDirection(direction As Direction) As Direction
-        Select Case direction
-            Case Direction.East
-                Return Direction.South
-            Case Direction.North
-                Return Direction.East
-            Case Direction.South
-                Return Direction.West
-            Case Direction.West
-                Return Direction.North
-            Case Else
-                Throw New NotImplementedException
-        End Select
+        Return rightDirectionTable(direction)
     End Function
 
+    ReadOnly leftDirectionTable As IReadOnlyDictionary(Of Direction, Direction) =
+        New Dictionary(Of Direction, Direction) From
+        {
+            {Direction.North, Direction.West},
+            {Direction.East, Direction.North},
+            {Direction.South, Direction.East},
+            {Direction.West, Direction.South}
+        }
     <Extension>
     Public Function LeftDirection(direction As Direction) As Direction
-        Select Case direction
-            Case Direction.East
-                Return Direction.North
-            Case Direction.North
-                Return Direction.West
-            Case Direction.South
-                Return Direction.East
-            Case Direction.West
-                Return Direction.South
-            Case Else
-                Throw New NotImplementedException
-        End Select
+        Return leftDirectionTable(direction)
     End Function
 End Module
