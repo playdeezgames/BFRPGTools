@@ -9,4 +9,5 @@
     Sub Unlock()
     ReadOnly Property IsLocked As Boolean
     ReadOnly Property Value As Integer
+    ReadOnly Property IsLit As Boolean
 End Interface

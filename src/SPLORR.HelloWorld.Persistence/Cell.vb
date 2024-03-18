@@ -40,6 +40,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property IsLit As Boolean Implements ICell.IsLit
+        Get
+            Return False
+        End Get
+    End Property
+
     Public Sub SetConnection(direction As Direction) Implements ICell.SetConnection
         BoardCellData.Connections.Add(direction)
     End Sub
