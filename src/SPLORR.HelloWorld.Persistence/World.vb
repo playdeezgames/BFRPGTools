@@ -67,6 +67,6 @@ Public Class World
     End Sub
 
     Public Sub TurnLeft() Implements IWorld.TurnLeft
-        Throw New NotImplementedException()
+        GetCell(SelectedColumn, SelectedRow).TurnLeft()
     End Sub
 End Class
