@@ -38,6 +38,18 @@ Public Class HWModel
                         worldCell.SetConnection(direction)
                     End If
                 Next
+                Select Case worldCell.Value
+                    Case 15
+                        worldCell.ToggleLock()
+                    Case 5, 10
+                        worldCell.TurnLeft()
+                    Case Else
+                        Dim turnCount = RNG.FromRange(1, 3)
+                        While turnCount > 0
+                            worldCell.TurnLeft()
+                            turnCount -= 1
+                        End While
+                End Select
             Next
         Next
     End Sub

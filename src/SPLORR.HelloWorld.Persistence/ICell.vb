@@ -8,4 +8,5 @@
     Sub ToggleLock()
     Sub Unlock()
     ReadOnly Property IsLocked As Boolean
+    ReadOnly Property Value As Integer
 End Interface

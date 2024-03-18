@@ -19,6 +19,21 @@
         End Get
     End Property
 
+    Private Shared ReadOnly flagTable As IReadOnlyDictionary(Of Direction, Integer) =
+        New Dictionary(Of Direction, Integer) From
+        {
+            {Direction.North, 1},
+            {Direction.East, 2},
+            {Direction.South, 4},
+            {Direction.West, 8}
+        }
+
+    Public ReadOnly Property Value As Integer Implements ICell.Value
+        Get
+            Return BoardCellData.Connections.Select(Function(x) flagTable(x)).Sum()
+        End Get
+    End Property
+
     Protected ReadOnly Property BoardCellData As BoardCellData
         Get
             Return data.BoardColumn(Column).Cell(Row)

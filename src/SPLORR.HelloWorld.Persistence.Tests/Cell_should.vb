@@ -121,4 +121,28 @@
 
         subject.IsLocked.ShouldBeFalse()
     End Sub
+
+    <Theory>
+    <InlineData({Direction.North}, 1)>
+    <InlineData({Direction.East}, 2)>
+    <InlineData({Direction.South}, 4)>
+    <InlineData({Direction.West}, 8)>
+    <InlineData({Direction.North, Direction.East}, 3)>
+    <InlineData({Direction.East, Direction.South}, 6)>
+    <InlineData({Direction.South, Direction.West}, 12)>
+    <InlineData({Direction.West, Direction.North}, 9)>
+    <InlineData({Direction.North, Direction.South}, 5)>
+    <InlineData({Direction.East, Direction.West}, 10)>
+    Sub have_value(givenDirections As Direction(), expectedValue As Integer)
+        Const GivenColumns = 2
+        Const GivenRows = 3
+        Dim data As New WorldData(GivenColumns, GivenRows)
+        Dim world As New World(data)
+        Dim subject = world.GetCell(world.SelectedColumn, world.SelectedRow)
+        For Each direction In givenDirections
+            subject.SetConnection(direction)
+        Next
+
+        subject.Value.ShouldBe(expectedValue)
+    End Sub
 End Class

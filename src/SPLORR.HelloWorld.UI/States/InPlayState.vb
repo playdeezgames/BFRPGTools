@@ -44,7 +44,7 @@
             Dim y = 0
             For Each row In Enumerable.Range(0, world.Rows)
                 Dim cell = world.GetCell(column, row)
-                pipes.WriteText(display, (x, y), ChrW(DetermineCharacterCode(cell)), DetermineHue(cell))
+                pipes.WriteText(display, (x, y), ChrW(cell.Value), DetermineHue(cell))
                 If column = world.SelectedColumn AndAlso row = world.SelectedRow Then
                     pipes.WriteText(display, (x, y), ChrW(16), Hue.Yellow)
                 End If
@@ -60,22 +60,5 @@
             hue = Hue.LightRed
         End If
         Return hue
-    End Function
-
-    Private Shared Function DetermineCharacterCode(cell As Persistence.ICell) As Integer
-        Dim characterCode = 0
-        If cell.HasConnection(Direction.North) Then
-            characterCode += 1
-        End If
-        If cell.HasConnection(Direction.East) Then
-            characterCode += 2
-        End If
-        If cell.HasConnection(Direction.South) Then
-            characterCode += 4
-        End If
-        If cell.HasConnection(Direction.West) Then
-            characterCode += 8
-        End If
-        Return characterCode
     End Function
 End Class
