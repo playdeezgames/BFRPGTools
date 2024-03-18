@@ -4,7 +4,7 @@
     Private Function HandleInput(commandBuffer As ICommandBuffer(Of Command), model As HWModel) As GameState?
         While commandBuffer.HasCommand
             Select Case commandBuffer.ReadCommand()
-                Case Command.B
+                Case Command.Start
                     Return GameState.GameMenu
                 Case Command.Down
                     model.World.MoveDown()
@@ -18,6 +18,8 @@
                     model.World.TurnRight()
                 Case Command.B
                     model.World.TurnLeft()
+                Case Command.Select
+                    model.World.Lock()
             End Select
         End While
         Return Nothing

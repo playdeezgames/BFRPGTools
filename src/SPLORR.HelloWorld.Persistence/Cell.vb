@@ -13,6 +13,12 @@
 
     Public ReadOnly Property Row As Integer Implements ICell.Row
 
+    Public ReadOnly Property IsLocked As Boolean Implements ICell.IsLocked
+        Get
+            Return BoardCellData.IsLocked
+        End Get
+    End Property
+
     Protected ReadOnly Property BoardCellData As BoardCellData
         Get
             Return data.BoardColumn(Column).Cell(Row)
@@ -37,6 +43,10 @@
         For Each direction In directions
             SetConnection(direction.LeftDirection())
         Next
+    End Sub
+
+    Public Sub Lock() Implements ICell.Lock
+        BoardCellData.IsLocked = True
     End Sub
 
     Public Function HasConnection(direction As Direction) As Boolean Implements ICell.HasConnection

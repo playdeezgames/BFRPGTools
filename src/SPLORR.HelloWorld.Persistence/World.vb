@@ -69,4 +69,8 @@ Public Class World
     Public Sub TurnLeft() Implements IWorld.TurnLeft
         GetCell(SelectedColumn, SelectedRow).TurnLeft()
     End Sub
+
+    Public Sub Lock() Implements IWorld.Lock
+        Throw New NotImplementedException()
+    End Sub
 End Class

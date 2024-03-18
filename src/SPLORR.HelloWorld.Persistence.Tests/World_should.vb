@@ -120,5 +120,16 @@ Public Class World_should
         subject.GetCell(subject.SelectedColumn, subject.SelectedRow).HasConnection(givenDirection).ShouldBeFalse()
         subject.GetCell(subject.SelectedColumn, subject.SelectedRow).HasConnection(expectedDirection).ShouldBeTrue()
     End Sub
+
+    <Fact>
+    Sub lock()
+        Const GivenColumns = 2
+        Const GivenRows = 3
+        Dim data As New WorldData(GivenColumns, GivenRows)
+        Dim subject As IWorld = New World(data)
+        subject.GetCell(subject.SelectedColumn, subject.SelectedRow).Lock()
+
+        subject.GetCell(subject.SelectedColumn, subject.SelectedRow).IsLocked.ShouldBeTrue
+    End Sub
 End Class
 
