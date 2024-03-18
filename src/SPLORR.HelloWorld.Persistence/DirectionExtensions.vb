@@ -1,18 +1,17 @@
 ﻿Imports System.Runtime.CompilerServices
 
 Public Module DirectionExtensions
+    ReadOnly stepXTable As IReadOnlyDictionary(Of Direction, Integer) =
+        New Dictionary(Of Direction, Integer) From
+        {
+            {Direction.North, 0},
+            {Direction.East, 1},
+            {Direction.South, 0},
+            {Direction.West, -1}
+        }
     <Extension>
     Public Function StepX(direction As Direction, x As Integer, y As Integer) As Integer
-        Select Case direction
-            Case Direction.North, Direction.South
-                Return x
-            Case Direction.East
-                Return x + 1
-            Case Direction.West
-                Return x - 1
-            Case Else
-                Throw New NotImplementedException
-        End Select
+        Return stepXTable(direction) + x
     End Function
 
     <Extension>
