@@ -49,6 +49,10 @@
         BoardCellData.IsLocked = True
     End Sub
 
+    Public Sub Unlock() Implements ICell.Unlock
+        BoardCellData.IsLocked = False
+    End Sub
+
     Public Function HasConnection(direction As Direction) As Boolean Implements ICell.HasConnection
         Return BoardCellData.Connections.Contains(direction)
     End Function

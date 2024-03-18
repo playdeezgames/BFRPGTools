@@ -108,4 +108,17 @@
 
         subject.IsLocked.ShouldBeTrue()
     End Sub
+
+    <Fact>
+    Sub unlock()
+        Const GivenColumns = 2
+        Const GivenRows = 3
+        Dim data As New WorldData(GivenColumns, GivenRows)
+        Dim world As New World(data)
+        Dim subject = world.GetCell(world.SelectedColumn, world.SelectedRow)
+        subject.Lock()
+        subject.Unlock()
+
+        subject.IsLocked.ShouldBeFalse()
+    End Sub
 End Class
