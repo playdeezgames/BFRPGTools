@@ -104,7 +104,7 @@
         Dim data As New WorldData(GivenColumns, GivenRows)
         Dim world As New World(data)
         Dim subject = world.GetCell(world.SelectedColumn, world.SelectedRow)
-        subject.Lock()
+        subject.ToggleLock()
 
         subject.IsLocked.ShouldBeTrue()
     End Sub
@@ -116,7 +116,7 @@
         Dim data As New WorldData(GivenColumns, GivenRows)
         Dim world As New World(data)
         Dim subject = world.GetCell(world.SelectedColumn, world.SelectedRow)
-        subject.Lock()
+        subject.ToggleLock()
         subject.Unlock()
 
         subject.IsLocked.ShouldBeFalse()

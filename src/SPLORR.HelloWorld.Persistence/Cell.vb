@@ -45,8 +45,8 @@
         Next
     End Sub
 
-    Public Sub Lock() Implements ICell.Lock
-        BoardCellData.IsLocked = True
+    Public Sub ToggleLock() Implements ICell.ToggleLock
+        BoardCellData.IsLocked = Not BoardCellData.IsLocked
     End Sub
 
     Public Sub Unlock() Implements ICell.Unlock

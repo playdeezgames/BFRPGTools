@@ -5,7 +5,7 @@
     Sub TurnRight()
     Sub TurnLeft()
     Function HasConnection(direction As Direction) As Boolean
-    Sub Lock()
+    Sub ToggleLock()
     Sub Unlock()
     ReadOnly Property IsLocked As Boolean
 End Interface

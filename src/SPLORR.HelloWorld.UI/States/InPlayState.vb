@@ -19,7 +19,7 @@
                 Case Command.B
                     model.World.TurnLeft()
                 Case Command.Select
-                    model.World.Lock()
+                    model.World.ToggleLock()
             End Select
         End While
         Return Nothing

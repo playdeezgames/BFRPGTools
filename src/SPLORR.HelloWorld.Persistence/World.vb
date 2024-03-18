@@ -70,7 +70,7 @@ Public Class World
         GetCell(SelectedColumn, SelectedRow).TurnLeft()
     End Sub
 
-    Public Sub Lock() Implements IWorld.Lock
-        Throw New NotImplementedException()
+    Public Sub ToggleLock() Implements IWorld.ToggleLock
+        GetCell(SelectedColumn, SelectedRow).ToggleLock()
     End Sub
 End Class

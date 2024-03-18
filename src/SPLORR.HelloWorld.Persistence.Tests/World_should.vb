@@ -122,14 +122,17 @@ Public Class World_should
     End Sub
 
     <Fact>
-    Sub lock()
+    Sub toggle_lock()
         Const GivenColumns = 2
         Const GivenRows = 3
         Dim data As New WorldData(GivenColumns, GivenRows)
         Dim subject As IWorld = New World(data)
-        subject.GetCell(subject.SelectedColumn, subject.SelectedRow).Lock()
 
+        subject.GetCell(subject.SelectedColumn, subject.SelectedRow).IsLocked.ShouldBeFalse
+        subject.ToggleLock()
         subject.GetCell(subject.SelectedColumn, subject.SelectedRow).IsLocked.ShouldBeTrue
+        subject.ToggleLock()
+        subject.GetCell(subject.SelectedColumn, subject.SelectedRow).IsLocked.ShouldBeFalse
     End Sub
 End Class
 
