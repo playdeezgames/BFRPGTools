@@ -57,7 +57,11 @@
                 If cell.HasConnection(Direction.West) Then
                     characterCode += 8
                 End If
-                pipes.WriteText(display, (x, y), ChrW(characterCode), Hue.Red)
+                Dim hue As Hue = Hue.Red
+                If cell.IsLocked Then
+                    hue = Hue.LightRed
+                End If
+                pipes.WriteText(display, (x, y), ChrW(characterCode), hue)
                 If column = world.SelectedColumn AndAlso row = world.SelectedRow Then
                     pipes.WriteText(display, (x, y), ChrW(16), Hue.Yellow)
                 End If
