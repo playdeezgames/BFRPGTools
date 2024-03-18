@@ -79,6 +79,30 @@
     End Function
 
     Public Sub Light() Implements ICell.Light
-        BoardCellData.IsLit = True
+        If Not IsLit Then
+            BoardCellData.IsLit = True
+            For Each direction In BoardCellData.Connections
+                If HasConnection(direction) Then
+                    Dim neighbor = New World(data).GetCell(direction.StepX(Column, Row), direction.StepY(Column, Row))
+                    If neighbor IsNot Nothing AndAlso neighbor.HasConnection(direction.OppositeDirection) Then
+                        neighbor.Light()
+                    End If
+                End If
+            Next
+        End If
+    End Sub
+
+    Public Sub Darken() Implements ICell.Darken
+        If IsLit Then
+            BoardCellData.IsLit = False
+            For Each direction In BoardCellData.Connections
+                If HasConnection(direction) Then
+                    Dim neighbor = New World(data).GetCell(direction.StepX(Column, Row), direction.StepY(Column, Row))
+                    If neighbor IsNot Nothing AndAlso neighbor.HasConnection(direction.OppositeDirection) Then
+                        neighbor.Darken()
+                    End If
+                End If
+            Next
+        End If
     End Sub
 End Class

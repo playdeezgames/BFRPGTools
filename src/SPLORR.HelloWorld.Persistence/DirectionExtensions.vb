@@ -52,4 +52,17 @@ Public Module DirectionExtensions
     Public Function LeftDirection(direction As Direction) As Direction
         Return leftDirectionTable(direction)
     End Function
+
+    ReadOnly oppositeDirectionTable As IReadOnlyDictionary(Of Direction, Direction) =
+        New Dictionary(Of Direction, Direction) From
+        {
+            {Direction.North, Direction.South},
+            {Direction.East, Direction.West},
+            {Direction.South, Direction.North},
+            {Direction.West, Direction.East}
+        }
+    <Extension>
+    Public Function OppositeDirection(direction As Direction) As Direction
+        Return oppositeDirectionTable(direction)
+    End Function
 End Module

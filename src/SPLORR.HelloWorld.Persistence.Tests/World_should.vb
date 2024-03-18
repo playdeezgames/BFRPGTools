@@ -134,5 +134,61 @@ Public Class World_should
         subject.ToggleLock()
         subject.GetCell(subject.SelectedColumn, subject.SelectedRow).IsLocked.ShouldBeFalse
     End Sub
+
+    <Fact>
+    Sub light_only_center_when_disconnected()
+        Const GivenColumns = 3
+        Const GivenRows = 5
+        Dim data As New WorldData(GivenColumns, GivenRows)
+        Dim subject As IWorld = New World(data)
+        subject.Light()
+
+        For Each column In Enumerable.Range(0, GivenColumns)
+            For Each row In Enumerable.Range(0, GivenRows)
+                subject.GetCell(column, row).IsLit.ShouldBe(column = subject.CenterColumn AndAlso row = subject.CenterRow)
+            Next
+        Next
+    End Sub
+
+    <Fact>
+    Sub light_all_when_connected()
+        Const GivenColumns = 3
+        Const GivenRows = 5
+        Dim data As New WorldData(GivenColumns, GivenRows)
+        Dim subject As IWorld = New World(data)
+        For Each column In Enumerable.Range(0, GivenColumns)
+            For Each row In Enumerable.Range(0, GivenRows)
+                Dim cell = subject.GetCell(column, row)
+                cell.SetConnection(Direction.North)
+                cell.SetConnection(Direction.East)
+                cell.SetConnection(Direction.South)
+                cell.SetConnection(Direction.West)
+            Next
+        Next
+        subject.Light()
+        For Each column In Enumerable.Range(0, GivenColumns)
+            For Each row In Enumerable.Range(0, GivenRows)
+                subject.GetCell(column, row).IsLit.ShouldBeTrue()
+            Next
+        Next
+        subject.Darken()
+        For Each column In Enumerable.Range(0, GivenColumns)
+            For Each row In Enumerable.Range(0, GivenRows)
+                subject.GetCell(column, row).IsLit.ShouldBeFalse()
+            Next
+        Next
+    End Sub
+
+    <Fact>
+    Sub have_center_column_and_row()
+        Const GivenColumns = 3
+        Const GivenRows = 5
+        Const ExpectedColumn = 1
+        Const ExpectedRow = 2
+        Dim data As New WorldData(GivenColumns, GivenRows)
+        Dim subject As IWorld = New World(data)
+        subject.CenterColumn.ShouldBe(ExpectedColumn)
+        subject.CenterRow.ShouldBe(ExpectedRow)
+    End Sub
 End Class
 

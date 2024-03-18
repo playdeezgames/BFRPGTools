@@ -30,7 +30,9 @@
         If result.HasValue Then
             Return result.Value
         End If
+        context.Model.World.Light()
         Draw(context.Display, context.Assets.Font, context.Assets.Pipes, context.Model)
+        context.Model.World.Darken()
         Return GameState.InPlay
     End Function
 
@@ -56,8 +58,16 @@
 
     Private Shared Function DetermineHue(cell As Persistence.ICell) As Hue
         Dim hue As Hue = Hue.Red
-        If cell.IsLocked Then
-            hue = Hue.LightRed
+        If cell.IsLit Then
+            If cell.IsLocked Then
+                hue = Hue.LightGreen
+            Else
+                hue = Hue.Green
+            End If
+        Else
+            If cell.IsLocked Then
+                hue = Hue.LightRed
+            End If
         End If
         Return hue
     End Function

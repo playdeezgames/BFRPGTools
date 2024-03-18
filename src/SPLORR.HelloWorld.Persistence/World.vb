@@ -31,6 +31,18 @@ Public Class World
         End Get
     End Property
 
+    Public ReadOnly Property CenterColumn As Integer Implements IWorld.CenterColumn
+        Get
+            Return Columns \ 2
+        End Get
+    End Property
+
+    Public ReadOnly Property CenterRow As Integer Implements IWorld.CenterRow
+        Get
+            Return Rows \ 2
+        End Get
+    End Property
+
     Private Sub SetSelectedRow(newRow As Integer)
         data.SelectedRow = Math.Clamp(newRow, 0, Rows - 1)
     End Sub
@@ -72,5 +84,13 @@ Public Class World
 
     Public Sub ToggleLock() Implements IWorld.ToggleLock
         GetCell(SelectedColumn, SelectedRow).ToggleLock()
+    End Sub
+
+    Public Sub Light() Implements IWorld.Light
+        GetCell(CenterColumn, CenterRow).Light()
+    End Sub
+
+    Public Sub Darken() Implements IWorld.Darken
+        GetCell(CenterColumn, CenterRow).Darken()
     End Sub
 End Class

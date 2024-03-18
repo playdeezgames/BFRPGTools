@@ -11,4 +11,8 @@
     Sub ToggleLock()
     ReadOnly Property SelectedColumn As Integer
     ReadOnly Property SelectedRow As Integer
+    Sub Light()
+    Sub Darken()
+    ReadOnly Property CenterColumn As Integer
+    ReadOnly Property CenterRow As Integer
 End Interface

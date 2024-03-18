@@ -11,4 +11,5 @@
     ReadOnly Property Value As Integer
     ReadOnly Property IsLit As Boolean
     Sub Light()
+    Sub Darken()
 End Interface
