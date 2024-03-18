@@ -18,7 +18,28 @@ Public Class HWModel
     Const BoardRowCount = 15
     Sub CreateWorld()
         worldData = New WorldData(BoardColumnCount, BoardRowCount)
-        World.GetCell(0, 0).SetConnection(Direction.North)
+        Dim maze As New Maze(Of Direction)(
+            BoardColumnCount,
+            BoardRowCount,
+            New Dictionary(Of Direction, MazeDirection(Of Direction)) From
+            {
+                {Direction.North, New MazeDirection(Of Direction)(Direction.South, 0, -1)},
+                {Direction.East, New MazeDirection(Of Direction)(Direction.West, 1, 0)},
+                {Direction.South, New MazeDirection(Of Direction)(Direction.North, 0, 1)},
+                {Direction.West, New MazeDirection(Of Direction)(Direction.East, -1, 0)}
+            })
+        maze.Generate()
+        For Each x In Enumerable.Range(0, BoardColumnCount)
+            For Each y In Enumerable.Range(0, BoardRowCount)
+                Dim mazeCell = maze.GetCell(x, y)
+                Dim worldCell = World.GetCell(x, y)
+                For Each direction In mazeCell.Directions
+                    If mazeCell.GetDoor(direction).Open Then
+                        worldCell.SetConnection(direction)
+                    End If
+                Next
+            Next
+        Next
     End Sub
 
     Public Sub AbandonWorld()
