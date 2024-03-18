@@ -42,7 +42,7 @@
 
     Public ReadOnly Property IsLit As Boolean Implements ICell.IsLit
         Get
-            Return False
+            Return BoardCellData.IsLit
         End Get
     End Property
 
@@ -77,4 +77,8 @@
     Public Function HasConnection(direction As Direction) As Boolean Implements ICell.HasConnection
         Return BoardCellData.Connections.Contains(direction)
     End Function
+
+    Public Sub Light() Implements ICell.Light
+        BoardCellData.IsLit = True
+    End Sub
 End Class

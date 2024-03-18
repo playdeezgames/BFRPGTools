@@ -10,4 +10,5 @@
     ReadOnly Property IsLocked As Boolean
     ReadOnly Property Value As Integer
     ReadOnly Property IsLit As Boolean
+    Sub Light()
 End Interface
