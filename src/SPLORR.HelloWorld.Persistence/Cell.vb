@@ -23,6 +23,14 @@
         BoardCellData.Connections.Add(direction)
     End Sub
 
+    Public Sub TurnRight() Implements ICell.TurnRight
+        Dim directions = BoardCellData.Connections.ToList
+        BoardCellData.Connections.Clear()
+        For Each direction In directions
+            SetConnection(direction.RightDirection())
+        Next
+    End Sub
+
     Public Function HasConnection(direction As Direction) As Boolean Implements ICell.HasConnection
         Return BoardCellData.Connections.Contains(direction)
     End Function

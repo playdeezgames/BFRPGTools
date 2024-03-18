@@ -49,4 +49,22 @@
         Dim actual = subject.HasConnection(GivenDirection)
         actual.ShouldBe(ExpectedConnection)
     End Sub
+
+    <Theory>
+    <InlineData(Direction.North, Direction.East)>
+    <InlineData(Direction.East, Direction.South)>
+    <InlineData(Direction.South, Direction.West)>
+    <InlineData(Direction.West, Direction.North)>
+    Sub turn_right(givenDirection As Direction, expectedDirection As Direction)
+        Const GivenColumns = 2
+        Const GivenRows = 3
+        Dim data As New WorldData(GivenColumns, GivenRows)
+        Dim world As New World(data)
+        Dim subject = world.GetCell(world.SelectedColumn, world.SelectedRow)
+        subject.SetConnection(givenDirection)
+
+        subject.TurnRight()
+        subject.HasConnection(givenDirection).ShouldBeFalse
+        subject.HasConnection(expectedDirection).ShouldBeTrue
+    End Sub
 End Class

@@ -28,4 +28,20 @@ Public Module DirectionExtensions
                 Throw New NotImplementedException
         End Select
     End Function
+
+    <Extension>
+    Public Function RightDirection(direction As Direction) As Direction
+        Select Case direction
+            Case Direction.East
+                Return Direction.South
+            Case Direction.North
+                Return Direction.East
+            Case Direction.South
+                Return Direction.West
+            Case Direction.West
+                Return Direction.North
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
 End Module

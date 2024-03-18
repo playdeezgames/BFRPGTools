@@ -6,6 +6,8 @@
     Sub MoveLeft()
     Sub MoveRight()
     Sub MoveUp()
+    Sub TurnRight()
+    Sub TurnLeft()
     ReadOnly Property SelectedColumn As Integer
     ReadOnly Property SelectedRow As Integer
 End Interface

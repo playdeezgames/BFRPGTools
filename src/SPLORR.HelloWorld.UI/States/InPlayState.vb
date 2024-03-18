@@ -1,6 +1,4 @@
-﻿Imports SPLORR.HelloWorld.Persistence
-
-Friend Class InPlayState
+﻿Friend Class InPlayState
     Inherits BaseGameState(Of GameState, Hue, Command, Sfx, HWModel, HWAssets)
 
     Private Function HandleInput(commandBuffer As ICommandBuffer(Of Command), model As HWModel) As GameState?
@@ -16,6 +14,10 @@ Friend Class InPlayState
                     model.World.MoveRight()
                 Case Command.Up
                     model.World.MoveUp()
+                Case Command.A
+                    model.World.TurnRight()
+                Case Command.B
+                    model.World.TurnLeft()
             End Select
         End While
         Return Nothing

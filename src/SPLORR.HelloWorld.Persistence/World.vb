@@ -61,4 +61,12 @@ Public Class World
         End If
         Return New Cell(data, column, row)
     End Function
+
+    Public Sub TurnRight() Implements IWorld.TurnRight
+        GetCell(SelectedColumn, SelectedRow).TurnRight()
+    End Sub
+
+    Public Sub TurnLeft() Implements IWorld.TurnLeft
+        Throw New NotImplementedException()
+    End Sub
 End Class

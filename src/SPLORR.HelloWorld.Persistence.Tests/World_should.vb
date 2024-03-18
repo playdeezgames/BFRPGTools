@@ -86,5 +86,22 @@ Public Class World_should
         subject.SelectedColumn.ShouldBe(expectedColumn)
         subject.SelectedRow.ShouldBe(expectedRow)
     End Sub
+
+    <Theory>
+    <InlineData(Direction.North, Direction.East)>
+    <InlineData(Direction.East, Direction.South)>
+    <InlineData(Direction.South, Direction.West)>
+    <InlineData(Direction.West, Direction.North)>
+    Sub turning_left(givenDirection As Direction, expectedDirection As Direction)
+        Const GivenColumns = 2
+        Const GivenRows = 3
+        Dim data As New WorldData(GivenColumns, GivenRows)
+        Dim subject As IWorld = New World(data)
+        subject.GetCell(subject.SelectedColumn, subject.SelectedRow).SetConnection(givenDirection)
+
+        subject.TurnRight()
+        subject.GetCell(subject.SelectedColumn, subject.SelectedRow).HasConnection(givenDirection).ShouldBeFalse()
+        subject.GetCell(subject.SelectedColumn, subject.SelectedRow).HasConnection(expectedDirection).ShouldBeTrue()
+    End Sub
 End Class
 
