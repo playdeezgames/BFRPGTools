@@ -12,7 +12,8 @@
                         AboutText,
                         QuitText
                    },
-                   GameState.MainMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font)
+                   GameState.MainMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
+                   "Up/Down/Select | A/Start/Space | B/Esc")
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState

@@ -21,7 +21,8 @@
         }
 
     Public Sub New(config As IHostConfig)
-        MyBase.New("Sfx Volume", table.Keys.ToArray, GameState.ChangeSfxVolume, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font)
+        MyBase.New("Sfx Volume", table.Keys.ToArray, GameState.ChangeSfxVolume, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
+            "Up/Down/Select | A/Start/Space | B/Esc")
         Me.config = config
     End Sub
 

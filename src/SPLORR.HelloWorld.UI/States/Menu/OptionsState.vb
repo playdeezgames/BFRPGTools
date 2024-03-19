@@ -7,7 +7,8 @@
     ReadOnly config As IHostConfig
 
     Public Sub New(config As IHostConfig)
-        MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font)
+        MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
+            "Up/Down/Select | A/Start/Space | B/Esc")
         Me.config = config
     End Sub
 

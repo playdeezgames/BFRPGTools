@@ -9,6 +9,7 @@
     Private ReadOnly hiliteHue As TPixel
     Private ReadOnly footerHue As TPixel
     Private ReadOnly getFont As Func(Of TAssets, Font)
+    Private ReadOnly footerText As String
     Protected Sub SetMenuItemIndex(index As Integer)
         menuItemIndex = Math.Clamp(index, 0, menuItems.Length - 1)
     End Sub
@@ -21,7 +22,8 @@
            headerHue As TPixel,
            hiliteHue As TPixel,
            footerHue As TPixel,
-           getFont As Func(Of TAssets, Font))
+           getFont As Func(Of TAssets, Font),
+           footerText As String)
         Me.menuItems = menuItems
         Me.title = title
         Me.state = state
@@ -30,6 +32,7 @@
         Me.hiliteHue = hiliteHue
         Me.footerHue = footerHue
         Me.getFont = getFont
+        Me.footerText = footerText
     End Sub
 
     Public Overrides Function Update(context As IUIContext(Of TPixel, Command, TSfx, TModel, TAssets), elapsedTime As TimeSpan) As TState
@@ -63,7 +66,7 @@
         Next
 
         display.WriteFill((0, display.Size.Rows - font.Height), (display.Size.Columns, font.Height), footerHue)
-        font.WriteCenterText(display, display.Size.Rows - font.Height, "Up/Down/Select | A/Start/Space | B/Esc", backgroundHue)
+        font.WriteCenterText(display, display.Size.Rows - font.Height, footerText, backgroundHue)
         Return state
     End Function
 

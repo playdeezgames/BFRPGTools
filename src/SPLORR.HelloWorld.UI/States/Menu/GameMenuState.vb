@@ -3,7 +3,8 @@
     Const AbandonGameText = "Abandon Game"
 
     Public Sub New()
-        MyBase.New("Game Menu", {AbandonGameText}, GameState.GameMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font)
+        MyBase.New("Game Menu", {AbandonGameText}, GameState.GameMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
+            "Up/Down/Select | A/Start/Space | B/Esc")
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
