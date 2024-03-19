@@ -2,13 +2,8 @@
     Inherits BaseMenuState(Of GameState, Hue, Command, Sfx, HWModel, HWAssets)
     Const AbandonGameText = "Abandon Game"
 
-    Public Sub New(config As MenuStateConfig(Of Hue, Command, HWAssets))
-        MyBase.New("Game Menu", {AbandonGameText}, GameState.GameMenu, config, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
-            "Up/Down/Select | A/Start/Space | B/Esc",
-            Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
-            Function(cmd) cmd = Command.Up,
-            Function(cmd) cmd = Command.A OrElse cmd = Command.Start,
-            Function(cmd) cmd = Command.B)
+    Public Sub New(menuConfig As MenuStateConfig(Of Hue, Command, HWAssets))
+        MyBase.New("Game Menu", {AbandonGameText}, GameState.GameMenu, menuConfig)
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState

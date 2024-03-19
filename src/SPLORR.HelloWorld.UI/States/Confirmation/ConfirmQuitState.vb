@@ -3,13 +3,8 @@
     Const NoText = "No"
     Const YesText = "Yes"
 
-    Public Sub New(config As MenuStateConfig(Of Hue, Command, HWAssets))
-        MyBase.New("Are you sure you want to quit?", {NoText, YesText}, GameState.ConfirmQuit, config, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
-            "Up/Down/Select | A/Start/Space | B/Esc",
-            Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
-            Function(cmd) cmd = Command.Up,
-            Function(cmd) cmd = Command.A OrElse cmd = Command.Start,
-            Function(cmd) cmd = Command.B)
+    Public Sub New(menuConfig As MenuStateConfig(Of Hue, Command, HWAssets))
+        MyBase.New("Are you sure you want to quit?", {NoText, YesText}, GameState.ConfirmQuit, menuConfig)
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState

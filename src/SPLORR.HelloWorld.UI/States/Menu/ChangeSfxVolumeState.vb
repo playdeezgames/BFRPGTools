@@ -1,7 +1,7 @@
 ﻿Friend Class ChangeSfxVolumeState
     Inherits BaseMenuState(Of GameState, Hue, Command, Sfx, HWModel, HWAssets)
 
-    Private ReadOnly config As IHostConfig
+    Private ReadOnly hostConfig As IHostConfig
     Private sfxTest As Action(Of Sfx)
     Private needsInitialization As Boolean = True
     Private Shared ReadOnly table As IReadOnlyDictionary(Of String, Single) =
@@ -20,14 +20,9 @@
             {"100%", 1.0F}
         }
 
-    Public Sub New(config As IHostConfig, menuConfig As MenuStateConfig(Of Hue, Command, HWAssets))
-        MyBase.New("Sfx Volume", table.Keys.ToArray, GameState.ChangeSfxVolume, menuConfig, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
-            "Up/Down/Select | A/Start/Space | B/Esc",
-            Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
-            Function(cmd) cmd = Command.Up,
-            Function(cmd) cmd = Command.A OrElse cmd = Command.Start,
-            Function(cmd) cmd = Command.B)
-        Me.config = config
+    Public Sub New(hostConfig As IHostConfig, menuConfig As MenuStateConfig(Of Hue, Command, HWAssets))
+        MyBase.New("Sfx Volume", table.Keys.ToArray, GameState.ChangeSfxVolume, menuConfig)
+        Me.hostConfig = hostConfig
     End Sub
 
     Public Overrides Function Update(context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets), elapsedTime As TimeSpan) As GameState
@@ -35,14 +30,14 @@
             sfxTest = AddressOf context.Play
         End If
         If needsInitialization Then
-            SetMenuItemIndex(CInt(config.Volume * 10.0))
+            SetMenuItemIndex(CInt(hostConfig.Volume * 10.0))
             needsInitialization = False
         End If
         Return MyBase.Update(context, elapsedTime)
     End Function
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
-        config.Volume = table(menuItem)
+        hostConfig.Volume = table(menuItem)
         If sfxTest IsNot Nothing Then
             sfxTest(Sfx.Ok)
         End If

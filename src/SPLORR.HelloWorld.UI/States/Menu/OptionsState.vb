@@ -4,22 +4,17 @@
     Const ToggleFullScreenText = "Toggle Full Screen"
     Const WindowSizeText = "Window Size..."
     Const SfxVolumeText = "Sfx Volume..."
-    ReadOnly config As IHostConfig
+    ReadOnly hostConfig As IHostConfig
 
-    Public Sub New(config As IHostConfig, menuconfig As MenuStateConfig(Of Hue, Command, HWAssets))
-        MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options, menuconfig, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
-            "Up/Down/Select | A/Start/Space | B/Esc",
-            Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
-            Function(cmd) cmd = Command.Up,
-            Function(cmd) cmd = Command.A OrElse cmd = Command.Start,
-            Function(cmd) cmd = Command.B)
-        Me.config = config
+    Public Sub New(hostConfig As IHostConfig, menuConfig As MenuStateConfig(Of Hue, Command, HWAssets))
+        MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options, menuConfig)
+        Me.hostConfig = hostConfig
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
         Select Case menuItem
             Case ToggleFullScreenText
-                config.IsFullScreen = Not config.IsFullScreen
+                hostConfig.IsFullScreen = Not hostConfig.IsFullScreen
             Case WindowSizeText
                 Return GameState.ChangeWindowSize
             Case SfxVolumeText

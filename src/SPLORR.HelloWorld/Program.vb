@@ -44,7 +44,7 @@ Module Program
                                 .FooterHue = Hue.LightGray,
                                 .HeaderHue = Hue.Orange,
                                 .HiliteHue = Hue.LightBlue,
-                                .FooterText = "A/Start: choose | B: cancel | Down/Select: next | Up: previous",
+                                .FooterText = "Up/Down/Select | A/Start/Space | B/Esc",
                                 .GetFont = Function(a) a.Font,
                                 .CancelCommand = Function(cmd) cmd = Command.B,
                                 .ChooseCommand = Function(cmd) cmd = Command.A OrElse cmd = Command.Start,

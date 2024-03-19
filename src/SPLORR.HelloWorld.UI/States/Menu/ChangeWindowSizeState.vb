@@ -4,18 +4,13 @@
         Return $"{config.ViewWidth * scale} x {config.ViewHeight * scale}"
     End Function
     Private ReadOnly table As IReadOnlyDictionary(Of String, Integer)
-    Private ReadOnly config As IHostConfig
+    Private ReadOnly hostConfig As IHostConfig
     Private needsInitialization As Boolean 'TODO: need a way to reset this on exit!
 
-    Public Sub New(config As IHostConfig, scales As Integer(), menuconfig As MenuStateConfig(Of Hue, Command, HWAssets))
-        MyBase.New("Window Size", scales.Select(Function(x) ScaleToText(config, x)).ToArray, GameState.ChangeWindowSize, menuconfig, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
-            "Up/Down/Select | A/Start/Space | B/Esc",
-            Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
-            Function(cmd) cmd = Command.Up,
-            Function(cmd) cmd = Command.A OrElse cmd = Command.Start,
-            Function(cmd) cmd = Command.B)
-        table = scales.ToDictionary(Function(x) ScaleToText(config, x), Function(x) x)
-        Me.config = config
+    Public Sub New(hostConfig As IHostConfig, scales As Integer(), menuconfig As MenuStateConfig(Of Hue, Command, HWAssets))
+        MyBase.New("Window Size", scales.Select(Function(x) ScaleToText(hostConfig, x)).ToArray, GameState.ChangeWindowSize, menuconfig)
+        table = scales.ToDictionary(Function(x) ScaleToText(hostConfig, x), Function(x) x)
+        Me.hostConfig = hostConfig
         needsInitialization = True
     End Sub
 
@@ -23,7 +18,7 @@
         If needsInitialization Then
             Dim index = 0
             For Each entry In table
-                If entry.Value >= config.ViewScale Then
+                If entry.Value >= hostConfig.ViewScale Then
                     Exit For
                 End If
                 index += 1
@@ -35,7 +30,7 @@
     End Function
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
-        config.ViewScale = table(menuItem)
+        hostConfig.ViewScale = table(menuItem)
         Return GameState.ChangeWindowSize
     End Function
 

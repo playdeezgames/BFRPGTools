@@ -5,22 +5,12 @@
     Const PromptText = "Are you sure you want to abandon the game?"
     Private model As HWModel = Nothing
 
-    Public Sub New(config As MenuStateConfig(Of Hue, Command, HWAssets))
+    Public Sub New(menuConfig As MenuStateConfig(Of Hue, Command, HWAssets))
         MyBase.New(
             PromptText,
             {NoText, YesText},
             GameState.ConfirmAbandon,
-            config,
-            Hue.Black,
-            Hue.Orange,
-            Hue.LightBlue,
-            Hue.DarkGray,
-            Function(a) a.Font,
-            "Up/Down/Select | A/Start/Space | B/Esc",
-            Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
-            Function(cmd) cmd = Command.Up,
-            Function(cmd) cmd = Command.A OrElse cmd = Command.Start,
-            Function(cmd) cmd = Command.B)
+            menuConfig)
     End Sub
 
     Public Overrides Function Update(context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets), elapsedTime As TimeSpan) As GameState
