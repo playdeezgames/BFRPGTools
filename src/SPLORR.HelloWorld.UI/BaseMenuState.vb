@@ -1,5 +1,5 @@
-﻿Public MustInherit Class BaseMenuState(Of TState As Structure, TPixel As Structure, TSfx, TModel, TAssets)
-    Inherits BaseGameState(Of TState, TPixel, Command, TSfx, TModel, TAssets)
+﻿Public MustInherit Class BaseMenuState(Of TState As Structure, TPixel As Structure, TCommand, TSfx, TModel, TAssets)
+    Inherits BaseGameState(Of TState, TPixel, TCommand, TSfx, TModel, TAssets)
     Private ReadOnly menuItems As String()
     Private ReadOnly title As String
     Private ReadOnly state As TState
@@ -10,10 +10,10 @@
     Private ReadOnly footerHue As TPixel
     Private ReadOnly getFont As Func(Of TAssets, Font)
     Private ReadOnly footerText As String
-    Private ReadOnly nextItemCommand As Func(Of Command, Boolean)
-    Private ReadOnly previousItemCommand As Func(Of Command, Boolean)
-    Private ReadOnly chooseCommand As Func(Of Command, Boolean)
-    Private ReadOnly cancelCommand As Func(Of Command, Boolean)
+    Private ReadOnly nextItemCommand As Func(Of TCommand, Boolean)
+    Private ReadOnly previousItemCommand As Func(Of TCommand, Boolean)
+    Private ReadOnly chooseCommand As Func(Of TCommand, Boolean)
+    Private ReadOnly cancelCommand As Func(Of TCommand, Boolean)
     Protected Sub SetMenuItemIndex(index As Integer)
         menuItemIndex = Math.Clamp(index, 0, menuItems.Length - 1)
     End Sub
@@ -28,10 +28,10 @@
            footerHue As TPixel,
            getFont As Func(Of TAssets, Font),
            footerText As String,
-           nextItemCommand As Func(Of Command, Boolean),
-           previousItemCommand As Func(Of Command, Boolean),
-           chooseCommand As Func(Of Command, Boolean),
-           cancelCommand As Func(Of Command, Boolean))
+           nextItemCommand As Func(Of TCommand, Boolean),
+           previousItemCommand As Func(Of TCommand, Boolean),
+           chooseCommand As Func(Of TCommand, Boolean),
+           cancelCommand As Func(Of TCommand, Boolean))
         Me.menuItems = menuItems
         Me.title = title
         Me.state = state
@@ -47,21 +47,21 @@
         Me.cancelCommand = cancelCommand
     End Sub
 
-    Public Overrides Function Update(context As IUIContext(Of TPixel, Command, TSfx, TModel, TAssets), elapsedTime As TimeSpan) As TState
+    Public Overrides Function Update(context As IUIContext(Of TPixel, TCommand, TSfx, TModel, TAssets), elapsedTime As TimeSpan) As TState
         While context.Command.HasCommand
-            Select Case context.Command.ReadCommand()
-                Case Command.Down, Command.Select
-                    menuItemIndex = (menuItemIndex + 1) Mod menuItems.Length
-                Case Command.Up
-                    menuItemIndex = (menuItemIndex + menuItems.Length - 1) Mod menuItems.Length
-                Case Command.Start, Command.A
-                    Return HandleMenuItem(menuItems(menuItemIndex))
-                Case Command.B
-                    Dim backState = HandleGoBack()
-                    If backState.HasValue Then
-                        Return backState.Value
-                    End If
-            End Select
+            Dim command = context.Command.ReadCommand()
+            If nextItemCommand(command) Then
+                menuItemIndex = (menuItemIndex + 1) Mod menuItems.Length
+            ElseIf previousItemCommand(command) Then
+                menuItemIndex = (menuItemIndex + menuItems.Length - 1) Mod menuItems.Length
+            ElseIf chooseCommand(command) Then
+                Return HandleMenuItem(menuItems(menuItemIndex))
+            ElseIf cancelCommand(command) Then
+                Dim backState = HandleGoBack()
+                If backState.HasValue Then
+                    Return backState.Value
+                End If
+            End If
         End While
         Dim display = context.Display
         Dim font = getFont(context.Assets)

@@ -1,5 +1,5 @@
 ﻿Friend Class OptionsState
-    Inherits BaseMenuState(Of GameState, Hue, Sfx, HWModel, HWAssets)
+    Inherits BaseMenuState(Of GameState, Hue, Command, Sfx, HWModel, HWAssets)
     Const OptionsText = "Options"
     Const ToggleFullScreenText = "Toggle Full Screen"
     Const WindowSizeText = "Window Size..."
@@ -11,7 +11,7 @@
             "Up/Down/Select | A/Start/Space | B/Esc",
             Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
             Function(cmd) cmd = Command.Up,
-            Function(cmd) cmd = Command.A,
+            Function(cmd) cmd = Command.A OrElse cmd = Command.Start,
             Function(cmd) cmd = Command.B)
         Me.config = config
     End Sub
