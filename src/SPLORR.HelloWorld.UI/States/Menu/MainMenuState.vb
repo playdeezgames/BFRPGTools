@@ -1,5 +1,5 @@
 ﻿Friend Class MainMenuState
-    Inherits BaseMenuState(Of GameState, Hue)
+    Inherits BaseMenuState(Of GameState, Hue, HWModel)
     Const EmbarkText = "Embark!"
     Const OptionsText = "Options..."
     Const AboutText = "About..."

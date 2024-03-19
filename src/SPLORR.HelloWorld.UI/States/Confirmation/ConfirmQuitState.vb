@@ -1,5 +1,5 @@
 ﻿Public Class ConfirmQuitState
-    Inherits BaseMenuState(Of GameState, Hue)
+    Inherits BaseMenuState(Of GameState, Hue, HWModel)
     Const NoText = "No"
     Const YesText = "Yes"
 

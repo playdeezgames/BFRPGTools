@@ -1,5 +1,5 @@
 ﻿Friend Class ChangeSfxVolumeState
-    Inherits BaseMenuState(Of GameState, Hue)
+    Inherits BaseMenuState(Of GameState, Hue, HWModel)
 
     Private ReadOnly config As IHostConfig
     Private sfxTest As Action(Of Sfx)

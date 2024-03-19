@@ -1,5 +1,5 @@
 ﻿Friend Class GameMenuState
-    Inherits BaseMenuState(Of GameState, Hue)
+    Inherits BaseMenuState(Of GameState, Hue, HWModel)
     Const AbandonGameText = "Abandon Game"
 
     Public Sub New()

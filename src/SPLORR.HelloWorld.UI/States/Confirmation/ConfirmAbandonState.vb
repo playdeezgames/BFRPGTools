@@ -1,5 +1,5 @@
 ﻿Friend Class ConfirmAbandonState
-    Inherits BaseMenuState(Of GameState, Hue)
+    Inherits BaseMenuState(Of GameState, Hue, HWModel)
     Const NoText = "No"
     Const YesText = "Yes"
     Const PromptText = "Are you sure you want to abandon the game?"

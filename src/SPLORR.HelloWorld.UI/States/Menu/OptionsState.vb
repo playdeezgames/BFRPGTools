@@ -1,5 +1,5 @@
 ﻿Friend Class OptionsState
-    Inherits BaseMenuState(Of GameState, Hue)
+    Inherits BaseMenuState(Of GameState, Hue, HWModel)
     Const OptionsText = "Options"
     Const ToggleFullScreenText = "Toggle Full Screen"
     Const WindowSizeText = "Window Size..."

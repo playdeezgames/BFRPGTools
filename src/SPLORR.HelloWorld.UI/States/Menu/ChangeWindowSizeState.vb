@@ -1,5 +1,5 @@
 ﻿Friend Class ChangeWindowSizeState
-    Inherits BaseMenuState(Of GameState, Hue)
+    Inherits BaseMenuState(Of GameState, Hue, HWModel)
     Private Shared Function ScaleToText(config As IHostConfig, scale As Integer) As String
         Return $"{config.ViewWidth * scale} x {config.ViewHeight * scale}"
     End Function

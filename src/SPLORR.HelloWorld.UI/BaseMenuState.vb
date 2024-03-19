@@ -1,5 +1,5 @@
-﻿Public MustInherit Class BaseMenuState(Of TState As Structure, TPixel As Structure)
-    Inherits BaseGameState(Of TState, TPixel, Command, Sfx, HWModel, HWAssets)
+﻿Public MustInherit Class BaseMenuState(Of TState As Structure, TPixel As Structure, TModel)
+    Inherits BaseGameState(Of TState, TPixel, Command, Sfx, TModel, HWAssets)
     Private ReadOnly menuItems As String()
     Private ReadOnly title As String
     Private ReadOnly state As TState
@@ -28,7 +28,7 @@
         Me.hiliteHue = hiliteHue
     End Sub
 
-    Public Overrides Function Update(context As IUIContext(Of TPixel, Command, Sfx, HWModel, HWAssets), elapsedTime As TimeSpan) As TState
+    Public Overrides Function Update(context As IUIContext(Of TPixel, Command, Sfx, TModel, HWAssets), elapsedTime As TimeSpan) As TState
         While context.Command.HasCommand
             Select Case context.Command.ReadCommand()
                 Case Command.Down, Command.Select
