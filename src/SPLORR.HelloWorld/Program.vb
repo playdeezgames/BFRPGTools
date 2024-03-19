@@ -37,9 +37,20 @@ Module Program
                 {Sfx.Ok, "Content/WooHoo.wav"}
             }
     Sub Main(args As String())
-
         Using host As New Host(Of Hue, Command, Sfx, Model.HWModel, HWAssets)(
-            New GameController(New HostConfig()),
+            New GameController(New HostConfig(), New MenuStateConfig(Of Hue, Command, HWAssets) With
+                               {
+                                .BackgroundHue = Hue.Black,
+                                .FooterHue = Hue.LightGray,
+                                .HeaderHue = Hue.Orange,
+                                .HiliteHue = Hue.LightBlue,
+                                .FooterText = "A/Start: choose | B: cancel | Down/Select: next | Up: previous",
+                                .GetFont = Function(a) a.Font,
+                                .CancelCommand = Function(cmd) cmd = Command.B,
+                                .ChooseCommand = Function(cmd) cmd = Command.A OrElse cmd = Command.Start,
+                                .NextItemCommand = Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
+                                .PreviousItemCommand = Function(cmd) cmd = Command.Up
+                               }),
             New PaletteRenderer(Of Hue, Color)(palette),
             New BaseInputManager(Of Command)(commandTable),
             New BaseSfxManager(Of Sfx)(sfxFilenames))

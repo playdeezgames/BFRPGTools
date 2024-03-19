@@ -7,8 +7,8 @@
     Private ReadOnly config As IHostConfig
     Private needsInitialization As Boolean 'TODO: need a way to reset this on exit!
 
-    Public Sub New(config As IHostConfig, scales As Integer())
-        MyBase.New("Window Size", scales.Select(Function(x) ScaleToText(config, x)).ToArray, GameState.ChangeWindowSize, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
+    Public Sub New(config As IHostConfig, scales As Integer(), menuconfig As MenuStateConfig(Of Hue, Command, HWAssets))
+        MyBase.New("Window Size", scales.Select(Function(x) ScaleToText(config, x)).ToArray, GameState.ChangeWindowSize, menuconfig, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
             "Up/Down/Select | A/Start/Space | B/Esc",
             Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
             Function(cmd) cmd = Command.Up,

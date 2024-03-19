@@ -4,7 +4,7 @@
     Const OptionsText = "Options..."
     Const AboutText = "About..."
     Const QuitText = "Quit"
-    Sub New()
+    Sub New(config As MenuStateConfig(Of Hue, Command, HWAssets))
         MyBase.New("Main Menu",
                    {
                         EmbarkText,
@@ -12,7 +12,7 @@
                         AboutText,
                         QuitText
                    },
-                   GameState.MainMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
+                   GameState.MainMenu, config, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
                    "Up/Down/Select | A/Start/Space | B/Esc",
             Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
             Function(cmd) cmd = Command.Up,

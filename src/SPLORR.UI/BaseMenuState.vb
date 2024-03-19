@@ -14,6 +14,7 @@
     Private ReadOnly previousItemCommand As Func(Of TCommand, Boolean)
     Private ReadOnly chooseCommand As Func(Of TCommand, Boolean)
     Private ReadOnly cancelCommand As Func(Of TCommand, Boolean)
+    Private ReadOnly config As MenuStateConfig(Of TPixel, TCommand, TAssets)
     Protected Sub SetMenuItemIndex(index As Integer)
         menuItemIndex = Math.Clamp(index, 0, menuItems.Length - 1)
     End Sub
@@ -22,6 +23,7 @@
            title As String,
            menuItems As String(),
            state As TState,
+           config As MenuStateConfig(Of TPixel, TCommand, TAssets),
            backgroundHue As TPixel,
            headerHue As TPixel,
            hiliteHue As TPixel,
@@ -35,6 +37,7 @@
         Me.menuItems = menuItems
         Me.title = title
         Me.state = state
+        Me.config = config
         Me.backgroundHue = backgroundHue
         Me.headerHue = headerHue
         Me.hiliteHue = hiliteHue

@@ -5,11 +5,12 @@
     Const PromptText = "Are you sure you want to abandon the game?"
     Private model As HWModel = Nothing
 
-    Public Sub New()
+    Public Sub New(config As MenuStateConfig(Of Hue, Command, HWAssets))
         MyBase.New(
             PromptText,
             {NoText, YesText},
             GameState.ConfirmAbandon,
+            config,
             Hue.Black,
             Hue.Orange,
             Hue.LightBlue,

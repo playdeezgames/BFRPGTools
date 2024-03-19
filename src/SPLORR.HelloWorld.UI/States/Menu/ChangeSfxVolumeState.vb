@@ -20,8 +20,8 @@
             {"100%", 1.0F}
         }
 
-    Public Sub New(config As IHostConfig)
-        MyBase.New("Sfx Volume", table.Keys.ToArray, GameState.ChangeSfxVolume, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
+    Public Sub New(config As IHostConfig, menuConfig As MenuStateConfig(Of Hue, Command, HWAssets))
+        MyBase.New("Sfx Volume", table.Keys.ToArray, GameState.ChangeSfxVolume, menuConfig, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
             "Up/Down/Select | A/Start/Space | B/Esc",
             Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
             Function(cmd) cmd = Command.Up,
