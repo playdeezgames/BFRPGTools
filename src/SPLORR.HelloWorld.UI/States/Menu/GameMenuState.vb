@@ -1,9 +1,9 @@
 ﻿Friend Class GameMenuState
-    Inherits BaseMenuState(Of GameState, Hue, HWModel)
+    Inherits BaseMenuState(Of GameState, Hue, Sfx, HWModel, HWAssets)
     Const AbandonGameText = "Abandon Game"
 
     Public Sub New()
-        MyBase.New("Game Menu", {AbandonGameText}, GameState.GameMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray)
+        MyBase.New("Game Menu", {AbandonGameText}, GameState.GameMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font)
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState

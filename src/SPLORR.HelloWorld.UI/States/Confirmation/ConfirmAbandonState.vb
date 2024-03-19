@@ -1,12 +1,20 @@
 ﻿Friend Class ConfirmAbandonState
-    Inherits BaseMenuState(Of GameState, Hue, HWModel)
+    Inherits BaseMenuState(Of GameState, Hue, Sfx, HWModel, HWAssets)
     Const NoText = "No"
     Const YesText = "Yes"
     Const PromptText = "Are you sure you want to abandon the game?"
     Private model As HWModel = Nothing
 
     Public Sub New()
-        MyBase.New(PromptText, {NoText, YesText}, GameState.ConfirmAbandon, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray)
+        MyBase.New(
+            PromptText,
+            {NoText, YesText},
+            GameState.ConfirmAbandon,
+            Hue.Black,
+            Hue.Orange,
+            Hue.LightBlue,
+            Hue.DarkGray,
+            Function(a) a.Font)
     End Sub
 
     Public Overrides Function Update(context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets), elapsedTime As TimeSpan) As GameState

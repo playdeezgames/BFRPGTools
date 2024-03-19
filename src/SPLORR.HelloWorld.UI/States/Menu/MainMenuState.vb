@@ -1,5 +1,5 @@
 ﻿Friend Class MainMenuState
-    Inherits BaseMenuState(Of GameState, Hue, HWModel)
+    Inherits BaseMenuState(Of GameState, Hue, Sfx, HWModel, HWAssets)
     Const EmbarkText = "Embark!"
     Const OptionsText = "Options..."
     Const AboutText = "About..."
@@ -12,7 +12,7 @@
                         AboutText,
                         QuitText
                    },
-                   GameState.MainMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray)
+                   GameState.MainMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font)
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState

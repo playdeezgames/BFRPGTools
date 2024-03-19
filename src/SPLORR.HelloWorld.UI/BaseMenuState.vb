@@ -1,5 +1,5 @@
-﻿Public MustInherit Class BaseMenuState(Of TState As Structure, TPixel As Structure, TModel)
-    Inherits BaseGameState(Of TState, TPixel, Command, Sfx, TModel, HWAssets)
+﻿Public MustInherit Class BaseMenuState(Of TState As Structure, TPixel As Structure, TSfx, TModel, TAssets)
+    Inherits BaseGameState(Of TState, TPixel, Command, TSfx, TModel, TAssets)
     Private ReadOnly menuItems As String()
     Private ReadOnly title As String
     Private ReadOnly state As TState
@@ -8,6 +8,7 @@
     Private ReadOnly headerHue As TPixel
     Private ReadOnly hiliteHue As TPixel
     Private ReadOnly footerHue As TPixel
+    Private ReadOnly getFont As Func(Of TAssets, Font)
     Protected Sub SetMenuItemIndex(index As Integer)
         menuItemIndex = Math.Clamp(index, 0, menuItems.Length - 1)
     End Sub
@@ -19,16 +20,19 @@
            backgroundHue As TPixel,
            headerHue As TPixel,
            hiliteHue As TPixel,
-           footerHue As TPixel)
+           footerHue As TPixel,
+           getFont As Func(Of TAssets, Font))
         Me.menuItems = menuItems
         Me.title = title
         Me.state = state
         Me.backgroundHue = backgroundHue
         Me.headerHue = headerHue
         Me.hiliteHue = hiliteHue
+        Me.footerHue = footerHue
+        Me.getFont = getFont
     End Sub
 
-    Public Overrides Function Update(context As IUIContext(Of TPixel, Command, Sfx, TModel, HWAssets), elapsedTime As TimeSpan) As TState
+    Public Overrides Function Update(context As IUIContext(Of TPixel, Command, TSfx, TModel, TAssets), elapsedTime As TimeSpan) As TState
         While context.Command.HasCommand
             Select Case context.Command.ReadCommand()
                 Case Command.Down, Command.Select
@@ -45,7 +49,7 @@
             End Select
         End While
         Dim display = context.Display
-        Dim font = context.Assets.Font
+        Dim font = getFont(context.Assets)
         display.WriteAll(backgroundHue)
         Dim text = title
         font.WriteCenterText(display, 0, text, headerHue)

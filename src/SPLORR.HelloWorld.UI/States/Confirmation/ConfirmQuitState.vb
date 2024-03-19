@@ -1,10 +1,10 @@
 ﻿Public Class ConfirmQuitState
-    Inherits BaseMenuState(Of GameState, Hue, HWModel)
+    Inherits BaseMenuState(Of GameState, Hue, Sfx, HWModel, HWAssets)
     Const NoText = "No"
     Const YesText = "Yes"
 
     Public Sub New()
-        MyBase.New("Are you sure you want to quit?", {NoText, YesText}, GameState.ConfirmQuit, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray)
+        MyBase.New("Are you sure you want to quit?", {NoText, YesText}, GameState.ConfirmQuit, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font)
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState
