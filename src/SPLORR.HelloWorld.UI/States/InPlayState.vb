@@ -66,7 +66,7 @@
             End If
         Else
             If cell.IsLocked Then
-                hue = Hue.LightRed
+                hue = Hue.Pink
             End If
         End If
         Return hue

@@ -4,9 +4,9 @@
         {
             Hue.LightBlue,
             Hue.LightGreen,
-            Hue.LightCyan,
-            Hue.LightRed,
-            Hue.LightMagenta,
+            Hue.Cyan,
+            Hue.Pink,
+            Hue.Purple,
             Hue.Yellow
         }
     Overrides Function Update(context As IUIContext(Of Hue, Command, Sfx, Model.HWModel, HWAssets), elapsedTime As TimeSpan) As GameState
