@@ -8,7 +8,11 @@
 
     Public Sub New(config As IHostConfig)
         MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
-            "Up/Down/Select | A/Start/Space | B/Esc")
+            "Up/Down/Select | A/Start/Space | B/Esc",
+            Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
+            Function(cmd) cmd = Command.Up,
+            Function(cmd) cmd = Command.A,
+            Function(cmd) cmd = Command.B)
         Me.config = config
     End Sub
 

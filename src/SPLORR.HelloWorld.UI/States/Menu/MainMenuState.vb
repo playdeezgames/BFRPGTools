@@ -13,7 +13,11 @@
                         QuitText
                    },
                    GameState.MainMenu, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray, Function(a) a.Font,
-                   "Up/Down/Select | A/Start/Space | B/Esc")
+                   "Up/Down/Select | A/Start/Space | B/Esc",
+            Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
+            Function(cmd) cmd = Command.Up,
+            Function(cmd) cmd = Command.A,
+            Function(cmd) cmd = Command.B)
     End Sub
 
     Protected Overrides Function HandleMenuItem(menuItem As String) As GameState

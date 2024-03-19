@@ -15,7 +15,11 @@
             Hue.LightBlue,
             Hue.DarkGray,
             Function(a) a.Font,
-            "Up/Down/Select | A/Start/Space | B/Esc")
+            "Up/Down/Select | A/Start/Space | B/Esc",
+            Function(cmd) cmd = Command.Down OrElse cmd = Command.Select,
+            Function(cmd) cmd = Command.Up,
+            Function(cmd) cmd = Command.A,
+            Function(cmd) cmd = Command.B)
     End Sub
 
     Public Overrides Function Update(context As IUIContext(Of Hue, Command, Sfx, HWModel, HWAssets), elapsedTime As TimeSpan) As GameState

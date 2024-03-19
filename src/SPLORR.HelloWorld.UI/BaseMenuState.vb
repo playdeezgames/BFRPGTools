@@ -10,6 +10,10 @@
     Private ReadOnly footerHue As TPixel
     Private ReadOnly getFont As Func(Of TAssets, Font)
     Private ReadOnly footerText As String
+    Private ReadOnly nextItemCommand As Func(Of Command, Boolean)
+    Private ReadOnly previousItemCommand As Func(Of Command, Boolean)
+    Private ReadOnly chooseCommand As Func(Of Command, Boolean)
+    Private ReadOnly cancelCommand As Func(Of Command, Boolean)
     Protected Sub SetMenuItemIndex(index As Integer)
         menuItemIndex = Math.Clamp(index, 0, menuItems.Length - 1)
     End Sub
@@ -23,7 +27,11 @@
            hiliteHue As TPixel,
            footerHue As TPixel,
            getFont As Func(Of TAssets, Font),
-           footerText As String)
+           footerText As String,
+           nextItemCommand As Func(Of Command, Boolean),
+           previousItemCommand As Func(Of Command, Boolean),
+           chooseCommand As Func(Of Command, Boolean),
+           cancelCommand As Func(Of Command, Boolean))
         Me.menuItems = menuItems
         Me.title = title
         Me.state = state
@@ -33,6 +41,10 @@
         Me.footerHue = footerHue
         Me.getFont = getFont
         Me.footerText = footerText
+        Me.nextItemCommand = nextItemCommand
+        Me.previousItemCommand = previousItemCommand
+        Me.chooseCommand = chooseCommand
+        Me.cancelCommand = cancelCommand
     End Sub
 
     Public Overrides Function Update(context As IUIContext(Of TPixel, Command, TSfx, TModel, TAssets), elapsedTime As TimeSpan) As TState
