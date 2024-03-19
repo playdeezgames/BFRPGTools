@@ -1,5 +1,5 @@
 ﻿Friend Class OptionsState
-    Inherits BaseMenuState
+    Inherits BaseMenuState(Of GameState, Hue)
     Const OptionsText = "Options"
     Const ToggleFullScreenText = "Toggle Full Screen"
     Const WindowSizeText = "Window Size..."
@@ -7,7 +7,7 @@
     ReadOnly config As IHostConfig
 
     Public Sub New(config As IHostConfig)
-        MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options)
+        MyBase.New(OptionsText, {ToggleFullScreenText, WindowSizeText, SfxVolumeText}, GameState.Options, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray)
         Me.config = config
     End Sub
 

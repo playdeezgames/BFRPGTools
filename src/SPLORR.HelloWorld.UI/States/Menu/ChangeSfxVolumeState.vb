@@ -1,5 +1,5 @@
 ﻿Friend Class ChangeSfxVolumeState
-    Inherits BaseMenuState
+    Inherits BaseMenuState(Of GameState, Hue)
 
     Private ReadOnly config As IHostConfig
     Private sfxTest As Action(Of Sfx)
@@ -21,7 +21,7 @@
         }
 
     Public Sub New(config As IHostConfig)
-        MyBase.New("Sfx Volume", table.Keys.ToArray, GameState.ChangeSfxVolume)
+        MyBase.New("Sfx Volume", table.Keys.ToArray, GameState.ChangeSfxVolume, Hue.Black, Hue.Orange, Hue.LightBlue, Hue.DarkGray)
         Me.config = config
     End Sub
 
