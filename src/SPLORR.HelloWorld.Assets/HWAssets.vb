@@ -9,7 +9,7 @@ Public Class HWAssets
     ReadOnly Property Font As Font
         Get
             If _font Is Nothing Then
-                _font = LoadFont("Content/CyFont4x6.json")
+                _font = LoadFont("Content/CyFont8x8.json")
             End If
             Return _font
         End Get

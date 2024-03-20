@@ -41,9 +41,9 @@ Module Program
             New GameController(New HostConfig(), New MenuStateConfig(Of Hue, Command, HWAssets) With
                                {
                                 .BackgroundHue = Hue.Black,
-                                .FooterHue = Hue.LightGray,
+                                .FooterHue = Hue.DarkGray,
                                 .HeaderHue = Hue.Orange,
-                                .HiliteHue = Hue.LightBlue,
+                                .HiliteHue = Hue.Blue,
                                 .FooterText = "Up/Down/Select | A/Start/Space | B/Esc",
                                 .GetFont = Function(a) a.Font,
                                 .CancelCommand = Function(cmd) cmd = Command.B,
