@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "FontMaker": {
-      "commandName": "Project",
-      "commandLineArgs": "source.png 12 12 E:\\GIT\\BFRPGTools\\src\\SPLORR.HelloWorld\\Content\\pipes.json"
-    }
-  }
-}
