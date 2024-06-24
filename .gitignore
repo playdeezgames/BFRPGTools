@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 /src/PRRPG.Sandbox/ConnectionString.txt
 /Basic-Fantasy-RPG-Rules-r139.pdf
+/src/BFRPG.Sandbox/ConnectionString.txt
