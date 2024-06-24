@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/src/PRRPG.Sandbox/ConnectionString.txt
+/Basic-Fantasy-RPG-Rules-r139.pdf
