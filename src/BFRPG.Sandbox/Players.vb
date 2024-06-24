@@ -1,5 +1,5 @@
 ﻿Friend Module Players
-    Friend Sub DeletePlayer(connection As MySqlConnection, playerId As Integer)
+    Friend Sub Delete(connection As MySqlConnection, playerId As Integer)
         Using command = connection.CreateCommand()
             command.CommandText = $"DELETE FROM {TablePlayers} WHERE {ColumnPlayerId}=@{ColumnPlayerId};"
             command.Parameters.AddWithValue(ColumnPlayerId, playerId)
@@ -8,7 +8,7 @@
     End Sub
 
 
-    Friend Function CreatePlayer(connection As MySqlConnection, playerName As String) As Integer
+    Friend Function Create(connection As MySqlConnection, playerName As String) As Integer
         Using command = connection.CreateCommand
             command.CommandText = $"INSERT INTO {TablePlayers}({ColumnPlayerName}) values(@{ColumnPlayerName});"
             command.Parameters.AddWithValue(ColumnPlayerName, Trim(playerName))
@@ -20,7 +20,7 @@
         End Using
     End Function
 
-    Friend Sub ReadPlayerDetails(connection As MySqlConnection, playerId As Integer, ByRef playerName As String, ByRef characterCount As Integer)
+    Friend Sub ReadDetails(connection As MySqlConnection, playerId As Integer, ByRef playerName As String, ByRef characterCount As Integer)
         Using command = connection.CreateCommand
             command.CommandText = $"SELECT {ColumnPlayerName},{ColumnCharacterCount} FROM {ViewPlayerDetails} WHERE {ColumnPlayerId}=@{ColumnPlayerId};"
             command.Parameters.AddWithValue(ColumnPlayerId, playerId)
@@ -34,7 +34,7 @@
         End Using
     End Sub
 
-    Friend Function ListPlayers(connection As MySqlConnection) As Dictionary(Of String, Integer)
+    Friend Function All(connection As MySqlConnection) As Dictionary(Of String, Integer)
         Dim table As New Dictionary(Of String, Integer)
         Using command = connection.CreateCommand
             command.CommandText = $"SELECT {ColumnPlayerId},{ColumnPlayerName} FROM {TablePlayers} ORDER BY {ColumnPlayerName};"

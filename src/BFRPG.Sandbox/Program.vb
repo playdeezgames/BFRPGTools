@@ -38,7 +38,7 @@ Module Program
     Private Sub PickPlayer(connection As MySqlConnection)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Player?[/]"}
         prompt.AddChoice(GoBackText)
-        Dim table As Dictionary(Of String, Integer) = ListPlayers(connection)
+        Dim table As Dictionary(Of String, Integer) = All(connection)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer
@@ -56,7 +56,7 @@ Module Program
             AnsiConsole.Clear()
             Dim playerName As String = Nothing
             Dim characterCount As Integer = Nothing
-            ReadPlayerDetails(connection, playerId, playerName, characterCount)
+            ReadDetails(connection, playerId, playerName, characterCount)
             AnsiConsole.MarkupLine($"Player Id: {playerId}")
             AnsiConsole.MarkupLine($"Player Name: {playerName}")
             AnsiConsole.MarkupLine($"Character Count: {characterCount}")
@@ -69,7 +69,7 @@ Module Program
                 Case GoBackText
                     done = True
                 Case DeleteText
-                    DeletePlayer(connection, playerId)
+                    Delete(connection, playerId)
                     done = True
             End Select
         End While
@@ -78,7 +78,7 @@ Module Program
     Private Sub NewPlayer(connection As MySqlConnection)
         Dim playerName = AnsiConsole.Ask(NewPlayerNamePrompt, String.Empty)
         If Not String.IsNullOrWhiteSpace(playerName) Then
-            PlayerMenu(connection, CreatePlayer(connection, playerName))
+            PlayerMenu(connection, Create(connection, playerName))
         End If
     End Sub
 End Module
