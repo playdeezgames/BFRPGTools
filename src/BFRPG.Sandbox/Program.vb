@@ -6,7 +6,7 @@ Module Program
         Using connection As New MySqlConnection(File.ReadAllText(ConnectionStringFilename))
             Try
                 connection.Open()
-                MainMenu(connection)
+                RunMainMenu(connection)
             Catch ex As Exception
                 AnsiConsole.WriteException(ex)
                 Console.ReadLine()
@@ -16,7 +16,7 @@ Module Program
         End Using
     End Sub
 
-    Private Sub MainMenu(connection As MySqlConnection)
+    Private Sub RunMainMenu(connection As MySqlConnection)
         Dim done = False
         While Not done
             AnsiConsole.Clear()
@@ -28,14 +28,14 @@ Module Program
                 Case QuitText
                     done = True
                 Case NewPlayerText
-                    NewPlayer(connection)
+                    RunNewPlayer(connection)
                 Case ChoosePlayerText
-                    PickPlayer(connection)
+                    RunPickPlayer(connection)
             End Select
         End While
     End Sub
 
-    Private Sub PickPlayer(connection As MySqlConnection)
+    Private Sub RunPickPlayer(connection As MySqlConnection)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Player?[/]"}
         prompt.AddChoice(GoBackText)
         Dim table As Dictionary(Of String, Integer) = All(connection)
@@ -46,11 +46,11 @@ Module Program
                 Return
             Case Else
                 Dim playerId = table(answer)
-                PlayerMenu(connection, playerId)
+                RunPlayerMenu(connection, playerId)
         End Select
     End Sub
 
-    Private Sub PlayerMenu(connection As MySqlConnection, playerId As Integer)
+    Private Sub RunPlayerMenu(connection As MySqlConnection, playerId As Integer)
         Dim done = False
         While Not done
             AnsiConsole.Clear()
@@ -75,10 +75,10 @@ Module Program
         End While
     End Sub
 
-    Private Sub NewPlayer(connection As MySqlConnection)
+    Private Sub RunNewPlayer(connection As MySqlConnection)
         Dim playerName = AnsiConsole.Ask(NewPlayerNamePrompt, String.Empty)
         If Not String.IsNullOrWhiteSpace(playerName) Then
-            PlayerMenu(connection, Create(connection, playerName))
+            RunPlayerMenu(connection, Create(connection, playerName))
         End If
     End Sub
 End Module
