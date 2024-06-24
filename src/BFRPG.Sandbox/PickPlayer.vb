@@ -1,6 +1,6 @@
 ﻿Friend Module PickPlayer
 
-    Friend Sub RunPickPlayer(connection As MySqlConnection)
+    Friend Sub Run(connection As MySqlConnection)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Player?[/]"}
         prompt.AddChoice(GoBackText)
         Dim table As Dictionary(Of String, Integer) = All(connection)
@@ -11,7 +11,7 @@
                 Return
             Case Else
                 Dim playerId = table(answer)
-                RunPlayerMenu(connection, playerId)
+                PlayerMenu.Run(connection, playerId)
         End Select
     End Sub
 

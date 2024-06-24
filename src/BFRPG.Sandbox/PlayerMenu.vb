@@ -1,6 +1,6 @@
 ﻿Friend Module PlayerMenu
 
-    Friend Sub RunPlayerMenu(connection As MySqlConnection, playerId As Integer)
+    Friend Sub Run(connection As MySqlConnection, playerId As Integer)
         Dim done = False
         While Not done
             AnsiConsole.Clear()
