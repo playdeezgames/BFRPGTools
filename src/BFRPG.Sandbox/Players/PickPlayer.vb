@@ -2,12 +2,12 @@
 
     Friend Sub Run(connection As MySqlConnection)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Player?[/]"}
-        prompt.AddChoice(GoBackText)
+        prompt.AddChoice(ChoiceGoBack)
         Dim table As Dictionary(Of String, Integer) = All(connection)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer
-            Case GoBackText
+            Case ChoiceGoBack
                 Return
             Case Else
                 Dim playerId = table(answer)

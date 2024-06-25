@@ -4,16 +4,16 @@
         Dim done = False
         While Not done
             AnsiConsole.Clear()
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = MainMenuPrompt}
-            prompt.AddChoice(NewPlayerText)
-            prompt.AddChoice(ChoosePlayerText)
-            prompt.AddChoice(QuitText)
+            Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptMainMenu}
+            prompt.AddChoice(ChoiceNewPlayer)
+            prompt.AddChoice(ChoiceChoosePlayer)
+            prompt.AddChoice(ChoiceQuit)
             Select Case AnsiConsole.Prompt(prompt)
-                Case QuitText
+                Case ChoiceQuit
                     done = True
-                Case NewPlayerText
+                Case ChoiceNewPlayer
                     NewPlayer.Run(connection)
-                Case ChoosePlayerText
+                Case ChoiceChoosePlayer
                     PickPlayer.Run(connection)
             End Select
         End While

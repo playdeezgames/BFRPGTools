@@ -3,7 +3,7 @@ Imports System.IO
 Module Program
 
     Sub Main(args As String())
-        Using connection As New MySqlConnection(File.ReadAllText(ConnectionStringFilename))
+        Using connection As New MySqlConnection(File.ReadAllText(FilenameConnectionString))
             Try
                 connection.Open()
                 MainMenu.Run(connection)

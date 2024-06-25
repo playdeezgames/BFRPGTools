@@ -10,15 +10,15 @@
             AnsiConsole.MarkupLine($"Player Id: {playerId}")
             AnsiConsole.MarkupLine($"Player Name: {playerName}")
             AnsiConsole.MarkupLine($"Character Count: {characterCount}")
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = PlayerMenuPrompt}
-            prompt.AddChoice(GoBackText)
+            Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptPlayerMenu}
+            prompt.AddChoice(ChoiceGoBack)
             If characterCount = 0 Then
-                prompt.AddChoice(DeleteText)
+                prompt.AddChoice(ChoiceDelete)
             End If
             Select Case AnsiConsole.Prompt(prompt)
-                Case GoBackText
+                Case ChoiceGoBack
                     done = True
-                Case DeleteText
+                Case ChoiceDelete
                     Delete(connection, playerId)
                     done = True
             End Select
