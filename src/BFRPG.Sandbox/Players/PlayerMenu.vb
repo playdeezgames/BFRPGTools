@@ -1,4 +1,5 @@
 ﻿Friend Module PlayerMenu
+    'TODO: rename player?
 
     Friend Sub Run(connection As MySqlConnection, playerId As Integer)
         Dim done = False
@@ -15,6 +16,7 @@
             If characterCount = 0 Then
                 prompt.AddChoice(ChoiceDelete)
             End If
+            prompt.AddChoice(ChoiceNewCharacter)
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChoiceGoBack
                     done = True
@@ -23,6 +25,8 @@
                         Delete(connection, playerId)
                         done = True
                     End If
+                Case ChoiceNewCharacter
+                    NewCharacter.Run(connection, playerId)
             End Select
         End While
     End Sub

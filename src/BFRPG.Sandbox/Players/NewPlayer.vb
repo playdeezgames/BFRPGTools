@@ -2,7 +2,7 @@
     Friend Sub Run(connection As MySqlConnection)
         Dim playerName = Trim(AnsiConsole.Ask(PromptNewPlayerName, String.Empty))
         If Not String.IsNullOrWhiteSpace(playerName) Then
-            Dim playerId = Create(connection, playerName)
+            Dim playerId = Players.Create(connection, playerName)
             If Not playerId.HasValue Then
                 OkPrompt.Run(MessageDuplicatePlayerName)
                 Return
