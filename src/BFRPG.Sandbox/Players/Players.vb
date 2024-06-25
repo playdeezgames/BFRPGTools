@@ -42,7 +42,7 @@
                 While reader.Read
                     Dim playerId = reader.GetInt32(0)
                     Dim playerName = reader.GetString(1)
-                    table(playerName) = playerId
+                    table($"{playerName}(Id={playerId})") = playerId
                 End While
             End Using
         End Using

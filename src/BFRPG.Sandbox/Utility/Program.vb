@@ -3,6 +3,7 @@ Imports System.IO
 Module Program
 
     Sub Main(args As String())
+        Console.Title = "BFRPG Sandbox"
         Using connection As New MySqlConnection(File.ReadAllText(FilenameConnectionString))
             Try
                 connection.Open()

@@ -1,11 +1,11 @@
 ﻿Friend Module Grimoire
     Friend Const FilenameConnectionString As String = "ConnectionString.txt"
 
-    Friend Const ChoiceNewPlayer As String = "New Player... " & ChrW(8)
-    Friend Const ChoiceChoosePlayer As String = "Choose Player... " & ChrW(8)
-    Friend Const ChoiceQuit As String = "Quit " & ChrW(8)
-    Friend Const ChoiceGoBack = "Go Back " & ChrW(8)
-    Friend Const ChoiceDelete = "Delete " & ChrW(8)
+    Friend Const ChoiceNewPlayer As String = "New Player..."
+    Friend Const ChoiceChoosePlayer As String = "Choose Player..."
+    Friend Const ChoiceQuit As String = "Quit"
+    Friend Const ChoiceGoBack = "Go Back"
+    Friend Const ChoiceDelete = "Delete"
 
     Friend Const PromptMainMenu As String = "[olive]Main Menu[/]"
     Friend Const PromptNewPlayerName As String = "[olive]New Player Name:[/]"
