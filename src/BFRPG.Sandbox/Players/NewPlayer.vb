@@ -10,5 +10,4 @@
             PlayerMenu.Run(connection, playerId.Value)
         End If
     End Sub
-
 End Module
