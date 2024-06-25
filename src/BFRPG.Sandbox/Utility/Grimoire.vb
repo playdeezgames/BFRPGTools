@@ -10,6 +10,7 @@
     Friend Const ChoiceQuit As String = "Quit"
     Friend Const ChoiceYes As String = "Yes"
 
+    Friend Const ColumnAbilityAbbreviation = "ability_abbreviation"
     Friend Const ColumnAbilityId = "ability_id"
     Friend Const ColumnAbilityName = "ability_name"
     Friend Const ColumnAbilityScore = "ability_score"
@@ -41,5 +42,6 @@
     Friend Const TableCharacters = "characters"
     Friend Const TablePlayers = "players"
 
+    Friend Const ViewCharacterAbilityDetails = "character_ability_details"
     Friend Const ViewPlayerDetails = "player_details"
 End Module

@@ -34,4 +34,18 @@ ON DUPLICATE KEY UPDATE
             command.ExecuteNonQuery()
         End Using
     End Sub
+
+    Friend Function ReadAllDetailsForCharacter(connection As MySqlConnection, characterId As Integer) As IEnumerable(Of CharacterAbilityDetails)
+        Dim result As New List(Of CharacterAbilityDetails)
+        Using command = connection.CreateCommand
+            command.CommandText = $"SELECT `{ColumnCharacterId}`, `{ColumnCharacterName}`, `{ColumnAbilityId}`, `{ColumnAbilityName}`, `{ColumnAbilityAbbreviation}`, `{ColumnAbilityScore}` FROM `{ViewCharacterAbilityDetails}` WHERE `{ColumnCharacterId}`=@{ColumnCharacterId};"
+            command.Parameters.AddWithValue(ColumnCharacterId, characterId)
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    result.Add(New CharacterAbilityDetails(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5)))
+                End While
+            End Using
+        End Using
+        Return result
+    End Function
 End Module

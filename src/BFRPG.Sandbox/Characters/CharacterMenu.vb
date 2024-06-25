@@ -5,6 +5,10 @@
             Dim details = Characters.ReadDetails(connection, characterId)
             AnsiConsole.MarkupLine($"Character Id: {details.CharacterId}")
             AnsiConsole.MarkupLine($"Character Name: {details.CharacterName}")
+            Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(connection, characterId)
+            For Each abilityDetail In abilityDetails
+                AnsiConsole.MarkupLine($"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore}")
+            Next
             Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptCharacterMenu}
             prompt.AddChoice(ChoiceGoBack)
             prompt.AddChoice(ChoiceDelete)
