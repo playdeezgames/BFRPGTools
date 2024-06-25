@@ -19,8 +19,10 @@
                 Case ChoiceGoBack
                     done = True
                 Case ChoiceDelete
-                    Delete(connection, playerId)
-                    done = True
+                    If Confirm.Run(ConfirmDeletePlayer) Then
+                        Delete(connection, playerId)
+                        done = True
+                    End If
             End Select
         End While
     End Sub

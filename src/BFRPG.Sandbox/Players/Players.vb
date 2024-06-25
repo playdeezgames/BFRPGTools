@@ -8,15 +8,15 @@
     End Sub
 
 
-    Friend Function Create(connection As MySqlConnection, playerName As String) As Integer
+    Friend Function Create(connection As MySqlConnection, playerName As String) As Integer?
         Using command = connection.CreateCommand
-            command.CommandText = $"INSERT INTO {TablePlayers}({ColumnPlayerName}) values(@{ColumnPlayerName});"
+            command.CommandText = $"INSERT IGNORE INTO {TablePlayers}({ColumnPlayerName}) VALUES(@{ColumnPlayerName}) RETURNING {ColumnPlayerId};"
             command.Parameters.AddWithValue(ColumnPlayerName, Trim(playerName))
-            command.ExecuteNonQuery()
-        End Using
-        Using command = connection.CreateCommand
-            command.CommandText = $"SELECT LAST_INSERT_ID();"
-            Return CInt(command.ExecuteScalar)
+            Dim result = command.ExecuteScalar()
+            If result Is Nothing Then
+                Return Nothing
+            End If
+            Return CInt(result)
         End Using
     End Function
 

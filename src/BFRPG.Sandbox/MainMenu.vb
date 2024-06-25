@@ -10,7 +10,7 @@
             prompt.AddChoice(ChoiceQuit)
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChoiceQuit
-                    done = True
+                    done = Confirm.Run(ConfirmQuit)
                 Case ChoiceNewPlayer
                     NewPlayer.Run(connection)
                 Case ChoiceChoosePlayer
