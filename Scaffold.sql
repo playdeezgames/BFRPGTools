@@ -44,11 +44,14 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `character_name` varchar(50) NOT NULL,
   `player_id` int(11) NOT NULL,
   PRIMARY KEY (`character_id`),
+  UNIQUE KEY `character_name_player_id` (`character_name`,`player_id`),
   KEY `FK_characters_players` (`player_id`),
   CONSTRAINT `FK_characters_players` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.characters: ~0 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.characters: ~1 rows (approximately)
+INSERT INTO `characters` (`character_id`, `character_name`, `player_id`) VALUES
+	(9, 'test', 19);
 
 -- Dumping structure for table basic_fantasy_rpg.character_abilities
 CREATE TABLE IF NOT EXISTS `character_abilities` (
@@ -57,10 +60,31 @@ CREATE TABLE IF NOT EXISTS `character_abilities` (
   `ability_id` int(11) NOT NULL,
   `ability_score` int(11) NOT NULL,
   PRIMARY KEY (`character_ability_id`),
-  UNIQUE KEY `character_id_ability_id` (`character_id`,`ability_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+  UNIQUE KEY `character_id_ability_id` (`character_id`,`ability_id`),
+  KEY `FK_character_abilities_abilities` (`ability_id`),
+  CONSTRAINT `FK_character_abilities_abilities` FOREIGN KEY (`ability_id`) REFERENCES `abilities` (`ability_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_character_abilities_characters` FOREIGN KEY (`character_id`) REFERENCES `characters` (`character_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.character_abilities: ~0 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.character_abilities: ~6 rows (approximately)
+INSERT INTO `character_abilities` (`character_ability_id`, `character_id`, `ability_id`, `ability_score`) VALUES
+	(37, 9, 6, 10),
+	(38, 9, 5, 7),
+	(39, 9, 4, 14),
+	(40, 9, 2, 17),
+	(41, 9, 1, 12),
+	(42, 9, 3, 10);
+
+-- Dumping structure for view basic_fantasy_rpg.character_ability_details
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `character_ability_details` (
+	`character_id` INT(11) NOT NULL,
+	`character_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
+	`ability_score` INT(11) NOT NULL,
+	`ability_id` INT(11) NOT NULL,
+	`ability_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
+	`ability_abbreviation` VARCHAR(3) NOT NULL COLLATE 'latin1_general_ci'
+) ENGINE=MyISAM;
 
 -- Dumping structure for table basic_fantasy_rpg.players
 CREATE TABLE IF NOT EXISTS `players` (
@@ -68,9 +92,11 @@ CREATE TABLE IF NOT EXISTS `players` (
   `player_name` varchar(50) NOT NULL,
   PRIMARY KEY (`player_id`),
   UNIQUE KEY `player_name` (`player_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.players: ~0 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.players: ~1 rows (approximately)
+INSERT INTO `players` (`player_id`, `player_name`) VALUES
+	(19, 'test');
 
 -- Dumping structure for view basic_fantasy_rpg.player_details
 -- Creating temporary table to overcome VIEW dependency errors
@@ -79,6 +105,20 @@ CREATE TABLE `player_details` (
 	`player_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
 	`character_count` BIGINT(21) NOT NULL
 ) ENGINE=MyISAM;
+
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `character_ability_details`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `character_ability_details` AS SELECT 
+	c.character_id,
+	c.character_name,
+	ca.ability_score,
+	a.ability_id,
+	a.ability_name,
+	a.ability_abbreviation
+FROM
+	characters c
+	JOIN character_abilities ca ON ca.character_id=c.character_id
+	JOIN abilities a ON ca.ability_id=a.ability_id ;
 
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `player_details`;
