@@ -9,6 +9,9 @@
     Friend Const ChoiceQuit As String = "Quit"
     Friend Const ChoiceYes As String = "Yes"
 
+    Friend Const ColumnAbilityId = "ability_id"
+    Friend Const ColumnAbilityName = "ability_name"
+    Friend Const ColumnAbilityScore = "ability_score"
     Friend Const ColumnCharacterCount = "character_count"
     Friend Const ColumnCharacterId = "character_id"
     Friend Const ColumnCharacterName = "character_name"
@@ -28,6 +31,8 @@
     Friend Const PromptNewCharacterName As String = "[olive]New Character Name:[/]"
     Friend Const PromptPlayerMenu As String = "[olive]Player Menu:[/]"
 
+    Friend Const TableAbilities = "abilities"
+    Friend Const TableCharacterAbilities = "character_abilities"
     Friend Const TableCharacters = "characters"
     Friend Const TablePlayers = "players"
 
