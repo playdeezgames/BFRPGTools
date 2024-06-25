@@ -1,4 +1,6 @@
-﻿Friend Module Characters
+﻿Imports System.Diagnostics.CodeAnalysis
+
+Friend Module Characters
     Friend Sub Delete(connection As MySqlConnection, characterId As Integer)
         CharacterAbilities.DeleteForCharacter(connection, characterId)
         Using command = connection.CreateCommand
@@ -53,5 +55,21 @@ WHERE
                 Return New CharacterDetails(characterId, reader.GetString(0))
             End Using
         End Using
+    End Function
+
+    Friend Function AllForPlayer(connection As MySqlConnection, playerId As Integer) As Dictionary(Of String, Integer)
+        Dim result As New Dictionary(Of String, Integer)
+        Using command = connection.CreateCommand
+            command.CommandText = $"SELECT `{ColumnCharacterId}`, `{ColumnCharacterName}` FROM `{TableCharacters}` WHERE `{ColumnPlayerId}`=@{ColumnPlayerId};"
+            command.Parameters.AddWithValue(ColumnPlayerId, playerId)
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    Dim characterId = reader.GetInt32(0)
+                    Dim characterName = reader.GetString(1)
+                    result($"{characterName}(Id={characterId})") = characterId
+                End While
+            End Using
+        End Using
+        Return result
     End Function
 End Module

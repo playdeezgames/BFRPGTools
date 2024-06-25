@@ -15,6 +15,7 @@
                 prompt.AddChoice(ChoiceDelete)
             End If
             prompt.AddChoice(ChoiceNewCharacter)
+            prompt.AddChoice(ChoicePickCharacter)
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChoiceGoBack
                     done = True
@@ -25,6 +26,8 @@
                     End If
                 Case ChoiceNewCharacter
                     NewCharacter.Run(connection, playerId)
+                Case ChoicePickCharacter
+                    PickCharacter.Run(connection, playerId)
             End Select
         End While
     End Sub
