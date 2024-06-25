@@ -7,7 +7,7 @@
             AnsiConsole.Clear()
             Dim playerName As String = Nothing
             Dim characterCount As Integer = Nothing
-            ReadDetails(connection, playerId, playerName, characterCount)
+            Players.ReadDetails(connection, playerId, playerName, characterCount)
             AnsiConsole.MarkupLine($"Player Id: {playerId}")
             AnsiConsole.MarkupLine($"Player Name: {playerName}")
             AnsiConsole.MarkupLine($"Character Count: {characterCount}")
@@ -22,7 +22,7 @@
                     done = True
                 Case ChoiceDelete
                     If Confirm.Run(ConfirmDeletePlayer) Then
-                        Delete(connection, playerId)
+                        Players.Delete(connection, playerId)
                         done = True
                     End If
                 Case ChoiceNewCharacter

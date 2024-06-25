@@ -32,4 +32,6 @@
     Friend Const TablePlayers = "players"
 
     Friend Const ViewPlayerDetails = "player_details"
+    Friend Const PromptCharacterMenu As String = "[olive]Character Menu:[/]"
+    Friend Const ConfirmDeleteCharacter As String = "Are you sure you want to delete this character?"
 End Module
