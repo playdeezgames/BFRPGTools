@@ -20,19 +20,18 @@
         End Using
     End Function
 
-    Friend Sub ReadDetails(connection As MySqlConnection, playerId As Integer, ByRef playerName As String, ByRef characterCount As Integer)
+    Friend Function ReadDetails(connection As MySqlConnection, playerId As Integer) As PlayerDetails
         Using command = connection.CreateCommand
             command.CommandText = $"SELECT {ColumnPlayerName},{ColumnCharacterCount} FROM {ViewPlayerDetails} WHERE {ColumnPlayerId}=@{ColumnPlayerId};"
             command.Parameters.AddWithValue(ColumnPlayerId, playerId)
             Using reader = command.ExecuteReader
                 If Not reader.Read Then
-                    Return
+                    Return Nothing
                 End If
-                playerName = reader.GetString(0)
-                characterCount = reader.GetInt32(1)
+                Return New PlayerDetails(playerId, reader.GetString(0), reader.GetInt32(1))
             End Using
         End Using
-    End Sub
+    End Function
 
     Friend Function All(connection As MySqlConnection) As Dictionary(Of String, Integer)
         Dim table As New Dictionary(Of String, Integer)

@@ -5,15 +5,13 @@
         Dim done = False
         While Not done
             AnsiConsole.Clear()
-            Dim playerName As String = Nothing
-            Dim characterCount As Integer = Nothing
-            Players.ReadDetails(connection, playerId, playerName, characterCount)
-            AnsiConsole.MarkupLine($"Player Id: {playerId}")
-            AnsiConsole.MarkupLine($"Player Name: {playerName}")
-            AnsiConsole.MarkupLine($"Character Count: {characterCount}")
+            Dim details = Players.ReadDetails(connection, playerId)
+            AnsiConsole.MarkupLine($"Player Id: {details.PlayerId}")
+            AnsiConsole.MarkupLine($"Player Name: {details.PlayerName}")
+            AnsiConsole.MarkupLine($"Character Count: {details.CharacterCount}")
             Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptPlayerMenu}
             prompt.AddChoice(ChoiceGoBack)
-            If characterCount = 0 Then
+            If details.CharacterCount = 0 Then
                 prompt.AddChoice(ChoiceDelete)
             End If
             prompt.AddChoice(ChoiceNewCharacter)
