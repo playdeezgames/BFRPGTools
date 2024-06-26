@@ -1,6 +1,4 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-
-Friend Module Characters
+﻿Friend Module Characters
     Friend Sub Delete(connection As MySqlConnection, characterId As Integer)
         CharacterAbilities.DeleteForCharacter(connection, characterId)
         Using command = connection.CreateCommand
@@ -10,23 +8,30 @@ Friend Module Characters
         End Using
     End Sub
 
-    Friend Function Create(connection As MySqlConnection, playerId As Integer, characterName As String) As Integer?
+    Friend Function Create(
+                          connection As MySqlConnection,
+                          playerId As Integer,
+                          characterName As String,
+                          raceId As Integer) As Integer?
         Dim characterId As Integer = 0
         Using command = connection.CreateCommand
             command.CommandText = $"
 INSERT IGNORE INTO {TableCharacters}
 (
     {ColumnPlayerId}, 
-    {ColumnCharacterName}
+    {ColumnCharacterName},
+    {ColumnRaceId}
 ) 
 VALUES
 (
     @{ColumnPlayerId}, 
-    @{ColumnCharacterName}
+    @{ColumnCharacterName},
+    @{ColumnRaceId}
 ) 
 RETURNING 
     {ColumnCharacterId};"
             command.Parameters.AddWithValue(ColumnPlayerId, playerId)
+            command.Parameters.AddWithValue(ColumnRaceId, raceId)
             command.Parameters.AddWithValue(ColumnCharacterName, Trim(characterName))
             Dim result = command.ExecuteScalar()
             If result Is Nothing Then
@@ -34,9 +39,6 @@ RETURNING
             End If
             characterId = CInt(result)
         End Using
-        For Each abilityId In Abilities.AllIds(connection)
-            CharacterAbilities.Write(connection, characterId, abilityId, RNG.RollDice(3, 6))
-        Next
         Return characterId
     End Function
 
@@ -71,5 +73,14 @@ WHERE
             End Using
         End Using
         Return result
+    End Function
+
+    Friend Function NameExists(connection As MySqlConnection, playerId As Integer, characterName As String) As Boolean
+        Using command = connection.CreateCommand
+            command.CommandText = $"SELECT COUNT(1) FROM `{TableCharacters}` WHERE `{ColumnPlayerId}`=@{ColumnPlayerId} AND `{ColumnCharacterName}`=@{ColumnCharacterName};"
+            command.Parameters.AddWithValue(ColumnCharacterName, characterName)
+            command.Parameters.AddWithValue(ColumnPlayerId, playerId)
+            Return CInt(command.ExecuteScalar) > 0
+        End Using
     End Function
 End Module

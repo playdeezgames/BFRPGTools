@@ -12,6 +12,8 @@
 
     Friend Const ColumnAbilityAbbreviation = "ability_abbreviation"
     Friend Const ColumnAbilityId = "ability_id"
+    Friend Const ColumnMaximumScore = "maximum_score"
+    Friend Const ColumnMinimumScore = "minimum_score"
     Friend Const ColumnAbilityName = "ability_name"
     Friend Const ColumnAbilityScore = "ability_score"
     Friend Const ColumnCharacterCount = "character_count"
@@ -19,6 +21,8 @@
     Friend Const ColumnCharacterName = "character_name"
     Friend Const ColumnPlayerId = "player_id"
     Friend Const ColumnPlayerName = "player_name"
+    Friend Const ColumnRaceId = "race_id"
+    Friend Const ColumnRaceName = "race_name"
 
     Friend Const ConfirmDeleteCharacter As String = "Are you sure you want to delete this character?"
     Friend Const ConfirmDeletePlayer As String = "Are you sure you want to delete this player?"
@@ -41,7 +45,9 @@
     Friend Const TableCharacterAbilities = "character_abilities"
     Friend Const TableCharacters = "characters"
     Friend Const TablePlayers = "players"
+    Friend Const TableRaces = "races"
 
     Friend Const ViewCharacterAbilityDetails = "character_ability_details"
     Friend Const ViewPlayerDetails = "player_details"
+    Friend Const ViewRaceAbilityRanges = "race_ability_ranges"
 End Module

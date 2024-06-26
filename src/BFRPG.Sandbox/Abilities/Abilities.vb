@@ -1,15 +1,17 @@
 ﻿Friend Module Abilities
-    Friend Function AllIds(connection As MySqlConnection) As IEnumerable(Of Integer)
-        Dim result As New List(Of Integer)
+    Friend Function All(connection As MySqlConnection) As IEnumerable(Of AbilityDetails)
+        Dim result As New List(Of AbilityDetails)
         Using command = connection.CreateCommand()
             command.CommandText = $"
 SELECT 
-    `{ColumnAbilityId}` 
+    `{ColumnAbilityId}`,
+    `{ColumnAbilityName}`,
+    `{ColumnAbilityAbbreviation}`
 FROM 
     `{TableAbilities}`;"
             Using reader = command.ExecuteReader
                 While reader.Read
-                    result.Add(reader.GetInt32(0))
+                    result.Add(New AbilityDetails(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)))
                 End While
             End Using
         End Using

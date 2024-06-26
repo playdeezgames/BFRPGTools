@@ -25,7 +25,7 @@
                         done = True
                     End If
                 Case ChoiceNewCharacter
-                    NewCharacter.Run(connection, playerId)
+                    NewCharacterName.Run(connection, playerId)
                 Case ChoicePickCharacter
                     PickCharacter.Run(connection, playerId)
             End Select
