@@ -46,15 +46,17 @@ RETURNING
         Using command = connection.CreateCommand()
             command.CommandText = $"
 SELECT 
-    `{ColumnCharacterName}` 
+    `{ColumnCharacterName}`,
+    `{ColumnRaceId}`,
+    `{ColumnRaceName}`
 FROM 
-    `{TableCharacters}` 
+    `{ViewCharacterDetails}` 
 WHERE 
     `{ColumnCharacterId}`=@{ColumnCharacterId};"
             command.Parameters.AddWithValue(ColumnCharacterId, characterId)
             Using reader = command.ExecuteReader
                 reader.Read()
-                Return New CharacterDetails(characterId, reader.GetString(0))
+                Return New CharacterDetails(characterId, reader.GetString(0), reader.GetInt32(1), reader.GetString(2))
             End Using
         End Using
     End Function
