@@ -1,6 +1,6 @@
 ﻿Friend Module NewCharacterName
     Friend Sub Run(context As DataContext, playerId As Integer)
-        Dim characterName = Trim(AnsiConsole.Ask(PromptNewCharacterName, String.Empty))
+        Dim characterName = Trim(AnsiConsole.Ask(Prompts.NewCharacterName, String.Empty))
         If Not String.IsNullOrWhiteSpace(characterName) Then
             If Characters.NameExists(context.Connection, playerId, characterName) Then
                 OkPrompt.Run(Messages.DuplicateCharacterName)

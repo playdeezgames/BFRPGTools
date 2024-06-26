@@ -1,6 +1,6 @@
 ﻿Friend Module PickCharacter
     Friend Sub Run(context As DataContext, playerId As Integer)
-        Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptWhichCharacter}
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.WhichCharacter}
         prompt.AddChoice(Choices.GoBack)
         Dim table As Dictionary(Of String, Integer) = Characters.AllForPlayer(context.Connection, playerId)
         prompt.AddChoices(table.Keys)

@@ -9,7 +9,7 @@
             AnsiConsole.MarkupLine($"Player Id: {details.PlayerId}")
             AnsiConsole.MarkupLine($"Player Name: {details.PlayerName}")
             AnsiConsole.MarkupLine($"Character Count: {details.CharacterCount}")
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptPlayerMenu}
+            Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.PlayerMenu}
             prompt.AddChoice(Choices.GoBack)
             If details.CharacterCount = 0 Then
                 prompt.AddChoice(Choices.Delete)

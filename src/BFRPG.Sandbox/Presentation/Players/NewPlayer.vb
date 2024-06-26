@@ -1,6 +1,6 @@
 ﻿Friend Module NewPlayer
     Friend Sub Run(context As DataContext)
-        Dim playerName = Trim(AnsiConsole.Ask(PromptNewPlayerName, String.Empty))
+        Dim playerName = Trim(AnsiConsole.Ask(Prompts.NewPlayerName, String.Empty))
         If Not String.IsNullOrWhiteSpace(playerName) Then
             Dim playerId = Players.Create(context.Connection, playerName)
             If Not playerId.HasValue Then

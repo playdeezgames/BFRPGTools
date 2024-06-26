@@ -1,6 +1,6 @@
 ﻿Friend Module PickPlayer
     Friend Sub Run(context As DataContext)
-        Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptWhichPlayer}
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.WhichPlayer}
         prompt.AddChoice(Choices.GoBack)
         Dim table As Dictionary(Of String, Integer) = Players.All(context.Connection)
         prompt.AddChoices(table.Keys)

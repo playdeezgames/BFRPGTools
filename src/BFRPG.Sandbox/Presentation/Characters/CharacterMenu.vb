@@ -10,7 +10,7 @@
             For Each abilityDetail In abilityDetails
                 AnsiConsole.MarkupLine($"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore}")
             Next
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptCharacterMenu}
+            Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.CharacterMenu}
             prompt.AddChoice(Choices.GoBack)
             prompt.AddChoice(Choices.Delete)
             Select Case AnsiConsole.Prompt(prompt)
