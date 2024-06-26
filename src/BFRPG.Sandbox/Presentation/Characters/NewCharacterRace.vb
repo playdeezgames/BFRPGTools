@@ -14,8 +14,8 @@
         prompt.AddChoices(qualifiedRaces.Keys)
         Dim raceId = qualifiedRaces(AnsiConsole.Prompt(prompt))
         Dim characterId = Characters.Create(context.Connection, playerId, characterName, raceId).Value
-        For Each abilityScore In abilityScores
-            CharacterAbilities.Write(context.Connection, characterId, abilityScore.Key, abilityScore.Value)
+        For Each score In abilityScores
+            CharacterAbilities.Write(context.Connection, characterId, score.Key, score.Value)
         Next
         CharacterMenu.Run(context, characterId)
     End Sub

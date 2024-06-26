@@ -2,8 +2,8 @@
     Friend Sub Delete(connection As MySqlConnection, characterId As Integer)
         CharacterAbilities.DeleteForCharacter(connection, characterId)
         Using command = connection.CreateCommand
-            command.CommandText = $"DELETE FROM `{TableCharacters}` WHERE `{ColumnCharacterId}`=@{ColumnCharacterId};"
-            command.Parameters.AddWithValue(ColumnCharacterId, characterId)
+            command.CommandText = $"DELETE FROM `{TableCharacters}` WHERE `{Columns.CharacterId}`=@{Columns.CharacterId};"
+            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
             command.ExecuteNonQuery()
         End Using
     End Sub
@@ -18,21 +18,21 @@
             command.CommandText = $"
 INSERT IGNORE INTO {TableCharacters}
 (
-    {ColumnPlayerId}, 
-    {ColumnCharacterName},
-    {ColumnRaceId}
+    {Columns.PlayerId}, 
+    {Columns.CharacterName},
+    {Columns.RaceId}
 ) 
 VALUES
 (
-    @{ColumnPlayerId}, 
-    @{ColumnCharacterName},
-    @{ColumnRaceId}
+    @{Columns.PlayerId}, 
+    @{Columns.CharacterName},
+    @{Columns.RaceId}
 ) 
 RETURNING 
-    {ColumnCharacterId};"
-            command.Parameters.AddWithValue(ColumnPlayerId, playerId)
-            command.Parameters.AddWithValue(ColumnRaceId, raceId)
-            command.Parameters.AddWithValue(ColumnCharacterName, Trim(characterName))
+    {Columns.CharacterId};"
+            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
+            command.Parameters.AddWithValue(Columns.RaceId, raceId)
+            command.Parameters.AddWithValue(Columns.CharacterName, Trim(characterName))
             Dim result = command.ExecuteScalar()
             If result Is Nothing Then
                 Return Nothing
@@ -46,16 +46,16 @@ RETURNING
         Using command = connection.CreateCommand()
             command.CommandText = $"
 SELECT 
-    `{ColumnCharacterName}`,
-    `{ColumnRaceId}`,
-    `{ColumnRaceName}`,
-    `{ColumnPlayerId}`,
-    `{ColumnPlayerName}`
+    `{CharacterName}`,
+    `{RaceId}`,
+    `{RaceName}`,
+    `{PlayerId}`,
+    `{PlayerName}`
 FROM 
     `{ViewCharacterDetails}` 
 WHERE 
-    `{ColumnCharacterId}`=@{ColumnCharacterId};"
-            command.Parameters.AddWithValue(ColumnCharacterId, characterId)
+    `{Columns.CharacterId}`=@{Columns.CharacterId};"
+            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
             Using reader = command.ExecuteReader
                 reader.Read()
                 Return New CharacterDetails(characterId, reader.GetString(0), reader.GetInt32(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4))
@@ -66,8 +66,8 @@ WHERE
     Friend Function AllForPlayer(connection As MySqlConnection, playerId As Integer) As Dictionary(Of String, Integer)
         Dim result As New Dictionary(Of String, Integer)
         Using command = connection.CreateCommand
-            command.CommandText = $"SELECT `{ColumnCharacterId}`, `{ColumnCharacterName}` FROM `{TableCharacters}` WHERE `{ColumnPlayerId}`=@{ColumnPlayerId};"
-            command.Parameters.AddWithValue(ColumnPlayerId, playerId)
+            command.CommandText = $"SELECT `{CharacterId}`, `{CharacterName}` FROM `{TableCharacters}` WHERE `{Columns.PlayerId}`=@{Columns.PlayerId};"
+            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
             Using reader = command.ExecuteReader
                 While reader.Read
                     Dim characterId = reader.GetInt32(0)
@@ -81,9 +81,9 @@ WHERE
 
     Friend Function NameExists(connection As MySqlConnection, playerId As Integer, characterName As String) As Boolean
         Using command = connection.CreateCommand
-            command.CommandText = $"SELECT COUNT(1) FROM `{TableCharacters}` WHERE `{ColumnPlayerId}`=@{ColumnPlayerId} AND `{ColumnCharacterName}`=@{ColumnCharacterName};"
-            command.Parameters.AddWithValue(ColumnCharacterName, characterName)
-            command.Parameters.AddWithValue(ColumnPlayerId, playerId)
+            command.CommandText = $"SELECT COUNT(1) FROM `{TableCharacters}` WHERE `{Columns.PlayerId}`=@{Columns.PlayerId} AND `{Columns.CharacterName}`=@{Columns.CharacterName};"
+            command.Parameters.AddWithValue(Columns.CharacterName, characterName)
+            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
             Return CInt(command.ExecuteScalar) > 0
         End Using
     End Function

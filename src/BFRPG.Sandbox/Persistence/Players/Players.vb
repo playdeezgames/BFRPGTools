@@ -1,8 +1,8 @@
 ﻿Friend Module Players
     Friend Sub Delete(connection As MySqlConnection, playerId As Integer)
         Using command = connection.CreateCommand()
-            command.CommandText = $"DELETE FROM {TablePlayers} WHERE {ColumnPlayerId}=@{ColumnPlayerId};"
-            command.Parameters.AddWithValue(ColumnPlayerId, playerId)
+            command.CommandText = $"DELETE FROM {TablePlayers} WHERE {Columns.PlayerId}=@{Columns.PlayerId};"
+            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
             command.ExecuteNonQuery()
         End Using
     End Sub
@@ -10,8 +10,8 @@
 
     Friend Function Create(connection As MySqlConnection, playerName As String) As Integer?
         Using command = connection.CreateCommand
-            command.CommandText = $"INSERT IGNORE INTO {TablePlayers}({ColumnPlayerName}) VALUES(@{ColumnPlayerName}) RETURNING {ColumnPlayerId};"
-            command.Parameters.AddWithValue(ColumnPlayerName, Trim(playerName))
+            command.CommandText = $"INSERT IGNORE INTO {TablePlayers}({Columns.PlayerName}) VALUES(@{Columns.PlayerName}) RETURNING {PlayerId};"
+            command.Parameters.AddWithValue(Columns.PlayerName, Trim(playerName))
             Dim result = command.ExecuteScalar()
             If result Is Nothing Then
                 Return Nothing
@@ -22,8 +22,8 @@
 
     Friend Function ReadDetails(connection As MySqlConnection, playerId As Integer) As PlayerDetails
         Using command = connection.CreateCommand
-            command.CommandText = $"SELECT {ColumnPlayerName},{ColumnCharacterCount} FROM {ViewPlayerDetails} WHERE {ColumnPlayerId}=@{ColumnPlayerId};"
-            command.Parameters.AddWithValue(ColumnPlayerId, playerId)
+            command.CommandText = $"SELECT {PlayerName},{CharacterCount} FROM {ViewPlayerDetails} WHERE {Columns.PlayerId}=@{Columns.PlayerId};"
+            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
             Using reader = command.ExecuteReader
                 If Not reader.Read Then
                     Return Nothing
@@ -36,7 +36,7 @@
     Friend Function All(connection As MySqlConnection) As Dictionary(Of String, Integer)
         Dim table As New Dictionary(Of String, Integer)
         Using command = connection.CreateCommand
-            command.CommandText = $"SELECT {ColumnPlayerId},{ColumnPlayerName} FROM {TablePlayers} ORDER BY {ColumnPlayerName};"
+            command.CommandText = $"SELECT {PlayerId},{PlayerName} FROM {TablePlayers} ORDER BY {PlayerName};"
             Using reader = command.ExecuteReader
                 While reader.Read
                     Dim playerId = reader.GetInt32(0)
