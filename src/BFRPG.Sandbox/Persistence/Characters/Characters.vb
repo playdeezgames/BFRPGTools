@@ -46,13 +46,13 @@ RETURNING
         Using command = connection.CreateCommand()
             command.CommandText = $"
 SELECT 
-    `{CharacterName}`,
-    `{RaceId}`,
-    `{RaceName}`,
-    `{PlayerId}`,
-    `{PlayerName}`
+    `{Columns.CharacterName}`,
+    `{Columns.RaceId}`,
+    `{Columns.RaceName}`,
+    `{Columns.PlayerId}`,
+    `{Columns.PlayerName}`
 FROM 
-    `{ViewCharacterDetails}` 
+    `{Views.CharacterDetails}` 
 WHERE 
     `{Columns.CharacterId}`=@{Columns.CharacterId};"
             command.Parameters.AddWithValue(Columns.CharacterId, characterId)
@@ -66,7 +66,14 @@ WHERE
     Friend Function AllForPlayer(connection As MySqlConnection, playerId As Integer) As Dictionary(Of String, Integer)
         Dim result As New Dictionary(Of String, Integer)
         Using command = connection.CreateCommand
-            command.CommandText = $"SELECT `{CharacterId}`, `{CharacterName}` FROM `{Tables.Characters}` WHERE `{Columns.PlayerId}`=@{Columns.PlayerId};"
+            command.CommandText = $"
+SELECT 
+    `{Columns.CharacterId}`, 
+    `{Columns.CharacterName}` 
+FROM 
+    `{Tables.Characters}` 
+WHERE 
+    `{Columns.PlayerId}`=@{Columns.PlayerId};"
             command.Parameters.AddWithValue(Columns.PlayerId, playerId)
             Using reader = command.ExecuteReader
                 While reader.Read
@@ -81,7 +88,14 @@ WHERE
 
     Friend Function NameExists(connection As MySqlConnection, playerId As Integer, characterName As String) As Boolean
         Using command = connection.CreateCommand
-            command.CommandText = $"SELECT COUNT(1) FROM `{Tables.Characters}` WHERE `{Columns.PlayerId}`=@{Columns.PlayerId} AND `{Columns.CharacterName}`=@{Columns.CharacterName};"
+            command.CommandText = $"
+SELECT 
+    COUNT(1) 
+FROM 
+    `{Tables.Characters}` 
+WHERE 
+    `{Columns.PlayerId}`=@{Columns.PlayerId} AND 
+    `{Columns.CharacterName}`=@{Columns.CharacterName};"
             command.Parameters.AddWithValue(Columns.CharacterName, characterName)
             command.Parameters.AddWithValue(Columns.PlayerId, playerId)
             Return CInt(command.ExecuteScalar) > 0

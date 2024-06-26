@@ -4,9 +4,9 @@
         Using command = connection.CreateCommand()
             command.CommandText = $"
 SELECT 
-    `{AbilityId}`,
-    `{AbilityName}`,
-    `{AbilityAbbreviation}`
+    `{Columns.AbilityId}`,
+    `{Columns.AbilityName}`,
+    `{Columns.AbilityAbbreviation}`
 FROM 
     `{Tables.Abilities}`;"
             Using reader = command.ExecuteReader

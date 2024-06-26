@@ -29,7 +29,11 @@ ON DUPLICATE KEY UPDATE
 
     Friend Sub DeleteForCharacter(connection As MySqlConnection, characterId As Integer)
         Using command = connection.CreateCommand
-            command.CommandText = $"DELETE FROM `{Tables.CharacterAbilities}` WHERE `{Columns.CharacterId}`=@{Columns.CharacterId};"
+            command.CommandText = $"
+DELETE FROM 
+    `{Tables.CharacterAbilities}` 
+WHERE 
+    `{Columns.CharacterId}`=@{Columns.CharacterId};"
             command.Parameters.AddWithValue(Columns.CharacterId, characterId)
             command.ExecuteNonQuery()
         End Using
@@ -38,7 +42,18 @@ ON DUPLICATE KEY UPDATE
     Friend Function ReadAllDetailsForCharacter(connection As MySqlConnection, characterId As Integer) As IEnumerable(Of CharacterAbilityDetails)
         Dim result As New List(Of CharacterAbilityDetails)
         Using command = connection.CreateCommand
-            command.CommandText = $"SELECT `{Columns.CharacterId}`, `{CharacterName}`, `{AbilityId}`, `{AbilityName}`, `{AbilityAbbreviation}`, `{AbilityScore}` FROM `{ViewCharacterAbilityDetails}` WHERE `{Columns.CharacterId}`=@{Columns.CharacterId};"
+            command.CommandText = $"
+SELECT 
+    `{Columns.CharacterId}`, 
+    `{Columns.CharacterName}`, 
+    `{Columns.AbilityId}`, 
+    `{Columns.AbilityName}`, 
+    `{Columns.AbilityAbbreviation}`, 
+    `{Columns.AbilityScore}` 
+FROM 
+    `{Views.CharacterAbilityDetails}` 
+WHERE 
+    `{Columns.CharacterId}`=@{Columns.CharacterId};"
             command.Parameters.AddWithValue(Columns.CharacterId, characterId)
             Using reader = command.ExecuteReader
                 While reader.Read
