@@ -4,7 +4,7 @@
         If Not String.IsNullOrWhiteSpace(playerName) Then
             Dim playerId = Players.Create(context.Connection, playerName)
             If Not playerId.HasValue Then
-                OkPrompt.Run(MessageDuplicatePlayerName)
+                OkPrompt.Run(Messages.DuplicatePlayerName)
                 Return
             End If
             PlayerMenu.Run(context, playerId.Value)

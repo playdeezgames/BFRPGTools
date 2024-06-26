@@ -4,7 +4,7 @@ Module Program
 
     Sub Main(args As String())
         Console.Title = "BFRPG Sandbox"
-        Using connection As New MySqlConnection(File.ReadAllText(FilenameConnectionString))
+        Using connection As New MySqlConnection(File.ReadAllText(Filenames.ConnectionString))
             Try
                 connection.Open()
                 MainMenu.Run(New DataContext(connection))

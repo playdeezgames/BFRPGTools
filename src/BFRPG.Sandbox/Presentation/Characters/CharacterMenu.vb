@@ -11,13 +11,13 @@
                 AnsiConsole.MarkupLine($"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore}")
             Next
             Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptCharacterMenu}
-            prompt.AddChoice(ChoiceGoBack)
-            prompt.AddChoice(ChoiceDelete)
+            prompt.AddChoice(Choices.GoBack)
+            prompt.AddChoice(Choices.Delete)
             Select Case AnsiConsole.Prompt(prompt)
-                Case ChoiceGoBack
+                Case Choices.GoBack
                     Exit Do
-                Case ChoiceDelete
-                    If Confirm.Run(ConfirmDeleteCharacter) Then
+                Case Choices.Delete
+                    If Confirm.Run(Confirms.DeleteCharacter) Then
                         Characters.Delete(context.Connection, characterId)
                         Exit Do
                     End If

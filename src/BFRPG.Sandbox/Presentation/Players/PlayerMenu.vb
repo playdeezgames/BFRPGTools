@@ -10,16 +10,16 @@
             AnsiConsole.MarkupLine($"Player Name: {details.PlayerName}")
             AnsiConsole.MarkupLine($"Character Count: {details.CharacterCount}")
             Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptPlayerMenu}
-            prompt.AddChoice(ChoiceGoBack)
+            prompt.AddChoice(Choices.GoBack)
             If details.CharacterCount = 0 Then
-                prompt.AddChoice(ChoiceDelete)
+                prompt.AddChoice(Choices.Delete)
             End If
             prompt.AddChoice(NewCharacter)
             prompt.AddChoice(ExistingCharacter)
             Select Case AnsiConsole.Prompt(prompt)
-                Case ChoiceGoBack
+                Case Choices.GoBack
                     done = True
-                Case ChoiceDelete
+                Case Choices.Delete
                     If Confirm.Run(ConfirmDeletePlayer) Then
                         Players.Delete(context.Connection, playerId)
                         done = True

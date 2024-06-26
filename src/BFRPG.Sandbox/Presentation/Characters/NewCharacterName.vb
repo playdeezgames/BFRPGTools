@@ -3,7 +3,7 @@
         Dim characterName = Trim(AnsiConsole.Ask(PromptNewCharacterName, String.Empty))
         If Not String.IsNullOrWhiteSpace(characterName) Then
             If Characters.NameExists(context.Connection, playerId, characterName) Then
-                OkPrompt.Run(MessageDuplicateCharacterName)
+                OkPrompt.Run(Messages.DuplicateCharacterName)
                 Return
             End If
             NewCharacterRace.Run(context, playerId, characterName)
