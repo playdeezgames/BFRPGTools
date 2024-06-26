@@ -1,12 +1,12 @@
 ﻿Friend Module CharacterMenu
-    Friend Sub Run(connection As MySqlConnection, characterId As Integer)
+    Friend Sub Run(context As DataContext, characterId As Integer)
         Do
             AnsiConsole.Clear()
-            Dim details = Characters.ReadDetails(connection, characterId)
+            Dim details = Characters.ReadDetails(context.Connection, characterId)
             AnsiConsole.MarkupLine($"Player Name: {details.PlayerName}")
             AnsiConsole.MarkupLine($"Character Name: {details.CharacterName}")
             AnsiConsole.MarkupLine($"Race: {details.RaceName}")
-            Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(connection, characterId)
+            Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(context.Connection, characterId)
             For Each abilityDetail In abilityDetails
                 AnsiConsole.MarkupLine($"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore}")
             Next
@@ -18,7 +18,7 @@
                     Exit Do
                 Case ChoiceDelete
                     If Confirm.Run(ConfirmDeleteCharacter) Then
-                        Characters.Delete(connection, characterId)
+                        Characters.Delete(context.Connection, characterId)
                         Exit Do
                     End If
             End Select

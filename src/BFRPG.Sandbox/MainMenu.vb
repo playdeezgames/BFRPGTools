@@ -1,6 +1,5 @@
 ﻿Friend Module MainMenu
-
-    Friend Sub Run(connection As MySqlConnection)
+    Friend Sub Run(context As DataContext)
         Dim done = False
         While Not done
             AnsiConsole.Clear()
@@ -12,11 +11,10 @@
                 Case ChoiceQuit
                     done = Confirm.Run(ConfirmQuit)
                 Case ChoiceNewPlayer
-                    NewPlayer.Run(connection)
+                    NewPlayer.Run(context)
                 Case ChoiceChoosePlayer
-                    PickPlayer.Run(connection)
+                    PickPlayer.Run(context)
             End Select
         End While
     End Sub
-
 End Module

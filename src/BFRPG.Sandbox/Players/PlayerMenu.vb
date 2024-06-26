@@ -1,11 +1,11 @@
 ﻿Friend Module PlayerMenu
     'TODO: rename player?
 
-    Friend Sub Run(connection As MySqlConnection, playerId As Integer)
+    Friend Sub Run(context As DataContext, playerId As Integer)
         Dim done = False
         While Not done
             AnsiConsole.Clear()
-            Dim details = Players.ReadDetails(connection, playerId)
+            Dim details = Players.ReadDetails(context.Connection, playerId)
             AnsiConsole.MarkupLine($"Player Id: {details.PlayerId}")
             AnsiConsole.MarkupLine($"Player Name: {details.PlayerName}")
             AnsiConsole.MarkupLine($"Character Count: {details.CharacterCount}")
@@ -21,13 +21,13 @@
                     done = True
                 Case ChoiceDelete
                     If Confirm.Run(ConfirmDeletePlayer) Then
-                        Players.Delete(connection, playerId)
+                        Players.Delete(context.Connection, playerId)
                         done = True
                     End If
                 Case ChoiceNewCharacter
-                    NewCharacterName.Run(connection, playerId)
+                    NewCharacterName.Run(context, playerId)
                 Case ChoicePickCharacter
-                    PickCharacter.Run(connection, playerId)
+                    PickCharacter.Run(context, playerId)
             End Select
         End While
     End Sub

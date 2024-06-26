@@ -1,8 +1,8 @@
 ﻿Friend Module PickPlayer
-    Friend Sub Run(connection As MySqlConnection)
+    Friend Sub Run(context As DataContext)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = PromptWhichPlayer}
         prompt.AddChoice(ChoiceGoBack)
-        Dim table As Dictionary(Of String, Integer) = Players.All(connection)
+        Dim table As Dictionary(Of String, Integer) = Players.All(context.Connection)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer
@@ -10,7 +10,7 @@
                 Return
             Case Else
                 Dim playerId = table(answer)
-                PlayerMenu.Run(connection, playerId)
+                PlayerMenu.Run(context, playerId)
         End Select
     End Sub
 
