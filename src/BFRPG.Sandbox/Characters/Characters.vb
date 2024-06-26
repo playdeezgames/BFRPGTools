@@ -48,7 +48,9 @@ RETURNING
 SELECT 
     `{ColumnCharacterName}`,
     `{ColumnRaceId}`,
-    `{ColumnRaceName}`
+    `{ColumnRaceName}`,
+    `{ColumnPlayerId}`,
+    `{ColumnPlayerName}`
 FROM 
     `{ViewCharacterDetails}` 
 WHERE 
@@ -56,7 +58,7 @@ WHERE
             command.Parameters.AddWithValue(ColumnCharacterId, characterId)
             Using reader = command.ExecuteReader
                 reader.Read()
-                Return New CharacterDetails(characterId, reader.GetString(0), reader.GetInt32(1), reader.GetString(2))
+                Return New CharacterDetails(characterId, reader.GetString(0), reader.GetInt32(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4))
             End Using
         End Using
     End Function

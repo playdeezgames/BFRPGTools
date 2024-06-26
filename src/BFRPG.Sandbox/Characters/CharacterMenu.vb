@@ -3,7 +3,7 @@
         Do
             AnsiConsole.Clear()
             Dim details = Characters.ReadDetails(connection, characterId)
-            AnsiConsole.MarkupLine($"Character Id: {details.CharacterId}")
+            AnsiConsole.MarkupLine($"Player Name: {details.PlayerName}")
             AnsiConsole.MarkupLine($"Character Name: {details.CharacterName}")
             AnsiConsole.MarkupLine($"Race: {details.RaceName}")
             Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(connection, characterId)
