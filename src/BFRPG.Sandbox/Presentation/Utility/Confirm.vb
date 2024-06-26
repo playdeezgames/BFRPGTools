@@ -2,10 +2,10 @@
 
     Friend Function Run(message As String) As Boolean
         Dim prompt As New SelectionPrompt(Of String) With {.Title = $"[red]{message}[/]"}
-        prompt.AddChoice(ChoiceNo)
-        prompt.AddChoice(ChoiceYes)
+        prompt.AddChoice(No)
+        prompt.AddChoice(Yes)
         Select Case AnsiConsole.Prompt(prompt)
-            Case ChoiceYes
+            Case Yes
                 Return True
             Case Else
                 Return False

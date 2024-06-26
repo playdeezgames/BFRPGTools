@@ -14,8 +14,8 @@
             If details.CharacterCount = 0 Then
                 prompt.AddChoice(ChoiceDelete)
             End If
-            prompt.AddChoice(ChoiceNewCharacter)
-            prompt.AddChoice(ChoiceExistingCharacter)
+            prompt.AddChoice(NewCharacter)
+            prompt.AddChoice(ExistingCharacter)
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChoiceGoBack
                     done = True
@@ -24,9 +24,9 @@
                         Players.Delete(context.Connection, playerId)
                         done = True
                     End If
-                Case ChoiceNewCharacter
+                Case NewCharacter
                     NewCharacterName.Run(context, playerId)
-                Case ChoiceExistingCharacter
+                Case ExistingCharacter
                     PickCharacter.Run(context, playerId)
             End Select
         End While
