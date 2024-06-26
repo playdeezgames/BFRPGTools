@@ -8,7 +8,7 @@ SELECT
     `{AbilityName}`,
     `{AbilityAbbreviation}`
 FROM 
-    `{TableAbilities}`;"
+    `{Tables.Abilities}`;"
             Using reader = command.ExecuteReader
                 While reader.Read
                     result.Add(New AbilityDetails(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)))

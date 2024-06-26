@@ -6,7 +6,7 @@
                     abilityScore As Integer)
         Using command = connection.CreateCommand
             command.CommandText = $"
-INSERT INTO `{TableCharacterAbilities}`
+INSERT INTO `{Tables.CharacterAbilities}`
 (
     `{Columns.CharacterId}`, 
     `{Columns.AbilityId}`, 
@@ -29,7 +29,7 @@ ON DUPLICATE KEY UPDATE
 
     Friend Sub DeleteForCharacter(connection As MySqlConnection, characterId As Integer)
         Using command = connection.CreateCommand
-            command.CommandText = $"DELETE FROM `{TableCharacterAbilities}` WHERE `{Columns.CharacterId}`=@{Columns.CharacterId};"
+            command.CommandText = $"DELETE FROM `{Tables.CharacterAbilities}` WHERE `{Columns.CharacterId}`=@{Columns.CharacterId};"
             command.Parameters.AddWithValue(Columns.CharacterId, characterId)
             command.ExecuteNonQuery()
         End Using

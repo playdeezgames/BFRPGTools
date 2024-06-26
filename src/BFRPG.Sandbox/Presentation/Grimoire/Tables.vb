@@ -1,7 +1,7 @@
 ﻿Friend Module Tables
-    Friend Const TableAbilities = "abilities"
-    Friend Const TableCharacterAbilities = "character_abilities"
-    Friend Const TableCharacters = "characters"
-    Friend Const TablePlayers = "players"
-    Friend Const TableRaces = "races"
+    Friend Const Abilities = "abilities"
+    Friend Const CharacterAbilities = "character_abilities"
+    Friend Const Characters = "characters"
+    Friend Const Players = "players"
+    Friend Const Races = "races"
 End Module
