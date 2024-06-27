@@ -12,6 +12,21 @@ WHERE
         End Using
     End Sub
 
+    Friend Sub Rename(connection As MySqlConnection, characterId As Integer, characterName As String)
+        Using command = connection.CreateCommand
+            command.CommandText = $"
+UPDATE 
+    `{Tables.Characters}` 
+SET 
+    `{Columns.CharacterName}`=@{Columns.CharacterName} 
+WHERE 
+    `{Columns.CharacterId}`=@{Columns.CharacterId};"
+            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
+            command.Parameters.AddWithValue(Columns.CharacterName, characterName)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
     Friend Function Create(
                           connection As MySqlConnection,
                           playerId As Integer,

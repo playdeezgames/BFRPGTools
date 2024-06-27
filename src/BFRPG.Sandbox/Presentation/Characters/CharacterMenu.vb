@@ -13,7 +13,10 @@
             Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.CharacterMenu}
             prompt.AddChoice(Choices.GoBack)
             prompt.AddChoice(Choices.Delete)
+            prompt.AddChoice(Choices.Rename)
             Select Case AnsiConsole.Prompt(prompt)
+                Case Choices.Rename
+                    RenameCharacter.Run(context, characterId)
                 Case Choices.GoBack
                     Exit Do
                 Case Choices.Delete

@@ -14,11 +14,11 @@
             If details.CharacterCount = 0 Then
                 prompt.AddChoice(Choices.Delete)
             End If
-            prompt.AddChoice(Choices.RenamePlayer)
+            prompt.AddChoice(Choices.Rename)
             prompt.AddChoice(Choices.NewCharacter)
             prompt.AddChoice(Choices.ExistingCharacter)
             Select Case AnsiConsole.Prompt(prompt)
-                Case Choices.RenamePlayer
+                Case Choices.Rename
                     RenamePlayer.Run(context, playerId)
                 Case Choices.GoBack
                     done = True
