@@ -14,7 +14,12 @@
             prompt.AddChoice(Choices.GoBack)
             prompt.AddChoice(Choices.Delete)
             prompt.AddChoice(Choices.Rename)
+            prompt.AddChoice(Choices.Transfer)
             Select Case AnsiConsole.Prompt(prompt)
+                Case Choices.Transfer
+                    If TransferCharacter.Run(context, characterId) Then
+                        Exit Do
+                    End If
                 Case Choices.Rename
                     RenameCharacter.Run(context, characterId)
                 Case Choices.GoBack

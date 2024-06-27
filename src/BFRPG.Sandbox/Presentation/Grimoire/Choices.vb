@@ -10,5 +10,6 @@
     Friend Const Players As String = "Players..."
     Friend Const Quit As String = "Quit"
     Friend Const Rename As String = "Rename..."
+    Friend Const Transfer As String = "Transfer..."
     Friend Const Yes As String = "Yes"
 End Module

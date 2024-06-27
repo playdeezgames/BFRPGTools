@@ -13,7 +13,7 @@
  - [ ] Players
    - [x] Rename
  - [ ] Characters
-   - [ ] Rename
+   - [x] Rename
    - [ ] Transfer To Other Player
  - [ ] Abilities
    - [ ] Calculate Modifiers

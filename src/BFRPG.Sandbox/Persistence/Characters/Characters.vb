@@ -27,6 +27,21 @@ WHERE
         End Using
     End Sub
 
+    Friend Sub Transfer(connection As MySqlConnection, characterId As Integer, playerId As Integer)
+        Using command = connection.CreateCommand
+            command.CommandText = $"
+UPDATE 
+    `{Tables.Characters}` 
+SET 
+    `{Columns.PlayerId}`=@{Columns.PlayerId} 
+WHERE 
+    `{Columns.CharacterId}`=@{Columns.CharacterId};"
+            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
+            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
     Friend Function Create(
                           connection As MySqlConnection,
                           playerId As Integer,
