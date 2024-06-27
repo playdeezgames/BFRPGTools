@@ -11,7 +11,7 @@
  - [ ] Main Menu
    - [x] To Players Menu
  - [ ] Players
-   - [ ] Rename
+   - [x] Rename
  - [ ] Characters
    - [ ] Rename
    - [ ] Transfer To Other Player

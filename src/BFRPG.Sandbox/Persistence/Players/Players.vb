@@ -12,6 +12,20 @@ WHERE {Columns.PlayerId}=@{Columns.PlayerId};"
         End Using
     End Sub
 
+    Friend Sub Rename(connection As MySqlConnection, playerId As Integer, playerName As String)
+        Using command = connection.CreateCommand()
+            command.CommandText = $"
+UPDATE 
+    `{Tables.Players}` 
+SET 
+    `{Columns.PlayerName}`=@{Columns.PlayerName} 
+WHERE 
+    `{Columns.PlayerId}`=@{Columns.PlayerId};"
+            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
+            command.Parameters.AddWithValue(Columns.PlayerName, playerName)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 
     Friend Function Create(
                           connection As MySqlConnection,
@@ -87,5 +101,23 @@ ORDER BY
             End Using
         End Using
         Return result
+    End Function
+
+    Friend Function FindForName(connection As MySqlConnection, playerName As String) As Integer?
+        Using command = connection.CreateCommand
+            command.CommandText = $"
+SELECT 
+    `{Columns.PlayerId}` 
+FROM 
+    `{Tables.Players}` 
+WHERE 
+    `{Columns.PlayerName}`=@{Columns.PlayerName};"
+            command.Parameters.AddWithValue(Columns.PlayerName, playerName)
+            Dim result = command.ExecuteScalar
+            If result Is Nothing Then
+                Return Nothing
+            End If
+            Return CInt(result)
+        End Using
     End Function
 End Module

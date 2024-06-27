@@ -9,5 +9,6 @@
     Friend Const Ok As String = "Ok"
     Friend Const Players As String = "Players..."
     Friend Const Quit As String = "Quit"
+    Friend Const RenamePlayer As String = "Rename Player"
     Friend Const Yes As String = "Yes"
 End Module
