@@ -8,7 +8,7 @@
             AnsiConsole.MarkupLine($"Race: {details.RaceName}")
             Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(context.Connection, characterId)
             For Each abilityDetail In abilityDetails
-                AnsiConsole.MarkupLine($"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore}")
+                AnsiConsole.MarkupLine($"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore} ({abilityDetail.Modifier})")
             Next
             Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.CharacterMenu}
             prompt.AddChoice(Choices.GoBack)

@@ -14,7 +14,7 @@
    - [x] Rename
  - [ ] Characters
    - [x] Rename
-   - [ ] Transfer To Other Player
+   - [x] Transfer To Other Player
  - [ ] Abilities
    - [ ] Calculate Modifiers
  - [ ] Races
