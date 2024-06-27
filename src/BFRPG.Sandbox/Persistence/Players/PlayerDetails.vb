@@ -11,4 +11,9 @@
     Public ReadOnly Property PlayerId As Integer
     Public ReadOnly Property PlayerName As String
     Public ReadOnly Property CharacterCount As Integer
+    Friend ReadOnly Property UniqueName As String
+        Get
+            Return $"{PlayerName}(Id={PlayerId})"
+        End Get
+    End Property
 End Class

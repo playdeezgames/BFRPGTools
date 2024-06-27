@@ -5,6 +5,11 @@
     Friend ReadOnly Property RaceName As String
     Friend ReadOnly Property PlayerId As Integer
     Friend ReadOnly Property PlayerName As String
+    Friend ReadOnly Property UniqueName As String
+        Get
+            Return $"{CharacterName}(Id={CharacterId})"
+        End Get
+    End Property
     Sub New(
            characterId As Object,
            characterName As Object,
