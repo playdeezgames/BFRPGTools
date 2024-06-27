@@ -1,6 +1,4 @@
 ﻿Friend Module Choices
-    Friend Const ExistingCharacter As String = "Existing Character..."
-    Friend Const ExistingPlayer As String = "Existing Player..."
     Friend Const Delete = "Delete"
     Friend Const GoBack = "Go Back"
     Friend Const NewCharacter As String = "New Character..."

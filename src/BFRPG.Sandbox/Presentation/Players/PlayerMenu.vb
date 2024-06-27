@@ -6,8 +6,7 @@
         While Not done
             AnsiConsole.Clear()
             Dim details = Players.ReadDetails(context.Connection, playerId)
-            AnsiConsole.MarkupLine($"Player Id: {details.PlayerId}")
-            AnsiConsole.MarkupLine($"Player Name: {details.PlayerName}")
+            AnsiConsole.MarkupLine($"Player Name: {details.UniqueName}")
             AnsiConsole.MarkupLine($"Character Count: {details.CharacterCount}")
             Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.PlayerMenu}
             prompt.AddChoice(Choices.GoBack)
@@ -16,8 +15,12 @@
             End If
             prompt.AddChoice(Choices.Rename)
             prompt.AddChoice(Choices.NewCharacter)
-            prompt.AddChoice(Choices.ExistingCharacter)
-            Select Case AnsiConsole.Prompt(prompt)
+            Dim table As Dictionary(Of String, Integer) =
+            Characters.AllForPlayer(context.Connection, playerId).
+            ToDictionary(Function(x) x.UniqueName, Function(x) x.CharacterId)
+            prompt.AddChoices(table.Keys)
+            Dim answer = AnsiConsole.Prompt(prompt)
+            Select Case answer
                 Case Choices.Rename
                     RenamePlayer.Run(context, playerId)
                 Case Choices.GoBack
@@ -27,10 +30,11 @@
                         Players.Delete(context.Connection, playerId)
                         done = True
                     End If
-                Case NewCharacter
+                Case Choices.NewCharacter
                     NewCharacterName.Run(context, playerId)
-                Case ExistingCharacter
-                    PickCharacter.Run(context, playerId)
+                Case Else
+                    Dim characterId = table(answer)
+                    CharacterMenu.Run(context, characterId)
             End Select
         End While
     End Sub
