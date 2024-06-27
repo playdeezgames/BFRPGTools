@@ -1,8 +1,8 @@
 ﻿Friend Class AbilityDetails
-    Public Sub New(abilityId As Integer, abilityName As String, abilityAbbreviation As String)
-        Me.AbilityId = abilityId
-        Me.AbilityName = abilityName
-        Me.AbilityAbbreviation = abilityAbbreviation
+    Public Sub New(abilityId As Object, abilityName As Object, abilityAbbreviation As Object)
+        Me.AbilityId = CInt(abilityId)
+        Me.AbilityName = CStr(abilityName)
+        Me.AbilityAbbreviation = CStr(abilityAbbreviation)
     End Sub
 
     Public ReadOnly Property AbilityId As Integer

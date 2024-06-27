@@ -6,17 +6,17 @@
     Friend ReadOnly Property PlayerId As Integer
     Friend ReadOnly Property PlayerName As String
     Sub New(
-           characterId As Integer,
-           characterName As String,
-           raceId As Integer,
-           raceName As String,
-           playerId As Integer,
-           playerName As String)
-        Me.CharacterId = characterId
-        Me.CharacterName = characterName
-        Me.RaceId = raceId
-        Me.RaceName = raceName
-        Me.PlayerId = playerId
-        Me.PlayerName = playerName
+           characterId As Object,
+           characterName As Object,
+           raceId As Object,
+           raceName As Object,
+           playerId As Object,
+           playerName As Object)
+        Me.CharacterId = CInt(characterId)
+        Me.CharacterName = CStr(characterName)
+        Me.RaceId = CInt(raceId)
+        Me.RaceName = CStr(raceName)
+        Me.PlayerId = CInt(playerId)
+        Me.PlayerName = CStr(playerName)
     End Sub
 End Class

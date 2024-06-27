@@ -43,21 +43,22 @@ RETURNING
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 
-    {Columns.PlayerName},
-    {Columns.CharacterCount} 
+    `{Columns.PlayerId}`,
+    `{Columns.PlayerName}`,
+    `{Columns.CharacterCount}`
 FROM 
-    {Views.PlayerDetails} 
+    `{Views.PlayerDetails}` 
 WHERE 
-    {Columns.PlayerId}=@{Columns.PlayerId};"
+    `{Columns.PlayerId}` = @{Columns.PlayerId};"
             command.Parameters.AddWithValue(Columns.PlayerId, playerId)
             Using reader = command.ExecuteReader
                 If Not reader.Read Then
                     Return Nothing
                 End If
                 Return New PlayerDetails(
-                    playerId,
-                    reader.GetString(0),
-                    reader.GetInt32(1))
+                    reader(Columns.PlayerId),
+                    reader(Columns.PlayerName),
+                    reader(Columns.CharacterCount))
             End Using
         End Using
     End Function

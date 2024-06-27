@@ -57,7 +57,14 @@ WHERE
             command.Parameters.AddWithValue(Columns.CharacterId, characterId)
             Using reader = command.ExecuteReader
                 While reader.Read
-                    result.Add(New CharacterAbilityDetails(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5)))
+                    result.Add(
+                        New CharacterAbilityDetails(
+                            reader(Columns.CharacterId),
+                            reader(Columns.CharacterName),
+                            reader(Columns.AbilityId),
+                            reader(Columns.AbilityName),
+                            reader(Columns.AbilityAbbreviation),
+                            reader(Columns.AbilityScore)))
                 End While
             End Using
         End Using

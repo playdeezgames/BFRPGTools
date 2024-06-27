@@ -1,8 +1,11 @@
 ﻿Friend Class PlayerDetails
-    Public Sub New(playerId As Integer, playerName As String, characterCount As Integer)
-        Me.PlayerId = playerId
-        Me.PlayerName = playerName
-        Me.CharacterCount = characterCount
+    Public Sub New(
+                  playerId As Object,
+                  playerName As Object,
+                  characterCount As Object)
+        Me.PlayerId = CInt(playerId)
+        Me.PlayerName = CStr(playerName)
+        Me.CharacterCount = CInt(characterCount)
     End Sub
 
     Public ReadOnly Property PlayerId As Integer

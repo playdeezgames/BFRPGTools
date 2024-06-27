@@ -1,7 +1,9 @@
 ﻿Friend Class RaceDetails
-    Public Sub New(raceId As Integer, raceName As String)
-        Me.RaceId = raceId
-        Me.RaceName = raceName
+    Public Sub New(
+                  raceId As Object,
+                  raceName As Object)
+        Me.RaceId = CInt(raceId)
+        Me.RaceName = CStr(raceName)
     End Sub
 
     Public ReadOnly Property RaceId As Integer

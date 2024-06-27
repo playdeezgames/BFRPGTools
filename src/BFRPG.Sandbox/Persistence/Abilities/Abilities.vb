@@ -11,7 +11,10 @@ FROM
     `{Tables.Abilities}`;"
             Using reader = command.ExecuteReader
                 While reader.Read
-                    result.Add(New AbilityDetails(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)))
+                    result.Add(New AbilityDetails(
+                                reader(Columns.AbilityId),
+                                reader(Columns.AbilityName),
+                                reader(Columns.AbilityAbbreviation)))
                 End While
             End Using
         End Using

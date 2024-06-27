@@ -2,7 +2,11 @@
     Friend Sub Delete(connection As MySqlConnection, characterId As Integer)
         CharacterAbilities.DeleteForCharacter(connection, characterId)
         Using command = connection.CreateCommand
-            command.CommandText = $"DELETE FROM `{Tables.Characters}` WHERE `{Columns.CharacterId}`=@{Columns.CharacterId};"
+            command.CommandText = $"
+DELETE FROM 
+    `{Tables.Characters}` 
+WHERE 
+    `{Columns.CharacterId}`=@{Columns.CharacterId};"
             command.Parameters.AddWithValue(Columns.CharacterId, characterId)
             command.ExecuteNonQuery()
         End Using
@@ -86,11 +90,11 @@ WHERE
         Return result
     End Function
 
-    Friend Function NameExists(connection As MySqlConnection, playerId As Integer, characterName As String) As Boolean
+    Friend Function FindForPlayerAndName(connection As MySqlConnection, playerId As Integer, characterName As String) As Integer?
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 
-    COUNT(1) 
+    `{Columns.CharacterId}`
 FROM 
     `{Tables.Characters}` 
 WHERE 
@@ -98,7 +102,11 @@ WHERE
     `{Columns.CharacterName}`=@{Columns.CharacterName};"
             command.Parameters.AddWithValue(Columns.CharacterName, characterName)
             command.Parameters.AddWithValue(Columns.PlayerId, playerId)
-            Return CInt(command.ExecuteScalar) > 0
+            Dim result = command.ExecuteScalar
+            If result Is Nothing Then
+                Return Nothing
+            End If
+            Return CInt(result)
         End Using
     End Function
 End Module

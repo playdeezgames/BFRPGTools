@@ -1,17 +1,17 @@
 ﻿Friend Class CharacterAbilityDetails
     Public Sub New(
-                  characterId As Integer,
-                  characterName As String,
-                  abilityId As Integer,
-                  abilityName As String,
-                  abilityAbbreviation As String,
-                  abilityScore As Integer)
-        Me.CharacterId = characterId
-        Me.CharacterName = characterName
-        Me.AbilityId = abilityId
-        Me.AbilityName = abilityName
-        Me.AbilityAbbreviation = abilityAbbreviation
-        Me.AbilityScore = abilityScore
+                  characterId As Object,
+                  characterName As Object,
+                  abilityId As Object,
+                  abilityName As Object,
+                  abilityAbbreviation As Object,
+                  abilityScore As Object)
+        Me.CharacterId = CInt(characterId)
+        Me.CharacterName = CStr(characterName)
+        Me.AbilityId = CInt(abilityId)
+        Me.AbilityName = CStr(abilityName)
+        Me.AbilityAbbreviation = CStr(abilityAbbreviation)
+        Me.AbilityScore = CInt(abilityScore)
     End Sub
 
     Public ReadOnly Property CharacterId As Integer
