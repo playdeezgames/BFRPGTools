@@ -20,7 +20,7 @@
                 Case Choices.GoBack
                     done = True
                 Case Choices.Delete
-                    If Confirm.Run(ConfirmDeletePlayer) Then
+                    If Confirm.Run(Confirms.DeletePlayer) Then
                         Players.Delete(context.Connection, playerId)
                         done = True
                     End If

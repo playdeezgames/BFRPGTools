@@ -4,6 +4,7 @@
     Friend Const NewPlayerName As String = "[olive]New Player Name:[/]"
     Friend Const NewCharacterName As String = "[olive]New Character Name:[/]"
     Friend Const PlayerMenu As String = "[olive]Player Menu:[/]"
+    Friend Const PlayersMenu As String = "[olive]Players Menu:[/]"
     Friend Const WhichCharacter As String = "[olive]Which Character?[/]"
     Friend Const WhichPlayer As String = "[olive]Which Player?[/]"
 End Module

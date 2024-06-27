@@ -1,20 +1,18 @@
 ﻿Friend Module MainMenu
     Friend Sub Run(context As DataContext)
-        Dim done = False
-        While Not done
+        Do
             AnsiConsole.Clear()
             Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.MainMenu}
-            prompt.AddChoice(Choices.NewPlayer)
-            prompt.AddChoice(ExistingPlayer)
-            prompt.AddChoice(Quit)
+            prompt.AddChoice(Choices.Players)
+            prompt.AddChoice(Choices.Quit)
             Select Case AnsiConsole.Prompt(prompt)
-                Case Quit
-                    done = Confirm.Run(ConfirmQuit)
-                Case Choices.NewPlayer
-                    NewPlayer.Run(context)
-                Case ExistingPlayer
-                    PickPlayer.Run(context)
+                Case Choices.Quit
+                    If Confirm.Run(Confirms.Quit) Then
+                        Exit Do
+                    End If
+                Case Choices.Players
+                    PlayersMenu.Run(context)
             End Select
-        End While
+        Loop
     End Sub
 End Module
