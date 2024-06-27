@@ -64,25 +64,28 @@ WHERE
     End Function
 
     Friend Function All(
-                       connection As MySqlConnection) As Dictionary(Of String, Integer)
-        Dim table As New Dictionary(Of String, Integer)
+                       connection As MySqlConnection) As IEnumerable(Of PlayerDetails)
+        Dim result As New List(Of PlayerDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 
     {Columns.PlayerId},
-    {Columns.PlayerName} 
+    {Columns.PlayerName},
+    {Columns.CharacterCount}
 FROM 
-    {Tables.Players} 
+    {Views.PlayerDetails} 
 ORDER BY 
     {Columns.PlayerName};"
             Using reader = command.ExecuteReader
                 While reader.Read
-                    Dim playerId = reader.GetInt32(0)
-                    Dim playerName = reader.GetString(1)
-                    table($"{playerName}(Id={playerId})") = playerId
+                    result.Add(
+                        New PlayerDetails(
+                            reader(Columns.PlayerId),
+                            reader(Columns.PlayerName),
+                            reader(Columns.CharacterCount)))
                 End While
             End Using
         End Using
-        Return table
+        Return result
     End Function
 End Module
