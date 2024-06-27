@@ -2,7 +2,9 @@
     Friend Sub Run(context As DataContext, playerId As Integer)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.WhichCharacter}
         prompt.AddChoice(Choices.GoBack)
-        Dim table As Dictionary(Of String, Integer) = Characters.AllForPlayer(context.Connection, playerId)
+        Dim table As Dictionary(Of String, Integer) =
+            Characters.AllForPlayer(context.Connection, playerId).
+            ToDictionary(Function(x) x.UniqueName, Function(x) x.CharacterId)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer

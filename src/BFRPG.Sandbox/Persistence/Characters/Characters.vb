@@ -67,23 +67,32 @@ WHERE
         End Using
     End Function
 
-    Friend Function AllForPlayer(connection As MySqlConnection, playerId As Integer) As Dictionary(Of String, Integer)
-        Dim result As New Dictionary(Of String, Integer)
+    Friend Function AllForPlayer(connection As MySqlConnection, playerId As Integer) As IEnumerable(Of CharacterDetails)
+        Dim result As New List(Of CharacterDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 
-    `{Columns.CharacterId}`, 
-    `{Columns.CharacterName}` 
+    `{Columns.CharacterId}`,
+    `{Columns.CharacterName}`,
+    `{Columns.RaceId}`,
+    `{Columns.RaceName}`,
+    `{Columns.PlayerId}`,
+    `{Columns.PlayerName}`
 FROM 
-    `{Tables.Characters}` 
+    `{Views.CharacterDetails}` 
 WHERE 
     `{Columns.PlayerId}`=@{Columns.PlayerId};"
             command.Parameters.AddWithValue(Columns.PlayerId, playerId)
             Using reader = command.ExecuteReader
-                While reader.Read
-                    Dim characterId = reader.GetInt32(0)
-                    Dim characterName = reader.GetString(1)
-                    result($"{characterName}(Id={characterId})") = characterId
+                While reader.Read()
+                    result.Add(
+                    New CharacterDetails(
+                        reader(Columns.CharacterId),
+                        reader(Columns.CharacterName),
+                        reader(Columns.RaceId),
+                        reader(Columns.RaceName),
+                        reader(Columns.PlayerId),
+                        reader(Columns.PlayerName)))
                 End While
             End Using
         End Using
