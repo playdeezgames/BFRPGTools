@@ -16,7 +16,7 @@
    - [x] Rename
    - [x] Transfer To Other Player
  - [ ] Abilities
-   - [ ] Calculate Modifiers
+   - [x] Calculate Modifiers
  - [ ] Races
  - [ ] Classes
    - [ ] Levels

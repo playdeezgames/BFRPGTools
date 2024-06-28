@@ -2,6 +2,7 @@
     Friend Const Abilities = "abilities"
     Friend Const CharacterAbilities = "character_abilities"
     Friend Const Characters = "characters"
+    Friend Const Classes = "classes"
     Friend Const Players = "players"
     Friend Const Races = "races"
 End Module

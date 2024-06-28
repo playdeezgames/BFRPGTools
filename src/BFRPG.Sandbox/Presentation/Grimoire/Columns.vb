@@ -8,6 +8,8 @@
     Friend Const CharacterCount = "character_count"
     Friend Const CharacterId = "character_id"
     Friend Const CharacterName = "character_name"
+    Friend Const ClassId = "class_id"
+    Friend Const ClassName = "class_name"
     Friend Const PlayerId = "player_id"
     Friend Const PlayerName = "player_name"
     Friend Const RaceId = "race_id"
