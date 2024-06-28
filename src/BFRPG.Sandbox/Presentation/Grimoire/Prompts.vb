@@ -7,4 +7,5 @@
     Friend Const PlayersMenu As String = "[olive]Players Menu:[/]"
     Friend Const WhichCharacter As String = "[olive]Which Character?[/]"
     Friend Const WhichPlayer As String = "[olive]Which Player?[/]"
+    Friend Const WhichRaceClass As String = "[olive]Race/Class?[/]"
 End Module

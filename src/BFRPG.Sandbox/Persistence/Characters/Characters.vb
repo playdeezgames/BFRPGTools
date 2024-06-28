@@ -46,8 +46,7 @@ WHERE
                           connection As MySqlConnection,
                           playerId As Integer,
                           characterName As String,
-                          raceId As Integer,
-                          classId As Integer) As Integer?
+                          raceClassId As Integer) As Integer?
         Dim characterId As Integer = 0
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -55,22 +54,19 @@ INSERT IGNORE INTO {Tables.Characters}
 (
     {Columns.PlayerId}, 
     {Columns.CharacterName},
-    {Columns.RaceId},
-    {Columns.ClassId}
+    {Columns.RaceClassId}
 ) 
 VALUES
 (
     @{Columns.PlayerId}, 
     @{Columns.CharacterName},
-    @{Columns.RaceId},
-    @{Columns.ClassId}
+    @{Columns.RaceClassId}
 ) 
 RETURNING 
     {Columns.CharacterId};"
             command.Parameters.AddWithValue(Columns.PlayerId, playerId)
-            command.Parameters.AddWithValue(Columns.RaceId, raceId)
+            command.Parameters.AddWithValue(Columns.RaceClassId, raceClassId)
             command.Parameters.AddWithValue(Columns.CharacterName, Trim(characterName))
-            command.Parameters.AddWithValue(Columns.ClassId, classId)
             Dim result = command.ExecuteScalar()
             If result Is Nothing Then
                 Return Nothing

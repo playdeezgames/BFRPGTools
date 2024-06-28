@@ -6,7 +6,7 @@
                 OkPrompt.Run(Messages.DuplicateCharacterName)
                 Return
             End If
-            NewCharacterRace.Run(context, playerId, characterName)
+            NewCharacterRaceClass.Run(context, playerId, characterName)
         End If
     End Sub
 End Module

@@ -12,6 +12,7 @@
     Friend Const ClassName = "class_name"
     Friend Const PlayerId = "player_id"
     Friend Const PlayerName = "player_name"
+    Friend Const RaceClassId = "race_class_id"
     Friend Const RaceId = "race_id"
     Friend Const RaceName = "race_name"
 End Module

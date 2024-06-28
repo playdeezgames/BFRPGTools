@@ -4,4 +4,6 @@
     Friend Const ClassAbilityRanges = "class_ability_ranges"
     Friend Const PlayerDetails = "player_details"
     Friend Const RaceAbilityRanges = "race_ability_ranges"
+    Friend Const RaceClassAbilityRanges = "race_class_ability_ranges"
+    Friend Const RaceClassDetails = "race_class_details"
 End Module
