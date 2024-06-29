@@ -93,7 +93,8 @@ SELECT
     `{Columns.ClassId}`,
     `{Columns.ClassName}`,
     `{Columns.ExperiencePoints}`,
-    `{Columns.Level}`
+    `{Columns.Level}`,
+    `{Columns.HitPoints}`
 FROM 
     `{Views.CharacterDetails}` 
 WHERE 
@@ -111,7 +112,8 @@ WHERE
                     reader(Columns.ClassId),
                     reader(Columns.ClassName),
                     reader(Columns.ExperiencePoints),
-                    reader(Columns.Level))
+                    reader(Columns.Level),
+                    reader(Columns.HitPoints))
             End Using
         End Using
     End Function
@@ -130,7 +132,8 @@ SELECT
     `{Columns.ClassId}`,
     `{Columns.ClassName}`,
     `{Columns.ExperiencePoints}`,
-    `{Columns.Level}`
+    `{Columns.Level}`,
+    `{Columns.HitPoints}`
 FROM 
     `{Views.CharacterDetails}` 
 WHERE 
@@ -149,7 +152,8 @@ WHERE
                         reader(Columns.ClassId),
                         reader(Columns.ClassName),
                         reader(Columns.ExperiencePoints),
-                        reader(Columns.Level)))
+                        reader(Columns.Level),
+                        reader(Columns.HitPoints)))
                 End While
             End Using
         End Using

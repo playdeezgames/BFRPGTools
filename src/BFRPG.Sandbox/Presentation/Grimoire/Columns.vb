@@ -14,11 +14,12 @@
     Friend Const ExperiencePoints = "experience_points"
     Friend Const HitDieSize = "hit_die_size"
     Friend Const Die = "die"
+    Friend Const HitPoints = "hit_points"
+    Friend Const Level = "level"
     Friend Const MaximumHitDice = "maximum_hit_dice"
     Friend Const PlayerId = "player_id"
     Friend Const PlayerName = "player_name"
     Friend Const RaceClassId = "race_class_id"
     Friend Const RaceId = "race_id"
     Friend Const RaceName = "race_name"
-    Friend Const Level = "level"
 End Module

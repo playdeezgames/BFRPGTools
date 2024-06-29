@@ -9,6 +9,7 @@
     Friend ReadOnly Property ClassName As String
     Friend ReadOnly Property Level As Integer
     Friend ReadOnly Property ExperiencePoints As Integer
+    Friend ReadOnly Property HitPoints As Integer
     Friend ReadOnly Property UniqueName As String
         Get
             Return $"{CharacterName}(Id={CharacterId})"
@@ -24,7 +25,8 @@
            classId As Object,
            className As Object,
            experiencePoints As Object,
-           level As Object)
+           level As Object,
+           hitPoints As Object)
         Me.CharacterId = CInt(characterId)
         Me.CharacterName = CStr(characterName)
         Me.RaceId = CInt(raceId)
@@ -35,5 +37,6 @@
         Me.ClassName = CStr(className)
         Me.ExperiencePoints = CInt(experiencePoints)
         Me.Level = CInt(level)
+        Me.HitPoints = CInt(hitPoints)
     End Sub
 End Class
