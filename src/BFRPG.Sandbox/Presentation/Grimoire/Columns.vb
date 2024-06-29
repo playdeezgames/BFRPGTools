@@ -10,9 +10,11 @@
     Friend Const CharacterName = "character_name"
     Friend Const ClassId = "class_id"
     Friend Const ClassName = "class_name"
+    Friend Const ExperiencePoints = "experience_points"
     Friend Const PlayerId = "player_id"
     Friend Const PlayerName = "player_name"
     Friend Const RaceClassId = "race_class_id"
     Friend Const RaceId = "race_id"
     Friend Const RaceName = "race_name"
+    Friend Const Level = "level"
 End Module

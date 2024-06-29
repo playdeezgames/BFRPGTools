@@ -7,6 +7,8 @@
             AnsiConsole.MarkupLine($"Character Name: {details.UniqueName}")
             AnsiConsole.MarkupLine($"Race: {details.RaceName}")
             AnsiConsole.MarkupLine($"Class: {details.ClassName}")
+            AnsiConsole.MarkupLine($"Level: {details.Level}")
+            AnsiConsole.MarkupLine($"XP: {details.ExperiencePoints}")
             Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(context.Connection, characterId)
             For Each abilityDetail In abilityDetails
                 AnsiConsole.MarkupLine($"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore} ({abilityDetail.Modifier})")

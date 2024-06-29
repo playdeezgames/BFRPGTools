@@ -46,7 +46,8 @@ WHERE
                           connection As MySqlConnection,
                           playerId As Integer,
                           characterName As String,
-                          raceClassId As Integer) As Integer?
+                          raceClassId As Integer,
+                          experiencePoints As Integer) As Integer?
         Dim characterId As Integer = 0
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -54,18 +55,21 @@ INSERT IGNORE INTO {Tables.Characters}
 (
     {Columns.PlayerId}, 
     {Columns.CharacterName},
-    {Columns.RaceClassId}
+    {Columns.RaceClassId},
+    {Columns.ExperiencePoints}
 ) 
 VALUES
 (
     @{Columns.PlayerId}, 
     @{Columns.CharacterName},
-    @{Columns.RaceClassId}
+    @{Columns.RaceClassId},
+    @{Columns.ExperiencePoints}
 ) 
 RETURNING 
     {Columns.CharacterId};"
             command.Parameters.AddWithValue(Columns.PlayerId, playerId)
             command.Parameters.AddWithValue(Columns.RaceClassId, raceClassId)
+            command.Parameters.AddWithValue(Columns.ExperiencePoints, experiencePoints)
             command.Parameters.AddWithValue(Columns.CharacterName, Trim(characterName))
             Dim result = command.ExecuteScalar()
             If result Is Nothing Then
@@ -87,7 +91,9 @@ SELECT
     `{Columns.PlayerId}`,
     `{Columns.PlayerName}`,
     `{Columns.ClassId}`,
-    `{Columns.ClassName}`
+    `{Columns.ClassName}`,
+    `{Columns.ExperiencePoints}`,
+    `{Columns.Level}`
 FROM 
     `{Views.CharacterDetails}` 
 WHERE 
@@ -103,7 +109,9 @@ WHERE
                     reader(Columns.PlayerId),
                     reader(Columns.PlayerName),
                     reader(Columns.ClassId),
-                    reader(Columns.ClassName))
+                    reader(Columns.ClassName),
+                    reader(Columns.ExperiencePoints),
+                    reader(Columns.Level))
             End Using
         End Using
     End Function
@@ -120,7 +128,9 @@ SELECT
     `{Columns.PlayerId}`,
     `{Columns.PlayerName}`,
     `{Columns.ClassId}`,
-    `{Columns.ClassName}`
+    `{Columns.ClassName}`,
+    `{Columns.ExperiencePoints}`,
+    `{Columns.Level}`
 FROM 
     `{Views.CharacterDetails}` 
 WHERE 
@@ -137,7 +147,9 @@ WHERE
                         reader(Columns.PlayerId),
                         reader(Columns.PlayerName),
                         reader(Columns.ClassId),
-                        reader(Columns.ClassName)))
+                        reader(Columns.ClassName),
+                        reader(Columns.ExperiencePoints),
+                        reader(Columns.Level)))
                 End While
             End Using
         End Using

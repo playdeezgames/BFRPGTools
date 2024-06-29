@@ -13,7 +13,7 @@
         Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.WhichRaceClass}
         prompt.AddChoices(qualifiedRaceClasses.Keys)
         Dim raceClassId = qualifiedRaceClasses(AnsiConsole.Prompt(prompt))
-        Dim characterId = Characters.Create(context.Connection, playerId, characterName, raceClassId).Value
+        Dim characterId = Characters.Create(context.Connection, playerId, characterName, raceClassId, 0).Value
         For Each score In abilityScores
             CharacterAbilities.Write(context.Connection, characterId, score.Key, score.Value)
         Next
