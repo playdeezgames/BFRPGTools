@@ -66,23 +66,26 @@ WHERE
                           playerId As Integer,
                           characterName As String,
                           raceClassId As Integer,
-                          experiencePoints As Integer) As Integer?
+                          experiencePoints As Integer,
+                          characterDescription As String) As Integer?
         Dim characterId As Integer = 0
         Using command = connection.CreateCommand
             command.CommandText = $"
 INSERT IGNORE INTO {Tables.Characters}
 (
-    {Columns.PlayerId}, 
-    {Columns.CharacterName},
-    {Columns.RaceClassId},
-    {Columns.ExperiencePoints}
+    `{Columns.PlayerId}`, 
+    `{Columns.CharacterName}`,
+    `{Columns.RaceClassId}`,
+    `{Columns.ExperiencePoints}`,
+    `{Columns.CharacterDescription}`
 ) 
 VALUES
 (
     @{Columns.PlayerId}, 
     @{Columns.CharacterName},
     @{Columns.RaceClassId},
-    @{Columns.ExperiencePoints}
+    @{Columns.ExperiencePoints},
+    @{Columns.CharacterDescription}
 ) 
 RETURNING 
     {Columns.CharacterId};"
@@ -90,6 +93,7 @@ RETURNING
             command.Parameters.AddWithValue(Columns.RaceClassId, raceClassId)
             command.Parameters.AddWithValue(Columns.ExperiencePoints, experiencePoints)
             command.Parameters.AddWithValue(Columns.CharacterName, Trim(characterName))
+            command.Parameters.AddWithValue(Columns.CharacterDescription, Trim(characterDescription))
             Dim result = command.ExecuteScalar()
             If result Is Nothing Then
                 Return Nothing
@@ -113,7 +117,8 @@ SELECT
     `{Columns.ClassName}`,
     `{Columns.ExperiencePoints}`,
     `{Columns.Level}`,
-    `{Columns.HitPoints}`
+    `{Columns.HitPoints}`,
+    `{Columns.CharacterDescription}`
 FROM 
     `{Views.CharacterDetails}` 
 WHERE 
@@ -132,7 +137,8 @@ WHERE
                     reader(Columns.ClassName),
                     reader(Columns.ExperiencePoints),
                     reader(Columns.Level),
-                    reader(Columns.HitPoints))
+                    reader(Columns.HitPoints),
+                    reader(Columns.CharacterDescription))
             End Using
         End Using
     End Function
@@ -152,7 +158,8 @@ SELECT
     `{Columns.ClassName}`,
     `{Columns.ExperiencePoints}`,
     `{Columns.Level}`,
-    `{Columns.HitPoints}`
+    `{Columns.HitPoints}`,
+    `{Columns.CharacterDescription}`
 FROM 
     `{Views.CharacterDetails}` 
 WHERE 
@@ -172,7 +179,8 @@ WHERE
                         reader(Columns.ClassName),
                         reader(Columns.ExperiencePoints),
                         reader(Columns.Level),
-                        reader(Columns.HitPoints)))
+                        reader(Columns.HitPoints),
+                        reader(Columns.CharacterDescription)))
                 End While
             End Using
         End Using

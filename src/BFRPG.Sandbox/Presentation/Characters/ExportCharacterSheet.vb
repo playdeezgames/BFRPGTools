@@ -21,7 +21,7 @@ Friend Module ExportCharacterSheet
             .Append("<tr>")
             .Append($"<td>Race: {details.RaceName}</td>")
             .Append($"<td>XP: {details.ExperiencePoints}</td>")
-            .Append($"<td rowspan=""2"">Desc: **TODO**</td>")
+            .Append($"<td rowspan=""2"">Desc: {details.CharacterDescription}</td>")
             .Append("</tr>")
 
             .Append("<tr>")

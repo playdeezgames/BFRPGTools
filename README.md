@@ -19,7 +19,10 @@
    - [x] Transfer To Other Player
    - [x] Change XP
    - [ ] Money
-   - [ ] Description
+   - [x] Description
+   - [ ] Change Description
+   - [ ] CON modifier for hit dice
+   - [ ] Movement
  - [ ] Abilities
    - [x] Calculate Modifiers
  - [ ] Races
@@ -36,3 +39,5 @@
  - [ ] Equipment
    - [ ] Weapon restrictions
    - [ ] Armor restrictions
+   - [ ] Armor Class
+   - [ ] Attack Bonus

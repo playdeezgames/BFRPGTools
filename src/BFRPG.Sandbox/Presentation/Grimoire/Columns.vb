@@ -6,6 +6,7 @@
     Friend Const AbilityName = "ability_name"
     Friend Const AbilityScore = "ability_score"
     Friend Const CharacterCount = "character_count"
+    Friend Const CharacterDescription = "character_description"
     Friend Const CharacterId = "character_id"
     Friend Const CharacterName = "character_name"
     Friend Const ClassId = "class_id"

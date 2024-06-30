@@ -1,4 +1,5 @@
 ﻿Friend Module Prompts
+    Friend Const CharacterDescription As String = "[olive]Character Description?[/]"
     Friend Const CharacterMenu As String = "[olive]Character Menu:[/]"
     Friend Const MainMenu As String = "[olive]Main Menu[/]"
     Friend Const NewPlayerName As String = "[olive]New Player Name:[/]"
