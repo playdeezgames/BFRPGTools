@@ -1,5 +1,6 @@
 ﻿Friend Module Choices
     Friend Const AddXP As String = "Add XP..."
+    Friend Const CharacterSheet As String = "Character Sheet"
     Friend Const Delete = "Delete"
     Friend Const GoBack = "Go Back"
     Friend Const NewCharacter As String = "New Character..."

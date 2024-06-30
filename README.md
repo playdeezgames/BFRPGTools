@@ -17,8 +17,9 @@
  - [ ] Characters
    - [x] Rename
    - [x] Transfer To Other Player
-   - [ ] Change XP
+   - [x] Change XP
    - [ ] Money
+   - [ ] Description
  - [ ] Abilities
    - [x] Calculate Modifiers
  - [ ] Races

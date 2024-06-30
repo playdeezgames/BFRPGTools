@@ -20,6 +20,7 @@
             prompt.AddChoice(Choices.Rename)
             prompt.AddChoice(Choices.Transfer)
             prompt.AddChoice(Choices.AddXP)
+            prompt.AddChoice(Choices.CharacterSheet)
             Select Case AnsiConsole.Prompt(prompt)
                 Case Choices.Transfer
                     If TransferCharacter.Run(context, characterId) Then
@@ -36,6 +37,8 @@
                     End If
                 Case Choices.AddXP
                     AddExperiencePoints.Run(context, characterId)
+                Case Choices.CharacterSheet
+                    ExportCharacterSheet.Run(context, characterId)
             End Select
         Loop
     End Sub
