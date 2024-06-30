@@ -1,5 +1,6 @@
 # YouTube Publish Tracking:
  
+ - [ ] 20240630 - BFRPG Tools Interlude Episode 7 - 
  - [ ] 20240629 - BFRPG Tools Interlude Episode 6 - 
  - [x] 20240628 - BFRPG Tools Interlude Episode 5 - 
  - [x] 20240627 - BFRPG Tools Interlude Episode 4 - 
@@ -16,9 +17,21 @@
  - [ ] Characters
    - [x] Rename
    - [x] Transfer To Other Player
+   - [ ] Change XP
+   - [ ] Money
  - [ ] Abilities
    - [x] Calculate Modifiers
  - [ ] Races
+   - [ ] "Perks"
+   - [ ] Height/Weight/Age
  - [ ] Classes
-   - [ ] Levels
+   - [x] Levels
+   - [ ] Spells
+   - [ ] Thief Skills
+   - [ ] "Perks"
  - [ ] Saving Throws
+   - [ ] Race bonuses
+   - [ ] Class level
+ - [ ] Equipment
+   - [ ] Weapon restrictions
+   - [ ] Armor restrictions

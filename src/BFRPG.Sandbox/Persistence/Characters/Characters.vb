@@ -42,6 +42,25 @@ WHERE
         End Using
     End Sub
 
+    Friend Sub AddXP(
+                    connection As MySqlConnection,
+                    characterId As Integer,
+                    experiencePoints As Integer)
+        Using command = connection.CreateCommand
+            command.CommandText = $"
+UPDATE 
+    `{Tables.Characters}` 
+SET 
+    `{Columns.ExperiencePoints}`=`{Columns.ExperiencePoints}`+@{Columns.ExperiencePoints} 
+WHERE 
+    `{Columns.CharacterId}`=@{Columns.CharacterId};
+"
+            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
+            command.Parameters.AddWithValue(Columns.ExperiencePoints, experiencePoints)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
     Friend Function Create(
                           connection As MySqlConnection,
                           playerId As Integer,
