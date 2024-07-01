@@ -19,7 +19,7 @@
                     NewPlayer.Run(data, ui)
                 Case Else
                     Dim playerId = table(answer)
-                    PlayerMenu.Run(data, playerId)
+                    PlayerMenu.Run(data, ui, playerId)
             End Select
         Loop
     End Sub

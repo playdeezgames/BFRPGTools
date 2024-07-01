@@ -1,5 +1,5 @@
 ﻿Friend Module NewCharacterRaceClass
-    Friend Sub Run(context As DataContext, playerId As Integer, characterName As String)
+    Friend Sub Run(context As DataContext, ui As IUIContext, playerId As Integer, characterName As String)
         Dim allAbilities = Abilities.All(context.Connection)
         Dim abilityScores As IReadOnlyDictionary(Of Integer, Integer) = allAbilities.ToDictionary(Function(x) x.AbilityId, Function(x) RNG.RollDice(3, 6))
         AnsiConsole.MarkupLine("Ability Scores:")
@@ -13,6 +13,6 @@
         Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.WhichRaceClass}
         prompt.AddChoices(qualifiedRaceClasses.Keys)
         Dim raceClassId = qualifiedRaceClasses(AnsiConsole.Prompt(prompt))
-        NewCharacterDescription.Run(context, playerId, characterName, raceClassId, abilityScores)
+        NewCharacterDescription.Run(context, ui, playerId, characterName, raceClassId, abilityScores)
     End Sub
 End Module

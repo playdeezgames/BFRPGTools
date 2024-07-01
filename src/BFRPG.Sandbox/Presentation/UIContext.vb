@@ -9,6 +9,12 @@
         Choose(prompt, "Ok")
     End Sub
 
+    Public Sub Write(ParamArray lines() As (Mood As Mood, Text As String)) Implements IUIContext.Write
+        For Each line In lines
+            AnsiConsole.MarkupLine($"[{line.Mood.ColorName}]{line.Text}[/]")
+        Next
+    End Sub
+
     Public Function Choose(Of TResult)(prompt As (Mood As Mood, Text As String), ParamArray choices() As (Text As String, Value As TResult)) As TResult Implements IUIContext.Choose
         Dim table = choices.ToDictionary(Function(x) x.Text, Function(x) x.Value)
         Dim selector As New SelectionPrompt(Of String) With {.Title = $"[{prompt.Mood.ColorName}]{prompt.Text}[/]"}

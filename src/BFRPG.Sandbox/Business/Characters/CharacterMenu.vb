@@ -1,28 +1,31 @@
 ﻿Friend Module CharacterMenu
-    Friend Sub Run(context As DataContext, characterId As Integer)
+    Friend Sub Run(context As DataContext, ui As IUIContext, characterId As Integer)
         Do
-            AnsiConsole.Clear()
+            ui.Clear()
             Dim details = Characters.ReadDetails(context.Connection, characterId)
-            AnsiConsole.MarkupLine($"Player Name: {details.PlayerName}")
-            AnsiConsole.MarkupLine($"Character Name: {details.UniqueName}")
-            AnsiConsole.MarkupLine($"Race: {details.RaceName}")
-            AnsiConsole.MarkupLine($"Class: {details.ClassName}")
-            AnsiConsole.MarkupLine($"Level: {details.Level}")
-            AnsiConsole.MarkupLine($"Description: {details.CharacterDescription}")
-            AnsiConsole.MarkupLine($"XP: {details.ExperiencePoints}")
-            AnsiConsole.MarkupLine($"HP: {details.HitPoints}")
+            ui.Write(
+                (Mood.Info, $"Player Name: {details.PlayerName}"),
+                (Mood.Info, $"Character Name: {details.UniqueName}"),
+                (Mood.Info, $"Race: {details.RaceName}"),
+                (Mood.Info, $"Class: {details.ClassName}"),
+                (Mood.Info, $"Level: {details.Level}"),
+                (Mood.Info, $"Description: {details.CharacterDescription}"),
+                (Mood.Info, $"XP: {details.ExperiencePoints}"),
+                (Mood.Info, $"HP: {details.HitPoints}"))
             Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(context.Connection, characterId)
             For Each abilityDetail In abilityDetails
-                AnsiConsole.MarkupLine($"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore} ({abilityDetail.Modifier})")
+                ui.Write((Mood.Info, $"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore} ({abilityDetail.Modifier})"))
             Next
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.CharacterMenu}
-            prompt.AddChoice(Choices.GoBack)
-            prompt.AddChoice(Choices.Delete)
-            prompt.AddChoice(Choices.Rename)
-            prompt.AddChoice(Choices.Transfer)
-            prompt.AddChoice(Choices.AddXP)
-            prompt.AddChoice(Choices.CharacterSheet)
-            Select Case AnsiConsole.Prompt(prompt)
+
+            Dim menu As New List(Of String) From {
+                Choices.GoBack,
+                Choices.Delete,
+                Choices.Rename,
+                Choices.Transfer,
+                Choices.AddXP,
+                Choices.CharacterSheet
+            }
+            Select Case ui.Choose((Mood.Prompt, Prompts.CharacterMenu), menu.ToArray)
                 Case Choices.Transfer
                     If TransferCharacter.Run(context, characterId) Then
                         Exit Do
@@ -37,7 +40,7 @@
                         Exit Do
                     End If
                 Case Choices.AddXP
-                    AddExperiencePoints.Run(context, characterId)
+                    AddExperiencePoints.Run(context, ui, characterId)
                 Case Choices.CharacterSheet
                     ExportCharacterSheet.Run(context, characterId)
             End Select

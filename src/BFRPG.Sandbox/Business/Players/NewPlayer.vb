@@ -7,7 +7,7 @@
                 ui.Message((Mood.Danger, Messages.DuplicatePlayerName))
                 Return
             End If
-            PlayerMenu.Run(context, playerId.Value)
+            PlayerMenu.Run(context, ui, playerId.Value)
         End If
     End Sub
 End Module

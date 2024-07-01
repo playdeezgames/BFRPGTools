@@ -8,6 +8,8 @@ Friend Module MoodExtensions
                 Return "olive"
             Case Mood.Danger
                 Return "red"
+            Case Mood.Info
+                Return "silver"
             Case Else
                 Throw New NotImplementedException
         End Select

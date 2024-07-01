@@ -1,5 +1,5 @@
 ﻿Friend Module NewCharacterDescription
-    Sub Run(context As DataContext, playerId As Integer, characterName As String, raceClassId As Integer, abilityScores As IReadOnlyDictionary(Of Integer, Integer))
+    Sub Run(context As DataContext, ui As IUIContext, playerId As Integer, characterName As String, raceClassId As Integer, abilityScores As IReadOnlyDictionary(Of Integer, Integer))
         Const startingExperiencePoints = 0
         Dim characterDescription = AnsiConsole.Ask(Prompts.CharacterDescription, String.Empty)
         Dim characterId = Characters.Create(
@@ -18,6 +18,6 @@
         For Each index In Enumerable.Range(1, hitDiceCount)
             CharacterHitDice.Write(context.Connection, characterId, index, RNG.RollDice(1, hitDieSize))
         Next
-        CharacterMenu.Run(context, characterId)
+        CharacterMenu.Run(context, ui, characterId)
     End Sub
 End Module
