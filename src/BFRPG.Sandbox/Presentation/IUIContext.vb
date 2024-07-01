@@ -7,4 +7,6 @@
                     prompt As (Mood As Mood, Text As String),
                     ParamArray choices As String()) As String
     Function Confirm(prompt As (Mood As Mood, Text As String)) As Boolean
+    Function Ask(Of TResult)(prompt As (Mood As Mood, Text As String), defaultResult As TResult) As TResult
+    Sub Message(prompt As (Mood As Mood, Text As String))
 End Interface

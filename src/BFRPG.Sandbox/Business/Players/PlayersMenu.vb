@@ -1,23 +1,25 @@
 ﻿Friend Module PlayersMenu
-    Friend Sub Run(context As DataContext)
+    Friend Sub Run(data As DataContext, ui As IUIContext)
         Do
-            AnsiConsole.Clear()
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.PlayersMenu}
-            prompt.AddChoice(Choices.GoBack)
-            prompt.AddChoice(Choices.NewPlayer)
-            Dim table As Dictionary(Of String, Integer) =
-            Players.All(context.Connection).
-            ToDictionary(Function(x) x.UniqueName, Function(x) x.PlayerId)
-            prompt.AddChoices(table.Keys)
-            Dim answer = AnsiConsole.Prompt(prompt)
+            ui.Clear()
+            Dim menu = New List(Of String) From
+                {
+                    Choices.GoBack,
+                    Choices.NewPlayer
+                }
+            Dim table =
+                Players.All(data.Connection).
+                ToDictionary(Function(x) x.UniqueName, Function(x) x.PlayerId)
+            menu.AddRange(table.Keys)
+            Dim answer = ui.Choose((Mood.Prompt, Prompts.PlayersMenu), menu.ToArray)
             Select Case answer
                 Case Choices.GoBack
                     Exit Do
                 Case Choices.NewPlayer
-                    NewPlayer.Run(context)
+                    NewPlayer.Run(data, ui)
                 Case Else
                     Dim playerId = table(answer)
-                    PlayerMenu.Run(context, playerId)
+                    PlayerMenu.Run(data, playerId)
             End Select
         Loop
     End Sub

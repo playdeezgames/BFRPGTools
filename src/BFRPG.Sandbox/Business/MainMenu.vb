@@ -1,5 +1,5 @@
 ﻿Friend Module MainMenu
-    Friend Sub Run(context As DataContext, ui As IUIContext)
+    Friend Sub Run(data As DataContext, ui As IUIContext)
         Do
             ui.Clear()
             Select Case ui.Choose(
@@ -11,7 +11,7 @@
                         Exit Do
                     End If
                 Case Choices.Players
-                    PlayersMenu.Run(context)
+                    PlayersMenu.Run(data, ui)
             End Select
         Loop
     End Sub
