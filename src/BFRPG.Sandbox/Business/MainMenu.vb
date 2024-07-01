@@ -1,11 +1,8 @@
 ﻿Friend Module MainMenu
-    Friend Sub Run(context As DataContext)
+    Friend Sub Run(context As DataContext, ui As IUIContext)
         Do
-            AnsiConsole.Clear()
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.MainMenu}
-            prompt.AddChoice(Choices.Players)
-            prompt.AddChoice(Choices.Quit)
-            Select Case AnsiConsole.Prompt(prompt)
+            ui.Clear()
+            Select Case ui.Choose((Mood.Prompt, Prompts.MainMenu), (Choices.Players, Choices.Players), (Choices.Quit, Choices.Quit))
                 Case Choices.Quit
                     If Confirm.Run(Confirms.Quit) Then
                         Exit Do

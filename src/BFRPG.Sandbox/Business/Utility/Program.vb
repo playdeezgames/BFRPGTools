@@ -7,7 +7,7 @@ Module Program
         Using connection As New MySqlConnection(File.ReadAllText(Filenames.ConnectionString))
             Try
                 connection.Open()
-                MainMenu.Run(New DataContext(connection))
+                MainMenu.Run(New DataContext(connection), New UIContext)
             Catch ex As Exception
                 AnsiConsole.WriteException(ex)
                 Console.ReadLine()
