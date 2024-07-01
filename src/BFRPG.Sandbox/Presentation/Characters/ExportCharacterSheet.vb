@@ -30,14 +30,60 @@ Friend Module ExportCharacterSheet
             .Append("</tr>")
 
             .Append("<tr>")
+
             .Append("<td>")
             .Append("<table border=""border""><tr><th>Ability</th><th>Score</th><th>Modifier</th></tr>")
             Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(context.Connection, characterId)
             For Each abilityDetail In abilityDetails
                 .Append($"<tr><td>{abilityDetail.AbilityAbbreviation}</td><td>{abilityDetail.AbilityScore}</td><td>{abilityDetail.Modifier}</td></tr>")
             Next
-            .Append("<table>")
+            .Append("</table>")
+            .Append("</td>")
+
             .Append("<td>")
+            .Append("<table>")
+            .Append($"<tr><td>AC: TODO</td></tr>")
+            .Append($"<tr><td>HP: {details.HitPoints}</td></tr>")
+            .Append($"<tr><td>AB: TODO</td></tr>")
+            .Append("</table>")
+            .Append("</td>")
+
+            .Append("<td>")
+            .Append("<table>")
+            .Append($"<tr><td>Movement: TODO</td></tr>")
+            .Append($"<tr><td>Money: TODO</td></tr>")
+            .Append("</table>")
+            .Append("</td>")
+
+            .Append("</tr>")
+
+            .Append("<tr>")
+
+            .Append("<td rowspan=""2"">")
+            .Append("<table>")
+            .Append("<tr><th>Spells/Abilities:</th></tr>")
+            'spells/abilities
+            .Append("</table>")
+            .Append("</td>")
+
+            .Append("<td colspan=""2"">")
+            .Append("<table>")
+            .Append("<tr><th>Saving Throws:</th></tr>")
+            'saving throws
+            .Append("</table>")
+            .Append("</td>")
+
+            .Append("</tr>")
+
+            .Append("<tr>")
+
+            .Append("<td colspan=""2"">")
+            .Append("<table>")
+            .Append("<tr><th>Weapon</th><th>AB</th><th>Damage</th><th>Range</th></tr>")
+            'weapons
+            .Append("</table>")
+            .Append("</td>")
+
             .Append("</tr>")
 
             .Append("</table>")

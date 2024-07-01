@@ -1,7 +1,7 @@
 # YouTube Publish Tracking:
  
- - [ ] 20240630 - BFRPG Tools Interlude Episode 7 - 
- - [ ] 20240629 - BFRPG Tools Interlude Episode 6 - 
+ - [x] 20240630 - BFRPG Tools Interlude Episode 7 - 
+ - [x] 20240629 - BFRPG Tools Interlude Episode 6 - 
  - [x] 20240628 - BFRPG Tools Interlude Episode 5 - 
  - [x] 20240627 - BFRPG Tools Interlude Episode 4 - 
  - [x] 20240626 - BFRPG Tools Interlude Episode 3 - 
