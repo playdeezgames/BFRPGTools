@@ -6,6 +6,8 @@ Friend Module MoodExtensions
         Select Case mood
             Case Mood.Prompt
                 Return "olive"
+            Case Mood.Danger
+                Return "red"
             Case Else
                 Throw New NotImplementedException
         End Select

@@ -11,4 +11,14 @@
         selector.AddChoices(choices.Select(Function(x) x.Text))
         Return table(AnsiConsole.Prompt(selector))
     End Function
+
+    Public Function Choose(prompt As (Mood As Mood, Text As String), ParamArray choices() As String) As String Implements IUIContext.Choose
+        Return Choose(Of String)(prompt, choices.Select(Function(x) (x, x)).ToArray)
+    End Function
+
+    Public Function Confirm(prompt As (Mood As Mood, Text As String)) As Boolean Implements IUIContext.Confirm
+        Const Yes = "Yes"
+        Const No = "No"
+        Return Choose(prompt, No, Yes) = Yes
+    End Function
 End Class
