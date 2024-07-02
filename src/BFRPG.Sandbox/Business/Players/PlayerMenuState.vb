@@ -30,7 +30,7 @@
         Dim answer = ui.Choose((Mood.Prompt, Prompts.PlayerMenu), menu.ToArray)
         Select Case answer
             Case Choices.Rename
-                RenamePlayer.Run(data, ui, playerId)
+                Return New RenamePlayerState(data, ui, Me, playerId)
             Case Choices.GoBack
                 Return endState
             Case Choices.Delete
@@ -39,10 +39,10 @@
                     Return endState
                 End If
             Case Choices.NewCharacter
-                NewCharacterName.Run(data, ui, playerId)
+                Return New NewCharacterNameState(data, ui, Me, playerId)
             Case Else
                 Dim characterId = table(answer)
-                CharacterMenu.Run(data, ui, characterId)
+                Return New CharacterMenuState(data, ui, Me, characterId)
         End Select
         Return Me
     End Function
