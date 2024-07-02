@@ -3,7 +3,7 @@
         Dim characterName = Trim(ui.Ask((Mood.Prompt, Prompts.NewCharacterName), String.Empty))
         If Not String.IsNullOrWhiteSpace(characterName) Then
             If Characters.FindForPlayerAndName(context.Connection, playerId, characterName).HasValue Then
-                OkPrompt.Run(Messages.DuplicateCharacterName)
+                ui.Message((Mood.Danger, Messages.DuplicateCharacterName))
                 Return
             End If
             NewCharacterRaceClass.Run(context,ui, playerId, characterName)

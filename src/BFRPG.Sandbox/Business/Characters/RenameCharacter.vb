@@ -6,7 +6,7 @@
         End If
         Dim playerId = Characters.ReadDetails(context.Connection, characterId).PlayerId
         If Characters.FindForPlayerAndName(context.Connection, playerId, characterName).HasValue Then
-            OkPrompt.Run(Messages.DuplicateCharacterName)
+            ui.Message((Mood.Danger, Messages.DuplicateCharacterName))
             Return
         End If
         Characters.Rename(context.Connection, characterId, characterName)

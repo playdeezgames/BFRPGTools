@@ -35,7 +35,7 @@
                 Case Choices.GoBack
                     Exit Do
                 Case Choices.Delete
-                    If Confirm.Run(Confirms.DeleteCharacter) Then
+                    If ui.Confirm((Mood.Danger, Confirms.DeleteCharacter)) Then
                         Characters.Delete(context.Connection, characterId)
                         Exit Do
                     End If

@@ -13,11 +13,11 @@
                 Dim playerId = table(answer)
                 Dim characterName = Characters.ReadDetails(context.Connection, characterId).CharacterName
                 If Characters.FindForPlayerAndName(context.Connection, playerId, characterName).HasValue Then
-                    OkPrompt.Run(Messages.DuplicateCharacterName)
+                    ui.Message((Mood.Danger, Messages.DuplicateCharacterName))
                     Return False
                 End If
                 Characters.Transfer(context.Connection, characterId, playerId)
-                OkPrompt.Run(Messages.CharacterTransferSuccess)
+                ui.Message((Mood.Success, Messages.CharacterTransferSuccess))
                 Return True
         End Select
     End Function

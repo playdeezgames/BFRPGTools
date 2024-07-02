@@ -25,11 +25,11 @@
             Dim answer = ui.Choose((Mood.Prompt, Prompts.PlayerMenu), menu.ToArray)
             Select Case answer
                 Case Choices.Rename
-                    RenamePlayer.Run(context, playerId)
+                    RenamePlayer.Run(context, ui, playerId)
                 Case Choices.GoBack
                     done = True
                 Case Choices.Delete
-                    If Confirm.Run(Confirms.DeletePlayer) Then
+                    If ui.Confirm((Mood.Danger, Confirms.DeletePlayer)) Then
                         Players.Delete(context.Connection, playerId)
                         done = True
                     End If
