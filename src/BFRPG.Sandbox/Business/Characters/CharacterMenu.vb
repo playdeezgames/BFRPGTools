@@ -27,11 +27,11 @@
             }
             Select Case ui.Choose((Mood.Prompt, Prompts.CharacterMenu), menu.ToArray)
                 Case Choices.Transfer
-                    If TransferCharacter.Run(context, characterId) Then
+                    If TransferCharacter.Run(context, ui, characterId) Then
                         Exit Do
                     End If
                 Case Choices.Rename
-                    RenameCharacter.Run(context, characterId)
+                    RenameCharacter.Run(context, ui, characterId)
                 Case Choices.GoBack
                     Exit Do
                 Case Choices.Delete

@@ -1,10 +1,11 @@
 ﻿Friend Module TransferCharacter
-    Friend Function Run(context As DataContext, characterId As Integer) As Boolean
-        Dim prompt As New SelectionPrompt(Of String) With {.Title = Prompts.WhichPlayer}
-        prompt.AddChoice(Choices.GoBack)
+    Friend Function Run(context As DataContext, ui As IUIContext, characterId As Integer) As Boolean
+        Dim menu = New List(Of String) From
+            {
+                Choices.GoBack
+            }
         Dim table = Players.All(context.Connection).ToDictionary(Function(x) x.UniqueName, Function(x) x.PlayerId)
-        prompt.AddChoices(table.Keys)
-        Dim answer = AnsiConsole.Prompt(prompt)
+        Dim answer = ui.Choose((Mood.Prompt, Prompts.WhichPlayer), table.Keys.ToArray)
         Select Case answer
             Case GoBack
                 Return False
