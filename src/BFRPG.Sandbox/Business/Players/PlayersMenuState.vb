@@ -22,10 +22,10 @@
             Case Choices.GoBack
                 Return endState
             Case Choices.NewPlayer
-                NewPlayer.Run(data, ui)
+                Return New NewPlayerState(data, ui, Me)
             Case Else
                 Dim playerId = table(answer)
-                PlayerMenu.Run(data, ui, playerId)
+                Return New PlayerMenuState(data, ui, Me, playerId)
         End Select
         Return Me
     End Function
