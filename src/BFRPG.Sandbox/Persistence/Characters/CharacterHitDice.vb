@@ -1,5 +1,5 @@
-﻿Friend Module CharacterHitDice
-    Friend Sub Write(
+﻿Friend Class CharacterHitDice
+    Friend Shared Sub Write(
                     connection As MySqlConnection,
                     characterId As Integer,
                     die As Integer,
@@ -24,4 +24,4 @@ VALUES
             command.ExecuteNonQuery()
         End Using
     End Sub
-End Module
+End Class

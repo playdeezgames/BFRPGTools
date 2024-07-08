@@ -1,5 +1,5 @@
-﻿Friend Module RaceClassAbilityRanges
-    Friend Function Valid(
+﻿Friend Class RaceClassAbilityRanges
+    Friend Shared Function Valid(
                          connection As MySqlConnection,
                          raceClassId As Integer,
                          abilityId As Integer,
@@ -21,4 +21,4 @@ WHERE
             Return CInt(command.ExecuteScalar) > 0
         End Using
     End Function
-End Module
+End Class

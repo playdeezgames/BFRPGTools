@@ -1,5 +1,5 @@
-﻿Friend Module Races
-    Friend Function All(connection As MySqlConnection) As IEnumerable(Of RaceDetails)
+﻿Friend Class Races
+    Friend Shared Function All(connection As MySqlConnection) As IEnumerable(Of RaceDetails)
         Dim result As New List(Of RaceDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -19,4 +19,4 @@ FROM
         End Using
         Return result
     End Function
-End Module
+End Class

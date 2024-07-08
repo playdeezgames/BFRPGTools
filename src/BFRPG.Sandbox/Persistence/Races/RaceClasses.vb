@@ -1,5 +1,5 @@
-﻿Friend Module RaceClasses
-    Friend Function ReadDetails(connection As MySqlConnection, raceClassId As Integer) As RaceClassDetails
+﻿Friend Class RaceClasses
+    Friend Shared Function ReadDetails(connection As MySqlConnection, raceClassId As Integer) As RaceClassDetails
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 
@@ -30,7 +30,7 @@ WHERE
             End Using
         End Using
     End Function
-    Friend Function All(connection As MySqlConnection) As IEnumerable(Of RaceClassDetails)
+    Friend Shared Function All(connection As MySqlConnection) As IEnumerable(Of RaceClassDetails)
         Dim result As New List(Of RaceClassDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -61,4 +61,4 @@ FROM
         Return result
     End Function
 
-End Module
+End Class

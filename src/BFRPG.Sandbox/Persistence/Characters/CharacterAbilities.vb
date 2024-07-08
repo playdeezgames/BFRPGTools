@@ -1,5 +1,5 @@
-﻿Friend Module CharacterAbilities
-    Friend Sub Write(
+﻿Friend Class CharacterAbilities
+    Friend Shared Sub Write(
                     connection As MySqlConnection,
                     characterId As Integer,
                     abilityId As Integer,
@@ -27,7 +27,7 @@ ON DUPLICATE KEY UPDATE
         End Using
     End Sub
 
-    Friend Sub DeleteForCharacter(connection As MySqlConnection, characterId As Integer)
+    Friend Shared Sub DeleteForCharacter(connection As MySqlConnection, characterId As Integer)
         Using command = connection.CreateCommand
             command.CommandText = $"
 DELETE FROM 
@@ -39,7 +39,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Function ReadAllDetailsForCharacter(connection As MySqlConnection, characterId As Integer) As IEnumerable(Of CharacterAbilityDetails)
+    Friend Shared Function ReadAllDetailsForCharacter(connection As MySqlConnection, characterId As Integer) As IEnumerable(Of CharacterAbilityDetails)
         Dim result As New List(Of CharacterAbilityDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -70,4 +70,4 @@ WHERE
         End Using
         Return result
     End Function
-End Module
+End Class

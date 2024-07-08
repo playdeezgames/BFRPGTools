@@ -1,5 +1,5 @@
-﻿Friend Module Players
-    Friend Sub Delete(
+﻿Friend Class Players
+    Friend Shared Sub Delete(
                      connection As MySqlConnection,
                      playerId As Integer)
         Using command = connection.CreateCommand()
@@ -12,7 +12,7 @@ WHERE {Columns.PlayerId}=@{Columns.PlayerId};"
         End Using
     End Sub
 
-    Friend Sub Rename(connection As MySqlConnection, playerId As Integer, playerName As String)
+    Friend Shared Sub Rename(connection As MySqlConnection, playerId As Integer, playerName As String)
         Using command = connection.CreateCommand()
             command.CommandText = $"
 UPDATE 
@@ -27,7 +27,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Function Create(
+    Friend Shared Function Create(
                           connection As MySqlConnection,
                           playerName As String) As Integer?
         Using command = connection.CreateCommand
@@ -51,7 +51,7 @@ RETURNING
         End Using
     End Function
 
-    Friend Function ReadDetails(
+    Friend Shared Function ReadDetails(
                                connection As MySqlConnection,
                                playerId As Integer) As PlayerDetails
         Using command = connection.CreateCommand
@@ -77,7 +77,7 @@ WHERE
         End Using
     End Function
 
-    Friend Function All(
+    Friend Shared Function All(
                        connection As MySqlConnection) As IEnumerable(Of PlayerDetails)
         Dim result As New List(Of PlayerDetails)
         Using command = connection.CreateCommand
@@ -103,7 +103,7 @@ ORDER BY
         Return result
     End Function
 
-    Friend Function FindForName(connection As MySqlConnection, playerName As String) As Integer?
+    Friend Shared Function FindForName(connection As MySqlConnection, playerName As String) As Integer?
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 
@@ -120,4 +120,4 @@ WHERE
             Return CInt(result)
         End Using
     End Function
-End Module
+End Class
