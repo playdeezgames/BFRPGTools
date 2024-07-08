@@ -2,7 +2,7 @@
     Inherits BaseState
     Implements IState
 
-    Public Sub New(data As DataContext, ui As IUIContext, endState As IState)
+    Public Sub New(data As IDataContext, ui As IUIContext, endState As IState)
         MyBase.New(data, ui, endState)
     End Sub
 

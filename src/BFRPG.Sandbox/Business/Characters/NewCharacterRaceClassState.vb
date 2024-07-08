@@ -6,7 +6,7 @@
     Private ReadOnly characterName As String
 
     Public Sub New(
-                  data As DataContext,
+                  data As IDataContext,
                   ui As IUIContext,
                   endState As IState,
                   playerId As Integer,

@@ -1,5 +1,5 @@
 ﻿Friend Module NewCharacterDescription
-    Sub Run(data As DataContext, ui As IUIContext, playerId As Integer, characterName As String, raceClassId As Integer, abilityScores As IReadOnlyDictionary(Of Integer, Integer))
+    Sub Run(data As IDataContext, ui As IUIContext, playerId As Integer, characterName As String, raceClassId As Integer, abilityScores As IReadOnlyDictionary(Of Integer, Integer))
         Const startingExperiencePoints = 0
         Dim characterDescription = ui.Ask((Mood.Prompt, Prompts.CharacterDescription), String.Empty)
         Dim characterId = data.Characters.Create(

@@ -1,7 +1,7 @@
 ﻿Friend Class MainMenuState
     Inherits BaseState
     Implements IState
-    Sub New(data As DataContext, ui As IUIContext)
+    Sub New(data As IDataContext, ui As IUIContext)
         MyBase.New(data, ui, Nothing)
     End Sub
     Public Overrides Function Run() As IState Implements IState.Run

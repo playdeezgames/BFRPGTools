@@ -1,5 +1,5 @@
 ﻿Friend Module TransferCharacter
-    Friend Function Run(data As DataContext, ui As IUIContext, characterId As Integer) As Boolean
+    Friend Function Run(data As IDataContext, ui As IUIContext, characterId As Integer) As Boolean
         Dim menu = New List(Of String) From
             {
                 Choices.GoBack

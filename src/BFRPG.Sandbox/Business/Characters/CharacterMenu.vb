@@ -1,5 +1,5 @@
 ﻿Friend Module CharacterMenu
-    Friend Sub Run(data As DataContext, ui As IUIContext, characterId As Integer)
+    Friend Sub Run(data As IDataContext, ui As IUIContext, characterId As Integer)
         Do
             ui.Clear()
             Dim details = data.Characters.ReadDetails(characterId)

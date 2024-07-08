@@ -4,7 +4,7 @@
 
     Private ReadOnly characterId As Integer
 
-    Public Sub New(data As DataContext, ui As IUIContext, endState As IState, characterId As Integer)
+    Public Sub New(data As IDataContext, ui As IUIContext, endState As IState, characterId As Integer)
         MyBase.New(data, ui, endState)
         Me.characterId = characterId
     End Sub

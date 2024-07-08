@@ -4,7 +4,7 @@
 
     Private ReadOnly playerId As Integer
 
-    Public Sub New(data As DataContext, ui As IUIContext, endState As IState, playerId As Integer)
+    Public Sub New(data As IDataContext, ui As IUIContext, endState As IState, playerId As Integer)
         MyBase.New(data, ui, endState)
         Me.playerId = playerId
     End Sub
