@@ -1,10 +1,15 @@
 ﻿Friend Class CharacterAbilities
     Implements ICharacterAbilities
-    Friend Shared Sub Write(
-                    connection As MySqlConnection,
-                    characterId As Integer,
-                    abilityId As Integer,
-                    abilityScore As Integer)
+
+    Private ReadOnly connection As MySqlConnection
+    Private ReadOnly characterId As Integer
+
+    Public Sub New(connection As MySqlConnection, characterId As Integer)
+        Me.connection = connection
+        Me.characterId = characterId
+    End Sub
+
+    Public Sub Write(abilityId As Integer, abilityScore As Integer) Implements ICharacterAbilities.Write
         Using command = connection.CreateCommand
             command.CommandText = $"
 INSERT INTO `{Tables.CharacterAbilities}`
@@ -28,7 +33,7 @@ ON DUPLICATE KEY UPDATE
         End Using
     End Sub
 
-    Friend Shared Sub DeleteForCharacter(connection As MySqlConnection, characterId As Integer)
+    Public Sub DeleteForCharacter() Implements ICharacterAbilities.DeleteForCharacter
         Using command = connection.CreateCommand
             command.CommandText = $"
 DELETE FROM 
@@ -40,7 +45,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Shared Function ReadAllDetailsForCharacter(connection As MySqlConnection, characterId As Integer) As IEnumerable(Of CharacterAbilityDetails)
+    Public Function ReadAllDetailsForCharacter() As IEnumerable(Of CharacterAbilityDetails) Implements ICharacterAbilities.ReadAllDetailsForCharacter
         Dim result As New List(Of CharacterAbilityDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"

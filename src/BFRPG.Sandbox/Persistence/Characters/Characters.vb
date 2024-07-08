@@ -6,7 +6,7 @@
     End Sub
 
     Public Sub Delete(characterId As Integer) Implements ICharacters.Delete
-        CharacterAbilities.DeleteForCharacter(connection, characterId)
+        Abilities(characterId).DeleteForCharacter()
         Using command = connection.CreateCommand
             command.CommandText = $"
 DELETE FROM 
@@ -202,5 +202,13 @@ WHERE
             End If
             Return CInt(result)
         End Using
+    End Function
+
+    Public Function HitDice(characterId As Integer) As ICharacterHitDice Implements ICharacters.HitDice
+        Return New CharacterHitDice(connection, characterId)
+    End Function
+
+    Public Function Abilities(characterId As Integer) As ICharacterAbilities Implements ICharacters.Abilities
+        Return New CharacterAbilities(connection, characterId)
     End Function
 End Class

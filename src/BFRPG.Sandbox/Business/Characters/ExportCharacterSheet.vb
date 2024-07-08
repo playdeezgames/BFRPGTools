@@ -2,8 +2,8 @@
 Imports System.Text
 
 Friend Module ExportCharacterSheet
-    Friend Sub Run(context As DataContext, characterId As Integer)
-        Dim details = context.Characters.ReadDetails(characterId)
+    Friend Sub Run(data As DataContext, characterId As Integer)
+        Dim details = data.Characters.ReadDetails(characterId)
         Dim generatedOn = DateTimeOffset.Now
         Dim filename = $"{details.CharacterName} - {details.RaceName} - {details.ClassName} - {details.Level} - {generatedOn:yyyyMMddHHmmss}.html"
         Dim builder As New StringBuilder
@@ -33,7 +33,7 @@ Friend Module ExportCharacterSheet
 
             .Append("<td>")
             .Append("<table border=""border""><tr><th>Ability</th><th>Score</th><th>Modifier</th></tr>")
-            Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(context.Connection, characterId)
+            Dim abilityDetails = data.Characters.Abilities(characterId).ReadAllDetailsForCharacter()
             For Each abilityDetail In abilityDetails
                 .Append($"<tr><td>{abilityDetail.AbilityAbbreviation}</td><td>{abilityDetail.AbilityScore}</td><td>{abilityDetail.Modifier}</td></tr>")
             Next

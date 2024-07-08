@@ -23,4 +23,6 @@
     Function FindForPlayerAndName(
                                  playerId As Integer,
                                  characterName As String) As Integer?
+    Function HitDice(characterId As Integer) As ICharacterHitDice
+    Function Abilities(characterId As Integer) As ICharacterAbilities
 End Interface

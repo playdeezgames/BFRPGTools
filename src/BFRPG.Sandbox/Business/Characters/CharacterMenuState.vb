@@ -21,7 +21,7 @@
                 (Mood.Info, $"Description: {details.CharacterDescription}"),
                 (Mood.Info, $"XP: {details.ExperiencePoints}"),
                 (Mood.Info, $"HP: {details.HitPoints}"))
-        Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(data.Connection, characterId)
+        Dim abilityDetails = data.Characters.Abilities(characterId).ReadAllDetailsForCharacter()
         For Each abilityDetail In abilityDetails
             ui.Write((Mood.Info, $"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore} ({abilityDetail.Modifier})"))
         Next

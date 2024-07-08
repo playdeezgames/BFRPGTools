@@ -1,5 +1,14 @@
 ﻿Friend Class CharacterHitDice
     Implements ICharacterHitDice
+
+    Private connection As MySqlConnection
+    Private characterId As Integer
+
+    Public Sub New(connection As MySqlConnection, characterId As Integer)
+        Me.connection = connection
+        Me.characterId = characterId
+    End Sub
+
     Friend Shared Sub Write(
                     connection As MySqlConnection,
                     characterId As Integer,

@@ -1,8 +1,8 @@
 ﻿Friend Module CharacterMenu
-    Friend Sub Run(context As DataContext, ui As IUIContext, characterId As Integer)
+    Friend Sub Run(data As DataContext, ui As IUIContext, characterId As Integer)
         Do
             ui.Clear()
-            Dim details = context.Characters.ReadDetails(characterId)
+            Dim details = data.Characters.ReadDetails(characterId)
             ui.Write(
                 (Mood.Info, $"Player Name: {details.PlayerName}"),
                 (Mood.Info, $"Character Name: {details.UniqueName}"),
@@ -12,7 +12,7 @@
                 (Mood.Info, $"Description: {details.CharacterDescription}"),
                 (Mood.Info, $"XP: {details.ExperiencePoints}"),
                 (Mood.Info, $"HP: {details.HitPoints}"))
-            Dim abilityDetails = CharacterAbilities.ReadAllDetailsForCharacter(context.Connection, characterId)
+            Dim abilityDetails = data.Characters.Abilities(characterId).ReadAllDetailsForCharacter()
             For Each abilityDetail In abilityDetails
                 ui.Write((Mood.Info, $"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore} ({abilityDetail.Modifier})"))
             Next
@@ -27,22 +27,22 @@
             }
             Select Case ui.Choose((Mood.Prompt, Prompts.CharacterMenu), menu.ToArray)
                 Case Choices.Transfer
-                    If TransferCharacter.Run(context, ui, characterId) Then
+                    If TransferCharacter.Run(data, ui, characterId) Then
                         Exit Do
                     End If
                 Case Choices.Rename
-                    RenameCharacter.Run(context, ui, characterId)
+                    RenameCharacter.Run(data, ui, characterId)
                 Case Choices.GoBack
                     Exit Do
                 Case Choices.Delete
                     If ui.Confirm((Mood.Danger, Confirms.DeleteCharacter)) Then
-                        context.Characters.Delete(characterId)
+                        data.Characters.Delete(characterId)
                         Exit Do
                     End If
                 Case Choices.AddXP
-                    AddExperiencePoints.Run(context, ui, characterId)
+                    AddExperiencePoints.Run(data, ui, characterId)
                 Case Choices.CharacterSheet
-                    ExportCharacterSheet.Run(context, characterId)
+                    ExportCharacterSheet.Run(data, characterId)
             End Select
         Loop
     End Sub
