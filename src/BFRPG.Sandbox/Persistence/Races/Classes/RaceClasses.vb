@@ -69,4 +69,7 @@ FROM
         Return result
     End Function
 
+    Public Function AbilityRanges(raceClassId As Integer) As IRaceClassAbilityRanges Implements IRaceClasses.AbilityRanges
+        Return New RaceClassAbilityRanges(connection, raceClassId)
+    End Function
 End Class

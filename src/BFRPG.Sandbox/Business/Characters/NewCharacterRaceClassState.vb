@@ -25,7 +25,7 @@
         Next
         Dim qualifiedRaceClasses = data.RaceClasses.
             All().
-            Where(Function(raceClass) abilityScores.All(Function(x) RaceClassAbilityRanges.Valid(data.Connection, raceClass.RaceClassId, x.Key, x.Value))).
+            Where(Function(raceClass) abilityScores.All(Function(x) data.RaceClasses.AbilityRanges(raceClass.RaceClassId).Valid(x.Key, x.Value))).
             ToDictionary(Function(x) x.UniqueName, Function(x) x.RaceClassId)
         If Not qualifiedRaceClasses.Any Then
             ui.Message((Mood.Danger, Messages.NoQualifiedRaceClassesAvailable))
