@@ -5,7 +5,7 @@
     <RootNamespace>BFRPG.Sandbox</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
     <OptionStrict>On</OptionStrict>
-    <ImportedNamespaces>MySqlConnector=False,Spectre.Console=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,BFRPG.Sandbox=True</ImportedNamespaces>
+    <ImportedNamespaces>BFRPG.Presentation=False,MySqlConnector=False,Spectre.Console=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,BFRPG.Sandbox=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Import Include="BFRPG.Presentation" />
     <Import Include="MySqlConnector" />
     <Import Include="Spectre.Console" />
   </ItemGroup>
