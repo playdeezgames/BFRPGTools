@@ -1,5 +1,5 @@
-﻿Friend Module Characters
-    Friend Sub Delete(connection As MySqlConnection, characterId As Integer)
+﻿Friend Class Characters
+    Friend Shared Sub Delete(connection As MySqlConnection, characterId As Integer)
         CharacterAbilities.DeleteForCharacter(connection, characterId)
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -12,7 +12,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Sub Rename(connection As MySqlConnection, characterId As Integer, characterName As String)
+    Friend Shared Sub Rename(connection As MySqlConnection, characterId As Integer, characterName As String)
         Using command = connection.CreateCommand
             command.CommandText = $"
 UPDATE 
@@ -27,7 +27,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Sub Transfer(connection As MySqlConnection, characterId As Integer, playerId As Integer)
+    Friend Shared Sub Transfer(connection As MySqlConnection, characterId As Integer, playerId As Integer)
         Using command = connection.CreateCommand
             command.CommandText = $"
 UPDATE 
@@ -42,7 +42,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Sub AddXP(
+    Friend Shared Sub AddXP(
                     connection As MySqlConnection,
                     characterId As Integer,
                     experiencePoints As Integer)
@@ -61,7 +61,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Function Create(
+    Friend Shared Function Create(
                           connection As MySqlConnection,
                           playerId As Integer,
                           characterName As String,
@@ -103,7 +103,7 @@ RETURNING
         Return characterId
     End Function
 
-    Friend Function ReadDetails(connection As MySqlConnection, characterId As Integer) As CharacterDetails
+    Friend Shared Function ReadDetails(connection As MySqlConnection, characterId As Integer) As CharacterDetails
         Using command = connection.CreateCommand()
             command.CommandText = $"
 SELECT 
@@ -143,7 +143,7 @@ WHERE
         End Using
     End Function
 
-    Friend Function AllForPlayer(connection As MySqlConnection, playerId As Integer) As IEnumerable(Of CharacterDetails)
+    Friend Shared Function AllForPlayer(connection As MySqlConnection, playerId As Integer) As IEnumerable(Of CharacterDetails)
         Dim result As New List(Of CharacterDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -187,7 +187,7 @@ WHERE
         Return result
     End Function
 
-    Friend Function FindForPlayerAndName(connection As MySqlConnection, playerId As Integer, characterName As String) As Integer?
+    Friend Shared Function FindForPlayerAndName(connection As MySqlConnection, playerId As Integer, characterName As String) As Integer?
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 
@@ -206,4 +206,4 @@ WHERE
             Return CInt(result)
         End Using
     End Function
-End Module
+End Class
