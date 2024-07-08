@@ -1,4 +1,4 @@
-﻿Friend Class UIContext
+﻿Public Class UIContext
     Implements IUIContext
 
     Public Sub Clear() Implements IUIContext.Clear
