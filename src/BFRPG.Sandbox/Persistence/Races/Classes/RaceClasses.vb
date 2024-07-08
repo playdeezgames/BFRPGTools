@@ -1,6 +1,13 @@
 ﻿Friend Class RaceClasses
     Implements IRaceClasses
-    Friend Shared Function ReadDetails(connection As MySqlConnection, raceClassId As Integer) As RaceClassDetails
+
+    Private ReadOnly connection As MySqlConnection
+
+    Public Sub New(connection As MySqlConnection)
+        Me.connection = connection
+    End Sub
+
+    Function ReadDetails(raceClassId As Integer) As RaceClassDetails Implements IRaceClasses.ReadDetails
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 
@@ -31,7 +38,7 @@ WHERE
             End Using
         End Using
     End Function
-    Friend Shared Function All(connection As MySqlConnection) As IEnumerable(Of RaceClassDetails)
+    Function All() As IEnumerable(Of RaceClassDetails) Implements IRaceClasses.All
         Dim result As New List(Of RaceClassDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"

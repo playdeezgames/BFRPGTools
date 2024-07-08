@@ -26,6 +26,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property RaceClasses As IRaceClasses Implements IDataContext.RaceClasses
+        Get
+            Return New RaceClasses(Connection)
+        End Get
+    End Property
+
     Sub New(connection As MySqlConnection)
         Me.Connection = connection
     End Sub

@@ -23,8 +23,8 @@
         For Each ability In allAbilities
             ui.Write((Mood.Info, $"{ability.AbilityName}: {abilityScores(ability.AbilityId)}"))
         Next
-        Dim qualifiedRaceClasses = RaceClasses.
-            All(data.Connection).
+        Dim qualifiedRaceClasses = data.RaceClasses.
+            All().
             Where(Function(raceClass) abilityScores.All(Function(x) RaceClassAbilityRanges.Valid(data.Connection, raceClass.RaceClassId, x.Key, x.Value))).
             ToDictionary(Function(x) x.UniqueName, Function(x) x.RaceClassId)
         If Not qualifiedRaceClasses.Any Then

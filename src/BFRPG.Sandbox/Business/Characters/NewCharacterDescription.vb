@@ -11,7 +11,7 @@
         For Each score In abilityScores
             data.Characters.Abilities(characterId).Write(score.Key, score.Value)
         Next
-        Dim raceClassDetails = RaceClasses.ReadDetails(data.Connection, raceClassId)
+        Dim raceClassDetails = data.RaceClasses.ReadDetails(raceClassId)
         Dim hitDieSize = raceClassDetails.HitDieSize
         Dim hitDiceCount = raceClassDetails.MaximumHitDice
         For Each index In Enumerable.Range(1, hitDiceCount)
