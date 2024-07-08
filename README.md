@@ -1,5 +1,13 @@
 # YouTube Publish Tracking:
  
+ 
+ - [ ] 20240714 - BFRPG Tools Interlude Episode 14 - 
+ - [ ] 20240713 - BFRPG Tools Interlude Episode 13 - 
+ - [ ] 20240712 - BFRPG Tools Interlude Episode 12 - 
+ - [ ] 20240711 - BFRPG Tools Interlude Episode 11 - 
+ - [ ] 20240710 - BFRPG Tools Interlude Episode 10 - 
+ - [ ] 20240709 - BFRPG Tools Interlude Episode 9 - 
+ - [ ] 20240708 - BFRPG Tools Interlude Episode 8 - 
  - [x] 20240630 - BFRPG Tools Interlude Episode 7 - 
  - [x] 20240629 - BFRPG Tools Interlude Episode 6 - 
  - [x] 20240628 - BFRPG Tools Interlude Episode 5 - 
@@ -7,6 +15,8 @@
  - [x] 20240626 - BFRPG Tools Interlude Episode 3 - 
  - [x] 20240625 - BFRPG Tools Interlude Episode 2 - 
  - [x] 20240624 - BFRPG Tools Interlude Episode 1 - 
+
+SQL Backed TTRPG Console Apps with VB.NET
 
 # TODO
 
