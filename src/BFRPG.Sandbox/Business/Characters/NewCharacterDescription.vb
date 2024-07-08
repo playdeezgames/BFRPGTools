@@ -15,7 +15,7 @@
         Dim hitDieSize = raceClassDetails.HitDieSize
         Dim hitDiceCount = raceClassDetails.MaximumHitDice
         For Each index In Enumerable.Range(1, hitDiceCount)
-            CharacterHitDice.Write(data.Connection, characterId, index, RNG.RollDice(1, hitDieSize))
+            data.Characters.HitDice(characterId).Write(index, RNG.RollDice(1, hitDieSize))
         Next
         CharacterMenu.Run(data, ui, characterId)
     End Sub
