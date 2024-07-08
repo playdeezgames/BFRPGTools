@@ -3,10 +3,12 @@
 
     Private ReadOnly connection As MySqlConnection
     Private ReadOnly characterId As Integer
+    Private ReadOnly store As IStore
 
-    Public Sub New(connection As MySqlConnection, characterId As Integer)
+    Public Sub New(connection As MySqlConnection, store As IStore, characterId As Integer)
         Me.connection = connection
         Me.characterId = characterId
+        Me.store = store
     End Sub
 
     Public Sub Write(abilityId As Integer, abilityScore As Integer) Implements ICharacterAbilities.Write
@@ -34,15 +36,7 @@ ON DUPLICATE KEY UPDATE
     End Sub
 
     Public Sub DeleteForCharacter() Implements ICharacterAbilities.DeleteForCharacter
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-DELETE FROM 
-    `{Tables.CharacterAbilities}` 
-WHERE 
-    `{Columns.CharacterId}`=@{Columns.CharacterId};"
-            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
-            command.ExecuteNonQuery()
-        End Using
+        store.Delete(Tables.CharacterAbilities, New Dictionary(Of String, Object) From {{Columns.CharacterId, characterId}})
     End Sub
 
     Public Function ReadAllDetailsForCharacter() As IEnumerable(Of CharacterAbilityDetails) Implements ICharacterAbilities.ReadAllDetailsForCharacter

@@ -1,21 +1,17 @@
 ﻿Friend Class Characters
     Implements ICharacters
     Private ReadOnly connection As MySqlConnection
-    Sub New(connection As MySqlConnection)
+    Private ReadOnly store As IStore
+
+    Sub New(connection As MySqlConnection, store As IStore)
         Me.connection = connection
+        Me.store = store
     End Sub
 
     Public Sub Delete(characterId As Integer) Implements ICharacters.Delete
         Abilities(characterId).DeleteForCharacter()
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-DELETE FROM 
-    `{Tables.Characters}` 
-WHERE 
-    `{Columns.CharacterId}`=@{Columns.CharacterId};"
-            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
-            command.ExecuteNonQuery()
-        End Using
+        HitDice(characterId).DeleteForCharacter()
+        store.Delete(Tables.Characters, New Dictionary(Of String, Object) From {{Columns.CharacterId, characterId}})
     End Sub
 
     Public Sub Rename(characterId As Integer, characterName As String) Implements ICharacters.Rename
@@ -205,10 +201,10 @@ WHERE
     End Function
 
     Public Function HitDice(characterId As Integer) As ICharacterHitDice Implements ICharacters.HitDice
-        Return New CharacterHitDice(connection, characterId)
+        Return New CharacterHitDice(connection, store, characterId)
     End Function
 
     Public Function Abilities(characterId As Integer) As ICharacterAbilities Implements ICharacters.Abilities
-        Return New CharacterAbilities(connection, characterId)
+        Return New CharacterAbilities(connection, store, characterId)
     End Function
 End Class

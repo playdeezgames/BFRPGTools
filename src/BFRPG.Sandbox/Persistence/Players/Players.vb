@@ -1,21 +1,16 @@
 ﻿Friend Class Players
     Implements IPlayers
 
-    Public Sub New(connection As MySqlConnection)
-        Me.Connection = connection
+    Public Sub New(connection As MySqlConnection, store As IStore)
+        Me.connection = connection
+        Me.store = store
     End Sub
 
     Private ReadOnly connection As MySqlConnection
+    Private ReadOnly store As IStore
 
     Public Sub Delete(playerId As Integer) Implements IPlayers.Delete
-        Using command = connection.CreateCommand()
-            command.CommandText = $"
-DELETE FROM 
-    {Tables.Players} 
-WHERE {Columns.PlayerId}=@{Columns.PlayerId};"
-            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
-            command.ExecuteNonQuery()
-        End Using
+        store.Delete(Tables.Players, New Dictionary(Of String, Object) From {{Columns.PlayerId, playerId}})
     End Sub
 
     Public Sub Rename(playerId As Integer, playerName As String) Implements IPlayers.Rename

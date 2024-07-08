@@ -11,13 +11,13 @@
 
     Public ReadOnly Property Characters As ICharacters Implements IDataContext.Characters
         Get
-            Return New Characters(Connection)
+            Return New Characters(connection, store)
         End Get
     End Property
 
     Public ReadOnly Property Players As IPlayers Implements IDataContext.Players
         Get
-            Return New Players(Connection)
+            Return New Players(connection, store)
         End Get
     End Property
 

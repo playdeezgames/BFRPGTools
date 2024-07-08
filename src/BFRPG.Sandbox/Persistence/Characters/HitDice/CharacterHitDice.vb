@@ -3,10 +3,12 @@
 
     Private ReadOnly connection As MySqlConnection
     Private ReadOnly characterId As Integer
+    Private ReadOnly store As IStore
 
-    Public Sub New(connection As MySqlConnection, characterId As Integer)
+    Public Sub New(connection As MySqlConnection, store As IStore, characterId As Integer)
         Me.connection = connection
         Me.characterId = characterId
+        Me.store = store
     End Sub
 
     Public Sub Write(die As Integer, dieRoll As Integer) Implements ICharacterHitDice.Write
@@ -29,5 +31,9 @@ VALUES
             command.Parameters.AddWithValue(Columns.DieRoll, dieRoll)
             command.ExecuteNonQuery()
         End Using
+    End Sub
+
+    Public Sub DeleteForCharacter() Implements ICharacterHitDice.DeleteForCharacter
+        Store.Delete(Tables.CharacterHitDice, New Dictionary(Of String, Object) From {{Columns.CharacterId, characterId}})
     End Sub
 End Class
