@@ -1,6 +1,6 @@
 ﻿Friend Class DataContext
     Implements IDataContext
-    Friend ReadOnly Property Connection As MySqlConnection Implements IDataContext.Connection
+    Private ReadOnly connection As MySqlConnection
 
     Public ReadOnly Property Abilities As IAbilities Implements IDataContext.Abilities
         Get
