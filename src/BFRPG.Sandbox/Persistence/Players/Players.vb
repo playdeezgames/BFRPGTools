@@ -1,4 +1,5 @@
 ﻿Friend Class Players
+    Implements IPlayers
     Friend Shared Sub Delete(
                      connection As MySqlConnection,
                      playerId As Integer)

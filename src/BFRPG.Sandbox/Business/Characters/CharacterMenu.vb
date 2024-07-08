@@ -2,7 +2,7 @@
     Friend Sub Run(context As DataContext, ui As IUIContext, characterId As Integer)
         Do
             ui.Clear()
-            Dim details = Characters.ReadDetails(context.Connection, characterId)
+            Dim details = context.Characters.ReadDetails(characterId)
             ui.Write(
                 (Mood.Info, $"Player Name: {details.PlayerName}"),
                 (Mood.Info, $"Character Name: {details.UniqueName}"),
@@ -36,7 +36,7 @@
                     Exit Do
                 Case Choices.Delete
                     If ui.Confirm((Mood.Danger, Confirms.DeleteCharacter)) Then
-                        Characters.Delete(context.Connection, characterId)
+                        context.Characters.Delete(characterId)
                         Exit Do
                     End If
                 Case Choices.AddXP

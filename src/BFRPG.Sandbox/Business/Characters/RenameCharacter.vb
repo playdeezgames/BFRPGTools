@@ -4,11 +4,11 @@
         If String.IsNullOrWhiteSpace(characterName) Then
             Return
         End If
-        Dim playerId = Characters.ReadDetails(context.Connection, characterId).PlayerId
-        If Characters.FindForPlayerAndName(context.Connection, playerId, characterName).HasValue Then
+        Dim playerId = context.Characters.ReadDetails(characterId).PlayerId
+        If context.Characters.FindForPlayerAndName(playerId, characterName).HasValue Then
             ui.Message((Mood.Danger, Messages.DuplicateCharacterName))
             Return
         End If
-        Characters.Rename(context.Connection, characterId, characterName)
+        context.Characters.Rename(characterId, characterName)
     End Sub
 End Module

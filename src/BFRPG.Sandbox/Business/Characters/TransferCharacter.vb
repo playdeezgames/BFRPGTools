@@ -11,12 +11,12 @@
                 Return False
             Case Else
                 Dim playerId = table(answer)
-                Dim characterName = Characters.ReadDetails(context.Connection, characterId).CharacterName
-                If Characters.FindForPlayerAndName(context.Connection, playerId, characterName).HasValue Then
+                Dim characterName = context.Characters.ReadDetails(characterId).CharacterName
+                If context.Characters.FindForPlayerAndName(playerId, characterName).HasValue Then
                     ui.Message((Mood.Danger, Messages.DuplicateCharacterName))
                     Return False
                 End If
-                Characters.Transfer(context.Connection, characterId, playerId)
+                context.Characters.Transfer(characterId, playerId)
                 ui.Message((Mood.Success, Messages.CharacterTransferSuccess))
                 Return True
         End Select

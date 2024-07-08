@@ -1,5 +1,11 @@
 ﻿Friend Class Characters
-    Friend Shared Sub Delete(connection As MySqlConnection, characterId As Integer)
+    Implements ICharacters
+    Private ReadOnly connection As MySqlConnection
+    Sub New(connection As MySqlConnection)
+        Me.connection = connection
+    End Sub
+
+    Public Sub Delete(characterId As Integer) Implements ICharacters.Delete
         CharacterAbilities.DeleteForCharacter(connection, characterId)
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -12,7 +18,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Shared Sub Rename(connection As MySqlConnection, characterId As Integer, characterName As String)
+    Public Sub Rename(characterId As Integer, characterName As String) Implements ICharacters.Rename
         Using command = connection.CreateCommand
             command.CommandText = $"
 UPDATE 
@@ -27,7 +33,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Shared Sub Transfer(connection As MySqlConnection, characterId As Integer, playerId As Integer)
+    Public Sub Transfer(characterId As Integer, playerId As Integer) Implements ICharacters.Transfer
         Using command = connection.CreateCommand
             command.CommandText = $"
 UPDATE 
@@ -42,10 +48,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Shared Sub AddXP(
-                    connection As MySqlConnection,
-                    characterId As Integer,
-                    experiencePoints As Integer)
+    Public Sub AddXP(characterId As Integer, experiencePoints As Integer) Implements ICharacters.AddXP
         Using command = connection.CreateCommand
             command.CommandText = $"
 UPDATE 
@@ -61,13 +64,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Shared Function Create(
-                          connection As MySqlConnection,
-                          playerId As Integer,
-                          characterName As String,
-                          raceClassId As Integer,
-                          experiencePoints As Integer,
-                          characterDescription As String) As Integer?
+    Public Function Create(playerId As Integer, characterName As String, raceClassId As Integer, experiencePoints As Integer, characterDescription As String) As Integer? Implements ICharacters.Create
         Dim characterId As Integer = 0
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -103,7 +100,7 @@ RETURNING
         Return characterId
     End Function
 
-    Friend Shared Function ReadDetails(connection As MySqlConnection, characterId As Integer) As CharacterDetails
+    Public Function ReadDetails(characterId As Integer) As CharacterDetails Implements ICharacters.ReadDetails
         Using command = connection.CreateCommand()
             command.CommandText = $"
 SELECT 
@@ -143,7 +140,7 @@ WHERE
         End Using
     End Function
 
-    Friend Shared Function AllForPlayer(connection As MySqlConnection, playerId As Integer) As IEnumerable(Of CharacterDetails)
+    Public Function AllForPlayer(playerId As Integer) As IEnumerable(Of CharacterDetails) Implements ICharacters.AllForPlayer
         Dim result As New List(Of CharacterDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -187,7 +184,7 @@ WHERE
         Return result
     End Function
 
-    Friend Shared Function FindForPlayerAndName(connection As MySqlConnection, playerId As Integer, characterName As String) As Integer?
+    Public Function FindForPlayerAndName(playerId As Integer, characterName As String) As Integer? Implements ICharacters.FindForPlayerAndName
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 

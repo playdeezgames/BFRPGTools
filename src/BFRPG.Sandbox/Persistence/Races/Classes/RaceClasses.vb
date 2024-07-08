@@ -1,4 +1,5 @@
 ﻿Friend Class RaceClasses
+    Implements IRaceClasses
     Friend Shared Function ReadDetails(connection As MySqlConnection, raceClassId As Integer) As RaceClassDetails
         Using command = connection.CreateCommand
             command.CommandText = $"

@@ -1,4 +1,5 @@
 ﻿Friend Class CharacterHitDice
+    Implements ICharacterHitDice
     Friend Shared Sub Write(
                     connection As MySqlConnection,
                     characterId As Integer,

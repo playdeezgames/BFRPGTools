@@ -2,8 +2,7 @@
     Sub Run(context As DataContext, ui As IUIContext, playerId As Integer, characterName As String, raceClassId As Integer, abilityScores As IReadOnlyDictionary(Of Integer, Integer))
         Const startingExperiencePoints = 0
         Dim characterDescription = ui.Ask((Mood.Prompt, Prompts.CharacterDescription), String.Empty)
-        Dim characterId = Characters.Create(
-            context.Connection,
+        Dim characterId = context.Characters.Create(
             playerId,
             characterName,
             raceClassId,

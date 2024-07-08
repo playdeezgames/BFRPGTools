@@ -1,4 +1,5 @@
 ﻿Friend Class RaceClassAbilityRanges
+    Implements IRaceClassAbilityRanges
     Friend Shared Function Valid(
                          connection As MySqlConnection,
                          raceClassId As Integer,

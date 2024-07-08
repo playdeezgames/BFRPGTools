@@ -8,6 +8,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Characters As ICharacters Implements IDataContext.Characters
+        Get
+            Return New Characters(Connection)
+        End Get
+    End Property
+
     Sub New(connection As MySqlConnection)
         Me.Connection = connection
     End Sub

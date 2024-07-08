@@ -14,7 +14,7 @@
         If String.IsNullOrWhiteSpace(characterName) Then
             Return endState
         End If
-        If Characters.FindForPlayerAndName(data.Connection, playerId, characterName).HasValue Then
+        If data.Characters.FindForPlayerAndName(playerId, characterName).HasValue Then
             ui.Message((Mood.Danger, Messages.DuplicateCharacterName))
             Return endState
         End If

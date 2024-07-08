@@ -4,6 +4,6 @@
         If xp < 0 Then
             Return
         End If
-        Characters.AddXP(context.Connection, characterId, xp)
+        context.Characters.AddXP(characterId, xp)
     End Sub
 End Module

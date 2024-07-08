@@ -1,4 +1,5 @@
 ﻿Friend Class CharacterAbilities
+    Implements ICharacterAbilities
     Friend Shared Sub Write(
                     connection As MySqlConnection,
                     characterId As Integer,

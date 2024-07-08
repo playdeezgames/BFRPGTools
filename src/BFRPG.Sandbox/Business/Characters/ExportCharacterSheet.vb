@@ -3,7 +3,7 @@ Imports System.Text
 
 Friend Module ExportCharacterSheet
     Friend Sub Run(context As DataContext, characterId As Integer)
-        Dim details = Characters.ReadDetails(context.Connection, characterId)
+        Dim details = context.Characters.ReadDetails(characterId)
         Dim generatedOn = DateTimeOffset.Now
         Dim filename = $"{details.CharacterName} - {details.RaceName} - {details.ClassName} - {details.Level} - {generatedOn:yyyyMMddHHmmss}.html"
         Dim builder As New StringBuilder

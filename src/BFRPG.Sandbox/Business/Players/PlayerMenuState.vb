@@ -24,7 +24,7 @@
         menu.Add(Choices.Rename)
         menu.Add(Choices.NewCharacter)
         Dim table As Dictionary(Of String, Integer) =
-            Characters.AllForPlayer(data.Connection, playerId).
+            data.Characters.AllForPlayer(playerId).
             ToDictionary(Function(x) x.UniqueName, Function(x) x.CharacterId)
         menu.AddRange(table.Keys)
         Dim answer = ui.Choose((Mood.Prompt, Prompts.PlayerMenu), menu.ToArray)
