@@ -1,4 +1,4 @@
-﻿Friend Interface ICharacterAbilities
+﻿Public Interface ICharacterAbilities
     Sub Write(
                     abilityId As Integer,
                     abilityScore As Integer)

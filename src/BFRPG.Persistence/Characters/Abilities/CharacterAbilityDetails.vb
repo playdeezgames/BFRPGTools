@@ -1,4 +1,4 @@
-﻿Friend Class CharacterAbilityDetails
+﻿Public Class CharacterAbilityDetails
     Public Sub New(
                   characterId As Object,
                   characterName As Object,

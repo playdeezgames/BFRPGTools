@@ -1,4 +1,4 @@
-﻿Friend Class AbilityDetails
+﻿Public Class AbilityDetails
     Public Sub New(abilityId As Object, abilityName As Object, abilityAbbreviation As Object)
         Me.AbilityId = CInt(abilityId)
         Me.AbilityName = CStr(abilityName)

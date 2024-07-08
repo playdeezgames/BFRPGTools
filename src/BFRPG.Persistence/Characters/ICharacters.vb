@@ -1,4 +1,4 @@
-﻿Friend Interface ICharacters
+﻿Public Interface ICharacters
     Sub Delete(
               characterId As Integer)
     Sub Rename(

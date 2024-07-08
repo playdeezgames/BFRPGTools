@@ -5,7 +5,7 @@
     <RootNamespace>BFRPG.Sandbox</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
     <OptionStrict>On</OptionStrict>
-    <ImportedNamespaces>BFRPG.Presentation=False,MySqlConnector=False,Spectre.Console=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,BFRPG.Sandbox=True</ImportedNamespaces>
+    <ImportedNamespaces>BFRPG.Persistence=False,BFRPG.Presentation=False,BFRPG.Presentation.Spectre=False,MySqlConnector=False,Spectre.Console=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,BFRPG.Sandbox=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,14 +31,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Import Include="BFRPG.Persistence" />
     <Import Include="BFRPG.Presentation" />
+    <Import Include="BFRPG.Presentation.Spectre" />
     <Import Include="MySqlConnector" />
     <Import Include="Spectre.Console" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BFRPG.Persistence\BFRPG.Persistence.vbproj" />
     <ProjectReference Include="..\BFRPG.Presentation.Spectre\BFRPG.Presentation.Spectre.vbproj" />
     <ProjectReference Include="..\BFRPG.Presentation\BFRPG.Presentation.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Abilities\Details\" />
+    <Folder Include="Persistence\Characters\Details\" />
+    <Folder Include="Persistence\Players\Details\" />
+    <Folder Include="Persistence\Races\Details\" />
   </ItemGroup>
 
 </Project>

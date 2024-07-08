@@ -1,17 +1,17 @@
-﻿Friend Class CharacterDetails
-    Friend ReadOnly Property CharacterId As Integer
-    Friend ReadOnly Property CharacterName As String
-    Friend ReadOnly Property RaceId As Integer
-    Friend ReadOnly Property RaceName As String
-    Friend ReadOnly Property PlayerId As Integer
-    Friend ReadOnly Property PlayerName As String
-    Friend ReadOnly Property ClassId As Integer
-    Friend ReadOnly Property ClassName As String
-    Friend ReadOnly Property Level As Integer
-    Friend ReadOnly Property ExperiencePoints As Integer
-    Friend ReadOnly Property HitPoints As Integer
-    Friend ReadOnly Property CharacterDescription As String
-    Friend ReadOnly Property UniqueName As String
+﻿Public Class CharacterDetails
+    Public ReadOnly Property CharacterId As Integer
+    Public ReadOnly Property CharacterName As String
+    Public ReadOnly Property RaceId As Integer
+    Public ReadOnly Property RaceName As String
+    Public ReadOnly Property PlayerId As Integer
+    Public ReadOnly Property PlayerName As String
+    Public ReadOnly Property ClassId As Integer
+    Public ReadOnly Property ClassName As String
+    Public ReadOnly Property Level As Integer
+    Public ReadOnly Property ExperiencePoints As Integer
+    Public ReadOnly Property HitPoints As Integer
+    Public ReadOnly Property CharacterDescription As String
+    Public ReadOnly Property UniqueName As String
         Get
             Return $"{CharacterName}(Id={CharacterId})"
         End Get

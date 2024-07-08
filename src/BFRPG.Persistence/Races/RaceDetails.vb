@@ -1,4 +1,4 @@
-﻿Friend Class RaceDetails
+﻿Public Class RaceDetails
     Public Sub New(
                   raceId As Object,
                   raceName As Object)

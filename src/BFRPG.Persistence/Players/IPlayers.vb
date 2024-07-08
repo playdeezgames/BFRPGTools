@@ -1,4 +1,4 @@
-﻿Friend Interface IPlayers
+﻿Public Interface IPlayers
     Sub Delete(
             playerId As Integer)
     Sub Rename(

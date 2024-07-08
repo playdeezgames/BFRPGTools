@@ -1,4 +1,4 @@
-﻿Friend Interface ICharacterHitDice
+﻿Public Interface ICharacterHitDice
     Sub Write(
             die As Integer,
             dieRoll As Integer)

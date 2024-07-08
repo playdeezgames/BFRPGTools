@@ -1,4 +1,4 @@
-﻿Friend Class PlayerDetails
+﻿Public Class PlayerDetails
     Public Sub New(
                   playerId As Object,
                   playerName As Object,
@@ -11,7 +11,7 @@
     Public ReadOnly Property PlayerId As Integer
     Public ReadOnly Property PlayerName As String
     Public ReadOnly Property CharacterCount As Integer
-    Friend ReadOnly Property UniqueName As String
+    Public ReadOnly Property UniqueName As String
         Get
             Return $"{PlayerName}(Id={PlayerId})"
         End Get

@@ -1,4 +1,4 @@
-﻿Friend Interface IDataContext
+﻿Public Interface IDataContext
     ReadOnly Property Abilities As IAbilities
     ReadOnly Property Characters As ICharacters
     ReadOnly Property Players As IPlayers
