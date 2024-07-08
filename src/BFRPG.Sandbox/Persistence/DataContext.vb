@@ -14,6 +14,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Players As IPlayers Implements IDataContext.Players
+        Get
+            Return New Players(Connection)
+        End Get
+    End Property
+
     Sub New(connection As MySqlConnection)
         Me.Connection = connection
     End Sub

@@ -1,8 +1,13 @@
 ﻿Friend Class Players
     Implements IPlayers
-    Friend Shared Sub Delete(
-                     connection As MySqlConnection,
-                     playerId As Integer)
+
+    Public Sub New(connection As MySqlConnection)
+        Me.Connection = connection
+    End Sub
+
+    Private ReadOnly connection As MySqlConnection
+
+    Public Sub Delete(playerId As Integer) Implements IPlayers.Delete
         Using command = connection.CreateCommand()
             command.CommandText = $"
 DELETE FROM 
@@ -13,7 +18,7 @@ WHERE {Columns.PlayerId}=@{Columns.PlayerId};"
         End Using
     End Sub
 
-    Friend Shared Sub Rename(connection As MySqlConnection, playerId As Integer, playerName As String)
+    Public Sub Rename(playerId As Integer, playerName As String) Implements IPlayers.Rename
         Using command = connection.CreateCommand()
             command.CommandText = $"
 UPDATE 
@@ -28,9 +33,7 @@ WHERE
         End Using
     End Sub
 
-    Friend Shared Function Create(
-                          connection As MySqlConnection,
-                          playerName As String) As Integer?
+    Public Function Create(playerName As String) As Integer? Implements IPlayers.Create
         Using command = connection.CreateCommand
             command.CommandText = $"
 INSERT IGNORE INTO {Tables.Players}
@@ -52,9 +55,7 @@ RETURNING
         End Using
     End Function
 
-    Friend Shared Function ReadDetails(
-                               connection As MySqlConnection,
-                               playerId As Integer) As PlayerDetails
+    Public Function ReadDetails(playerId As Integer) As PlayerDetails Implements IPlayers.ReadDetails
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 
@@ -78,8 +79,7 @@ WHERE
         End Using
     End Function
 
-    Friend Shared Function All(
-                       connection As MySqlConnection) As IEnumerable(Of PlayerDetails)
+    Public Function All() As IEnumerable(Of PlayerDetails) Implements IPlayers.All
         Dim result As New List(Of PlayerDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"
@@ -104,7 +104,7 @@ ORDER BY
         Return result
     End Function
 
-    Friend Shared Function FindForName(connection As MySqlConnection, playerName As String) As Integer?
+    Public Function FindForName(playerName As String) As Integer? Implements IPlayers.FindForName
         Using command = connection.CreateCommand
             command.CommandText = $"
 SELECT 

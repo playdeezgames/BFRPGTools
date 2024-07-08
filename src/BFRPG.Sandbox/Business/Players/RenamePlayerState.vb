@@ -13,11 +13,11 @@
         If String.IsNullOrWhiteSpace(playerName) Then
             Return endState
         End If
-        If Players.FindForName(data.Connection, playerName).HasValue Then
+        If data.Players.FindForName(playerName).HasValue Then
             ui.Message((Mood.Danger, Messages.DuplicatePlayerName))
             Return endState
         End If
-        Players.Rename(data.Connection, playerId, playerName)
+        data.Players.Rename(playerId, playerName)
         Return endState
     End Function
 End Class

@@ -9,7 +9,7 @@
     Public Overrides Function Run() As IState
         Dim playerName = Trim(ui.Ask((Mood.Prompt, Prompts.NewPlayerName), String.Empty))
         If Not String.IsNullOrWhiteSpace(playerName) Then
-            Dim playerId = Players.Create(data.Connection, playerName)
+            Dim playerId = data.Players.Create(playerName)
             If Not playerId.HasValue Then
                 ui.Message((Mood.Danger, Messages.DuplicatePlayerName))
                 Return endState

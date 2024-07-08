@@ -10,7 +10,7 @@
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        Dim details = Players.ReadDetails(data.Connection, playerId)
+        Dim details = data.Players.ReadDetails(playerId)
         ui.Write(
                 (Mood.Info, $"Player Name: {details.UniqueName}"),
                 (Mood.Info, $"Character Count: {details.CharacterCount}"))
@@ -35,7 +35,7 @@
                 Return endState
             Case Choices.Delete
                 If ui.Confirm((Mood.Danger, Confirms.DeletePlayer)) Then
-                    Players.Delete(data.Connection, playerId)
+                    data.Players.Delete(playerId)
                     Return endState
                 End If
             Case Choices.NewCharacter

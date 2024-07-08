@@ -14,7 +14,7 @@
                     Choices.NewPlayer
                 }
         Dim table =
-                Players.All(data.Connection).
+                data.Players.All().
                 ToDictionary(Function(x) x.UniqueName, Function(x) x.PlayerId)
         menu.AddRange(table.Keys)
         Dim answer = ui.Choose((Mood.Prompt, Prompts.PlayersMenu), menu.ToArray)
