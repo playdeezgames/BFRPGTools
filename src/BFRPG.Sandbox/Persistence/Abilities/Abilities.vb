@@ -1,29 +1,22 @@
 ﻿Friend Class Abilities
     Implements IAbilities
-    Private ReadOnly connection As MySqlConnection
-    Sub New(connection As MySqlConnection)
-        Me.connection = connection
+    Private ReadOnly store As IStore
+
+    Sub New(store As IStore)
+        Me.store = store
     End Sub
 
     Public Function All() As IEnumerable(Of AbilityDetails) Implements IAbilities.All
-        Dim result As New List(Of AbilityDetails)
-        Using command = connection.CreateCommand()
-            command.CommandText = $"
-SELECT 
-    `{Columns.AbilityId}`,
-    `{Columns.AbilityName}`,
-    `{Columns.AbilityAbbreviation}`
-FROM 
-    `{Tables.Abilities}`;"
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    result.Add(New AbilityDetails(
-                                reader(Columns.AbilityId),
-                                reader(Columns.AbilityName),
-                                reader(Columns.AbilityAbbreviation)))
-                End While
-            End Using
-        End Using
-        Return result
+        Return store.ReadAll(
+            {
+                Columns.AbilityId,
+                Columns.AbilityName,
+                Columns.AbilityAbbreviation
+            },
+            Tables.Abilities).
+                Select(Function(x) New AbilityDetails(
+                    x(Columns.AbilityId),
+                    x(Columns.AbilityName),
+                    x(Columns.AbilityAbbreviation)))
     End Function
 End Class

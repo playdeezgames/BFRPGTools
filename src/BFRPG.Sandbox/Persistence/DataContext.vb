@@ -5,7 +5,7 @@
 
     Public ReadOnly Property Abilities As IAbilities Implements IDataContext.Abilities
         Get
-            Return New Abilities(Connection)
+            Return New Abilities(connection, store)
         End Get
     End Property
 
