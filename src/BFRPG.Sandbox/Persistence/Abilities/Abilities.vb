@@ -1,5 +1,11 @@
-﻿Friend Module Abilities
-    Friend Function All(connection As MySqlConnection) As IEnumerable(Of AbilityDetails)
+﻿Friend Class Abilities
+    Implements IAbilities
+    Private ReadOnly connection As MySqlConnection
+    Sub New(connection As MySqlConnection)
+        Me.connection = connection
+    End Sub
+
+    Public Function All() As IEnumerable(Of AbilityDetails) Implements IAbilities.All
         Dim result As New List(Of AbilityDetails)
         Using command = connection.CreateCommand()
             command.CommandText = $"
@@ -20,4 +26,4 @@ FROM
         End Using
         Return result
     End Function
-End Module
+End Class

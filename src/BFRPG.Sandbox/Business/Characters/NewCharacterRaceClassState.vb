@@ -17,7 +17,7 @@
     End Sub
 
     Public Overrides Function Run() As IState
-        Dim allAbilities = Abilities.All(data.Connection)
+        Dim allAbilities = Me.data.Abilities.All()
         Dim abilityScores As IReadOnlyDictionary(Of Integer, Integer) = allAbilities.ToDictionary(Function(x) x.AbilityId, Function(x) RNG.RollDice(3, 6))
         ui.Write((Mood.Info, "Ability Scores:"))
         For Each ability In allAbilities
