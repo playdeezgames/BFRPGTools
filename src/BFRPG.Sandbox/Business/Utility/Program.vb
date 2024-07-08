@@ -1,5 +1,4 @@
 Imports System.IO
-Imports BFRPG.Presentation.Spectre
 
 Module Program
 
@@ -8,7 +7,7 @@ Module Program
         Using connection As New MySqlConnection(File.ReadAllText(Filenames.ConnectionString))
             Try
                 connection.Open()
-                Dim state As IState = New MainMenuState(New DataContext(connection), New UIContext)
+                Dim state As IState = New MainMenuState(New DataContext(connection, New Store(connection)), New UIContext)
                 While state IsNot Nothing
                     state = state.Run()
                 End While

@@ -1,6 +1,7 @@
 ﻿Friend Class DataContext
     Implements IDataContext
     Private ReadOnly connection As MySqlConnection
+    Private ReadOnly store As IStore
 
     Public ReadOnly Property Abilities As IAbilities Implements IDataContext.Abilities
         Get
@@ -32,7 +33,8 @@
         End Get
     End Property
 
-    Sub New(connection As MySqlConnection)
-        Me.Connection = connection
+    Sub New(connection As MySqlConnection, store As IStore)
+        Me.connection = connection
+        Me.store = store
     End Sub
 End Class
