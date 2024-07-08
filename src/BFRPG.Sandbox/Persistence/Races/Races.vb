@@ -1,6 +1,13 @@
 ﻿Friend Class Races
     Implements IRaces
-    Friend Shared Function All(connection As MySqlConnection) As IEnumerable(Of RaceDetails)
+
+    Private ReadOnly connection As MySqlConnection
+
+    Public Sub New(connection As MySqlConnection)
+        Me.connection = connection
+    End Sub
+
+    Function All() As IEnumerable(Of RaceDetails) Implements IRaces.All
         Dim result As New List(Of RaceDetails)
         Using command = connection.CreateCommand
             command.CommandText = $"

@@ -20,6 +20,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Races As IRaces Implements IDataContext.Races
+        Get
+            Return New Races(Connection)
+        End Get
+    End Property
+
     Sub New(connection As MySqlConnection)
         Me.Connection = connection
     End Sub
