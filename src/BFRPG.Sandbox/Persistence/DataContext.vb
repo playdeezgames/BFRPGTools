@@ -23,7 +23,7 @@
 
     Public ReadOnly Property Races As IRaces Implements IDataContext.Races
         Get
-            Return New Races(Connection)
+            Return New Races(store)
         End Get
     End Property
 
