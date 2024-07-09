@@ -16,7 +16,7 @@
             {
                 {Columns.CharacterId, characterId},
                 {Columns.AbilityId, abilityId},
-                {Columns.CharacterId, characterId}
+                {Columns.AbilityScore, abilityScore}
             },
             updateColumns:=
             {

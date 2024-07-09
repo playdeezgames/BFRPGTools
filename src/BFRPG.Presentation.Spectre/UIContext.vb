@@ -11,7 +11,7 @@
 
     Public Sub Write(ParamArray lines() As (Mood As Mood, Text As String)) Implements IUIContext.Write
         For Each line In lines
-            AnsiConsole.MarkupLine($"[{line.Mood.ColorName}]{line.Text}[/]")
+            AnsiConsole.MarkupLine($"[{line.Mood.ColorName}]{Markup.Escape(line.Text)}[/]")
         Next
     End Sub
 
@@ -28,13 +28,13 @@
 
     Public Function Choose(Of TResult)(prompt As (Mood As Mood, Text As String), ParamArray choices() As (Text As String, Value As TResult)) As TResult Implements IUIContext.Choose
         Dim table = choices.ToDictionary(Function(x) x.Text, Function(x) x.Value)
-        Dim selector As New SelectionPrompt(Of String) With {.Title = $"[{prompt.Mood.ColorName}]{prompt.Text}[/]"}
+        Dim selector As New SelectionPrompt(Of String) With {.Title = $"[{prompt.Mood.ColorName}]{Markup.Escape(prompt.Text)}[/]"}
         selector.AddChoices(choices.Select(Function(x) x.Text))
         Return table(AnsiConsole.Prompt(selector))
     End Function
 
     Public Function Choose(prompt As (Mood As Mood, Text As String), ParamArray choices() As String) As String Implements IUIContext.Choose
-        Return Choose(Of String)(prompt, choices.Select(Function(x) (x, x)).ToArray)
+        Return Choose(Of String)(prompt, choices.Select(Function(x) (Markup.Escape(x), x)).ToArray)
     End Function
 
     Public Function Confirm(prompt As (Mood As Mood, Text As String)) As Boolean Implements IUIContext.Confirm
