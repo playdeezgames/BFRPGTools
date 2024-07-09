@@ -1,8 +1,17 @@
 ﻿Imports System.IO
 Imports System.Text
 
-Friend Module ExportCharacterSheet
-    Friend Sub Run(data As IDataContext, characterId As Integer)
+Friend Class ExportCharacterSheetState
+    Inherits BaseState
+
+    Private ReadOnly characterId As Integer
+
+    Public Sub New(data As IDataContext, ui As IUIContext, endState As IState, characterId As Integer)
+        MyBase.New(data, ui, endState)
+        Me.characterId = characterId
+    End Sub
+
+    Public Overrides Function Run() As IState
         Dim details = data.Characters.ReadDetails(characterId)
         Dim generatedOn = DateTimeOffset.Now
         Dim filename = $"{details.CharacterName} - {details.RaceName} - {details.ClassName} - {details.Level} - {generatedOn:yyyyMMddHHmmss}.html"
@@ -99,5 +108,6 @@ Friend Module ExportCharacterSheet
                 }
             }
         p.Start()
-    End Sub
-End Module
+        Return endState
+    End Function
+End Class

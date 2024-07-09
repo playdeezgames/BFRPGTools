@@ -36,9 +36,7 @@
             }
         Select Case ui.Choose((Mood.Prompt, Prompts.CharacterMenu), menu.ToArray)
             Case Choices.Transfer
-                If TransferCharacter.Run(data, ui, characterId) Then
-                    Return endState
-                End If
+                Return New TransferCharacterState(data, ui, endState, Me, characterId)
             Case Choices.Rename
                 Return New RenameCharacterState(data, ui, Me, characterId)
             Case Choices.GoBack
@@ -51,7 +49,7 @@
             Case Choices.AddXP
                 Return New AddExperiencePointsState(data, ui, Me, characterId)
             Case Choices.CharacterSheet
-                ExportCharacterSheet.Run(data, characterId)
+                Return New ExportCharacterSheetState(data, ui, Me, characterId)
         End Select
         Return Me
     End Function
