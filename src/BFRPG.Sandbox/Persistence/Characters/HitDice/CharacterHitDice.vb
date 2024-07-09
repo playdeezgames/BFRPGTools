@@ -12,25 +12,14 @@
     End Sub
 
     Public Sub Write(die As Integer, dieRoll As Integer) Implements ICharacterHitDice.Write
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-INSERT IGNORE INTO `{Tables.CharacterHitDice}`
-(
-    `{Columns.CharacterId}`,
-    `{Columns.Die}`,
-    `{Columns.DieRoll}`
-)
-VALUES
-(
-    @{Columns.CharacterId},
-    @{Columns.Die},
-    @{Columns.DieRoll}
-);"
-            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
-            command.Parameters.AddWithValue(Columns.Die, die)
-            command.Parameters.AddWithValue(Columns.DieRoll, dieRoll)
-            command.ExecuteNonQuery()
-        End Using
+        store.InsertReturning(
+            Tables.CharacterHitDice,
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.CharacterId, characterId},
+                {Columns.Die, die},
+                {Columns.DieRoll, dieRoll}
+            })
     End Sub
 
     Public Sub DeleteForCharacter() Implements ICharacterHitDice.DeleteForCharacter

@@ -19,7 +19,6 @@ DELETE FROM
     End Sub
 
     Public Function ReadAll(columns As IEnumerable(Of String), viewName As String, Optional forColumns As IReadOnlyDictionary(Of String, Object) = Nothing) As IEnumerable(Of IReadOnlyDictionary(Of String, Object)) Implements IStore.ReadAll
-        Dim result As New List(Of IReadOnlyDictionary(Of String, Object))
         Dim whereClause = BuildWhereClause(forColumns)
 
         Using command = connection.CreateCommand()
@@ -29,15 +28,20 @@ SELECT
 FROM 
     `{viewName}`{whereClause};"
             AddParameters(command, forColumns)
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    Dim record As New Dictionary(Of String, Object)
-                    For Each column In columns
-                        record(column) = reader(column)
-                    Next
-                    result.Add(record)
-                End While
-            End Using
+            Return ReadResults(columns, command)
+        End Using
+    End Function
+
+    Private Shared Function ReadResults(columns As IEnumerable(Of String), command As MySqlCommand) As IEnumerable(Of IReadOnlyDictionary(Of String, Object))
+        Dim result As New List(Of IReadOnlyDictionary(Of String, Object))
+        Using reader = command.ExecuteReader
+            While reader.Read
+                Dim record As New Dictionary(Of String, Object)
+                For Each column In columns
+                    record(column) = reader(column)
+                Next
+                result.Add(record)
+            End While
         End Using
         Return result
     End Function
@@ -71,5 +75,44 @@ SET
 
     Private Shared Function BuildUpdateList(updateColumns As IReadOnlyDictionary(Of String, Object)) As Object
         Return String.Join(",", updateColumns.Keys.Select(Function(x) $"`{x}`=@{x}"))
+    End Function
+
+    Public Function InsertReturning(
+                                   tableName As String,
+                                   insertColumns As IReadOnlyDictionary(Of String, Object),
+                                   Optional returnColumns As IEnumerable(Of String) = Nothing) As IReadOnlyDictionary(Of String, Object) Implements IStore.InsertReturning
+        Using command = connection.CreateCommand
+            command.CommandText = $"
+INSERT IGNORE INTO {tableName}
+(
+    {BuildInsertList(insertColumns)}
+) 
+VALUES
+(
+    {BuildParameterList(insertColumns)}
+) 
+    {BuildReturningList(returnColumns)};"
+            AddParameters(command, insertColumns)
+            If returnColumns IsNot Nothing AndAlso returnColumns.Any Then
+                Return ReadResults(returnColumns, command).FirstOrDefault
+            End If
+            command.ExecuteNonQuery()
+            Return Nothing
+        End Using
+    End Function
+
+    Private Shared Function BuildInsertList(insertColumns As IReadOnlyDictionary(Of String, Object)) As Object
+        Return String.Join(",", insertColumns.Keys.Select(Function(x) $"`{x}`"))
+    End Function
+
+    Private Shared Function BuildReturningList(returnColumns As IEnumerable(Of String)) As Object
+        If returnColumns IsNot Nothing AndAlso returnColumns.Any Then
+            Return $" RETURNING {String.Join(",", returnColumns.Select(Function(x) $"`{x}`"))}"
+        End If
+        Return String.Empty
+    End Function
+
+    Private Shared Function BuildParameterList(insertColumns As IReadOnlyDictionary(Of String, Object)) As Object
+        Return String.Join(",", insertColumns.Keys.Select(Function(x) $"@{x}"))
     End Function
 End Class

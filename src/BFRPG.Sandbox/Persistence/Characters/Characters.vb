@@ -66,39 +66,23 @@
     End Sub
 
     Public Function Create(playerId As Integer, characterName As String, raceClassId As Integer, experiencePoints As Integer, characterDescription As String) As Integer? Implements ICharacters.Create
-        Dim characterId As Integer = 0
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-INSERT IGNORE INTO {Tables.Characters}
-(
-    `{Columns.PlayerId}`, 
-    `{Columns.CharacterName}`,
-    `{Columns.RaceClassId}`,
-    `{Columns.ExperiencePoints}`,
-    `{Columns.CharacterDescription}`
-) 
-VALUES
-(
-    @{Columns.PlayerId}, 
-    @{Columns.CharacterName},
-    @{Columns.RaceClassId},
-    @{Columns.ExperiencePoints},
-    @{Columns.CharacterDescription}
-) 
-RETURNING 
-    {Columns.CharacterId};"
-            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
-            command.Parameters.AddWithValue(Columns.RaceClassId, raceClassId)
-            command.Parameters.AddWithValue(Columns.ExperiencePoints, experiencePoints)
-            command.Parameters.AddWithValue(Columns.CharacterName, Trim(characterName))
-            command.Parameters.AddWithValue(Columns.CharacterDescription, Trim(characterDescription))
-            Dim result = command.ExecuteScalar()
-            If result Is Nothing Then
-                Return Nothing
-            End If
-            characterId = CInt(result)
-        End Using
-        Return characterId
+        Dim result = store.InsertReturning(
+            Tables.Characters,
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.PlayerId, playerId},
+                {Columns.CharacterName, characterName},
+                {Columns.RaceClassId, raceClassId},
+                {Columns.ExperiencePoints, experiencePoints},
+                {Columns.CharacterDescription, characterDescription}
+            },
+            {
+                Columns.CharacterId
+            })
+        If result Is Nothing Then
+            Return Nothing
+        End If
+        Return CInt(result(Columns.CharacterId))
     End Function
 
     Public Function ReadDetails(characterId As Integer) As CharacterDetails Implements ICharacters.ReadDetails

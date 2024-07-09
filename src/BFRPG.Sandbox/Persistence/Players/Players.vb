@@ -27,25 +27,19 @@
     End Sub
 
     Public Function Create(playerName As String) As Integer? Implements IPlayers.Create
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-INSERT IGNORE INTO {Tables.Players}
-(
-    {Columns.PlayerName}
-) 
-VALUES
-(
-    @{Columns.PlayerName}
-) 
-RETURNING 
-    {PlayerId};"
-            command.Parameters.AddWithValue(Columns.PlayerName, Trim(playerName))
-            Dim result = command.ExecuteScalar()
-            If result Is Nothing Then
-                Return Nothing
-            End If
-            Return CInt(result)
-        End Using
+        Dim result = store.InsertReturning(
+            Tables.Players,
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.PlayerName, playerName}
+            },
+            {
+                Columns.PlayerId
+            })
+        If result Is Nothing Then
+            Return Nothing
+        End If
+        Return CInt(result(Columns.PlayerId))
     End Function
 
     Public Function ReadDetails(playerId As Integer) As PlayerDetails Implements IPlayers.ReadDetails
