@@ -44,11 +44,4 @@
     <ProjectReference Include="..\BFRPG.Presentation\BFRPG.Presentation.vbproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Abilities\Details\" />
-    <Folder Include="Persistence\Characters\Details\" />
-    <Folder Include="Persistence\Players\Details\" />
-    <Folder Include="Persistence\Races\Details\" />
-  </ItemGroup>
-
 </Project>
