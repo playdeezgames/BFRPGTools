@@ -1,10 +1,7 @@
-Imports System.IO
-
 Module Program
-
     Sub Main(args As String())
         Console.Title = "BFRPG Sandbox"
-        Using connection As New MySqlConnection(File.ReadAllText(Filenames.ConnectionString))
+        Using connection As New MySqlConnection(Environment.GetEnvironmentVariable("ConnectionString"))
             Try
                 connection.Open()
                 Dim state As IState = New MainMenuState(New DataContext(New Store(connection)), New UIContext)
