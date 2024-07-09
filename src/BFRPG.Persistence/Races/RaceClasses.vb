@@ -8,7 +8,7 @@
     End Sub
 
     Function ReadDetails(raceClassId As Integer) As RaceClassDetails Implements IRaceClasses.ReadDetails
-        Return store.ReadAll(
+        Return store.Retrieve(
         {
     Columns.RaceClassId,
     Columns.RaceId,
@@ -33,7 +33,7 @@
                             reader(Columns.MaximumHitDice))).FirstOrDefault
     End Function
     Function All() As IEnumerable(Of RaceClassDetails) Implements IRaceClasses.All
-        Return store.ReadAll(
+        Return store.Retrieve(
         {
     Columns.RaceClassId,
     Columns.RaceId,

@@ -8,7 +8,7 @@
     End Sub
 
     Function All() As IEnumerable(Of RaceDetails) Implements IRaces.All
-        Return store.ReadAll(
+        Return store.Retrieve(
             {
                 Columns.RaceId,
                 Columns.RaceName

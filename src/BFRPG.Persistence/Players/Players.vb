@@ -25,7 +25,7 @@
     End Sub
 
     Public Function Create(playerName As String) As Integer? Implements IPlayers.Create
-        Dim result = store.Insert(
+        Dim result = store.Create(
             Tables.Players,
             New Dictionary(Of String, Object) From
             {
@@ -41,7 +41,7 @@
     End Function
 
     Public Function ReadDetails(playerId As Integer) As PlayerDetails Implements IPlayers.ReadDetails
-        Return store.ReadAll(
+        Return store.Retrieve(
         {
     Columns.PlayerId,
     Columns.PlayerName,
@@ -58,7 +58,7 @@
     End Function
 
     Public Function All() As IEnumerable(Of PlayerDetails) Implements IPlayers.All
-        Return store.ReadAll(
+        Return store.Retrieve(
         {
             Columns.PlayerId,
             Columns.PlayerName,
@@ -72,7 +72,7 @@
     End Function
 
     Public Function FindForName(playerName As String) As Integer? Implements IPlayers.FindForName
-        Dim result = store.ReadAll({Columns.PlayerId}, Tables.Players, New Dictionary(Of String, Object) From {{Columns.PlayerName, playerName}}).FirstOrDefault
+        Dim result = store.Retrieve({Columns.PlayerId}, Tables.Players, New Dictionary(Of String, Object) From {{Columns.PlayerName, playerName}}).FirstOrDefault
         If result IsNot Nothing Then
             Return CInt(result(Columns.PlayerId))
         End If

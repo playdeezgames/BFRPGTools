@@ -10,7 +10,7 @@
     End Sub
 
     Public Sub Write(abilityId As Integer, abilityScore As Integer) Implements ICharacterAbilities.Write
-        store.Insert(
+        store.Create(
             Tables.CharacterAbilities,
             New Dictionary(Of String, Object) From
             {
@@ -29,7 +29,7 @@
     End Sub
 
     Public Function ReadAllDetailsForCharacter() As IEnumerable(Of CharacterAbilityDetails) Implements ICharacterAbilities.ReadAllDetailsForCharacter
-        Return store.ReadAll(
+        Return store.Retrieve(
             {
                 Columns.CharacterId,
                 Columns.CharacterName,

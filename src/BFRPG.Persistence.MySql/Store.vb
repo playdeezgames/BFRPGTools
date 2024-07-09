@@ -18,7 +18,7 @@ DELETE FROM
         End Using
     End Sub
 
-    Public Function ReadAll(columns As IEnumerable(Of String), viewName As String, Optional forColumns As IReadOnlyDictionary(Of String, Object) = Nothing) As IEnumerable(Of IReadOnlyDictionary(Of String, Object)) Implements IStore.ReadAll
+    Public Function Retrieve(columns As IEnumerable(Of String), viewName As String, Optional forColumns As IReadOnlyDictionary(Of String, Object) = Nothing) As IEnumerable(Of IReadOnlyDictionary(Of String, Object)) Implements IStore.Retrieve
         Dim whereClause = BuildWhereClause(forColumns)
 
         Using command = connection.CreateCommand()
@@ -77,11 +77,11 @@ SET
         Return String.Join(",", updateColumns.Select(Function(x) $"`{x}`=@{x}"))
     End Function
 
-    Public Function Insert(
+    Public Function Create(
                         tableName As String,
                         insertColumns As IReadOnlyDictionary(Of String, Object),
                         Optional returnColumns As IEnumerable(Of String) = Nothing,
-                        Optional updateColumns As IEnumerable(Of String) = Nothing) As IReadOnlyDictionary(Of String, Object) Implements IStore.Insert
+                        Optional updateColumns As IEnumerable(Of String) = Nothing) As IReadOnlyDictionary(Of String, Object) Implements IStore.Create
         Using command = connection.CreateCommand
             command.CommandText = $"
 INSERT {If(updateColumns IsNot Nothing AndAlso updateColumns.Any, "", "IGNORE")} INTO {tableName}

@@ -7,7 +7,7 @@
     End Sub
 
     Public Function All() As IEnumerable(Of AbilityDetails) Implements IAbilities.All
-        Return store.ReadAll(
+        Return store.Retrieve(
             {
                 Columns.AbilityId,
                 Columns.AbilityName,

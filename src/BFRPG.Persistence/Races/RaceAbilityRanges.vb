@@ -12,7 +12,7 @@
     Function Valid(
                 abilityId As Integer,
                 abilityScore As Integer) As Boolean Implements IRaceClassAbilityRanges.Valid
-        Dim result = store.ReadAll(
+        Dim result = store.Retrieve(
             {
                 Columns.MaximumScore,
                 Columns.MinimumScore

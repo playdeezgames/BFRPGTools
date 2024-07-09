@@ -40,7 +40,7 @@
 
     Public Sub AddXP(characterId As Integer, experiencePoints As Integer) Implements ICharacters.AddXP
         Dim current =
-            store.ReadAll(
+            store.Retrieve(
                 {
                     Columns.ExperiencePoints
                 },
@@ -64,7 +64,7 @@
     End Sub
 
     Public Function Create(playerId As Integer, characterName As String, raceClassId As Integer, experiencePoints As Integer, characterDescription As String) As Integer? Implements ICharacters.Create
-        Dim result = store.Insert(
+        Dim result = store.Create(
             Tables.Characters,
             New Dictionary(Of String, Object) From
             {
@@ -84,7 +84,7 @@
     End Function
 
     Public Function ReadDetails(characterId As Integer) As CharacterDetails Implements ICharacters.ReadDetails
-        Return store.ReadAll(
+        Return store.Retrieve(
         {
             Columns.CharacterId,
             Columns.CharacterName,
@@ -118,7 +118,7 @@
     End Function
 
     Public Function AllForPlayer(playerId As Integer) As IEnumerable(Of CharacterDetails) Implements ICharacters.AllForPlayer
-        Return store.ReadAll(
+        Return store.Retrieve(
         {
             Columns.CharacterId,
             Columns.CharacterName,
@@ -152,7 +152,7 @@
     End Function
 
     Public Function FindForPlayerAndName(playerId As Integer, characterName As String) As Integer? Implements ICharacters.FindForPlayerAndName
-        Dim result = store.ReadAll(
+        Dim result = store.Retrieve(
             {
                 Columns.CharacterId
             },
