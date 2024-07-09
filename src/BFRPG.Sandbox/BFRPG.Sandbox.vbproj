@@ -5,7 +5,7 @@
     <RootNamespace>BFRPG.Sandbox</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
     <OptionStrict>On</OptionStrict>
-    <ImportedNamespaces>BFRPG.Persistence=False,BFRPG.Persistence.MySql=False,BFRPG.Presentation=False,BFRPG.Presentation.Spectre=False,MySqlConnector=False,Spectre.Console=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,BFRPG.Sandbox=True</ImportedNamespaces>
+    <ImportedNamespaces>BFRPG.Business=False,BFRPG.Persistence=False,BFRPG.Persistence.MySql=False,BFRPG.Presentation=False,BFRPG.Presentation.Spectre=False,MySqlConnector=False,Spectre.Console=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,BFRPG.Sandbox=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Import Include="BFRPG.Business" />
     <Import Include="BFRPG.Persistence" />
     <Import Include="BFRPG.Persistence.MySql" />
     <Import Include="BFRPG.Presentation" />
@@ -40,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BFRPG.Business\BFRPG.Business.vbproj" />
     <ProjectReference Include="..\BFRPG.Persistence.MySql\BFRPG.Persistence.MySql.vbproj" />
     <ProjectReference Include="..\BFRPG.Presentation.Spectre\BFRPG.Presentation.Spectre.vbproj" />
   </ItemGroup>

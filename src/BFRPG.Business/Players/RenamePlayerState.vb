@@ -9,7 +9,7 @@
     End Sub
 
     Public Overrides Function Run() As IState
-        Dim playerName = Trim(ui.Ask((Mood.Prompt, Prompts.NewPlayerName), String.Empty))
+        Dim playerName = ui.Ask((Mood.Prompt, Prompts.NewPlayerName), String.Empty).Trim
         If String.IsNullOrWhiteSpace(playerName) Then
             Return endState
         End If

@@ -1,4 +1,4 @@
-﻿Friend MustInherit Class BaseState
+﻿Public MustInherit Class BaseState
     Implements IState
     Protected ReadOnly data As IDataContext
     Protected ReadOnly ui As IUIContext

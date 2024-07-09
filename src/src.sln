@@ -19,6 +19,8 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Persistence", "BFRPG.
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Persistence.MySql", "BFRPG.Persistence.MySql\BFRPG.Persistence.MySql.vbproj", "{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Business", "BFRPG.Business\BFRPG.Business.vbproj", "{5F340032-7BEC-46A2-85CC-6A08D36B3163}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F340032-7BEC-46A2-85CC-6A08D36B3163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F340032-7BEC-46A2-85CC-6A08D36B3163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F340032-7BEC-46A2-85CC-6A08D36B3163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F340032-7BEC-46A2-85CC-6A08D36B3163}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

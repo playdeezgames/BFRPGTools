@@ -1,4 +1,4 @@
-﻿Friend Class MainMenuState
+﻿Public Class MainMenuState
     Inherits BaseState
     Implements IState
     Sub New(data As IDataContext, ui As IUIContext)
