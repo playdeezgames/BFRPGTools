@@ -10,4 +10,6 @@
     Function Ask(Of TResult)(prompt As (Mood As Mood, Text As String), defaultResult As TResult) As TResult
     Sub Message(prompt As (Mood As Mood, Text As String))
     Sub Write(ParamArray lines As (Mood As Mood, Text As String)())
+    Sub WriteException(ex As Exception)
+    Sub WriteFiglet(figlet As (Mood As Mood, Text As String))
 End Interface

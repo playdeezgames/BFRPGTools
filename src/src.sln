@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Sandbox", "BFRPG.Sandbox\BFRPG.Sandbox.vbproj", "{42488334-3DE4-4EBF-B85E-4CF1123B397A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_stuff", "_stuff", "{8E54CCB6-F18E-4C4D-A74A-5509C385E111}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
@@ -21,16 +19,14 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Persistence.MySql", "
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Business", "BFRPG.Business\BFRPG.Business.vbproj", "{5F340032-7BEC-46A2-85CC-6A08D36B3163}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Tools", "BFRPG.Tools\BFRPG.Tools.vbproj", "{9A96AAE4-1D35-4116-89B7-819B76117677}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{42488334-3DE4-4EBF-B85E-4CF1123B397A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42488334-3DE4-4EBF-B85E-4CF1123B397A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42488334-3DE4-4EBF-B85E-4CF1123B397A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42488334-3DE4-4EBF-B85E-4CF1123B397A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2DDC4066-FF7B-4D4B-98AE-E42C0EA2E81E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2DDC4066-FF7B-4D4B-98AE-E42C0EA2E81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DDC4066-FF7B-4D4B-98AE-E42C0EA2E81E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{5F340032-7BEC-46A2-85CC-6A08D36B3163}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F340032-7BEC-46A2-85CC-6A08D36B3163}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F340032-7BEC-46A2-85CC-6A08D36B3163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A96AAE4-1D35-4116-89B7-819B76117677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A96AAE4-1D35-4116-89B7-819B76117677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A96AAE4-1D35-4116-89B7-819B76117677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A96AAE4-1D35-4116-89B7-819B76117677}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,6 +6,7 @@
     End Sub
     Public Overrides Function Run() As IState Implements IState.Run
         ui.Clear()
+        ui.WriteFiglet((Mood.Title, "BFRPG Tools"))
         Select Case ui.Choose(
                 (Mood.Prompt, Prompts.MainMenu),
                 Choices.Players,

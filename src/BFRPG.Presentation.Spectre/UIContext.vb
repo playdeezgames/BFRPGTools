@@ -15,6 +15,17 @@
         Next
     End Sub
 
+    Public Sub WriteException(ex As Exception) Implements IUIContext.WriteException
+        AnsiConsole.WriteException(ex)
+    End Sub
+
+    Public Sub WriteFiglet(figlet As (Mood As Mood, Text As String)) Implements IUIContext.WriteFiglet
+        AnsiConsole.Write(New FigletText(figlet.Text) With
+            {
+                .Color = figlet.Mood.ToColor()
+            })
+    End Sub
+
     Public Function Choose(Of TResult)(prompt As (Mood As Mood, Text As String), ParamArray choices() As (Text As String, Value As TResult)) As TResult Implements IUIContext.Choose
         Dim table = choices.ToDictionary(Function(x) x.Text, Function(x) x.Value)
         Dim selector As New SelectionPrompt(Of String) With {.Title = $"[{prompt.Mood.ColorName}]{prompt.Text}[/]"}

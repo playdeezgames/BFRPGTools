@@ -39,7 +39,10 @@
                 Columns.AbilityScore
             },
             Views.CharacterAbilityDetails,
-            New Dictionary(Of String, Object)).
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.CharacterId, characterId}
+            }).
             Select(Function(x) New CharacterAbilityDetails(
                 x(Columns.CharacterId),
                 x(Columns.CharacterName),

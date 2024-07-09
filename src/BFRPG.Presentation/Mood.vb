@@ -3,4 +3,5 @@
     Danger
     Info
     Success
+    Title
 End Enum
