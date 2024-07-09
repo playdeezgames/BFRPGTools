@@ -1,12 +1,10 @@
 ﻿Friend Class CharacterHitDice
     Implements ICharacterHitDice
 
-    Private ReadOnly connection As MySqlConnection
     Private ReadOnly characterId As Integer
     Private ReadOnly store As IStore
 
-    Public Sub New(connection As MySqlConnection, store As IStore, characterId As Integer)
-        Me.connection = connection
+    Public Sub New(store As IStore, characterId As Integer)
         Me.characterId = characterId
         Me.store = store
     End Sub

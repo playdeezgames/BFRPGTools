@@ -1,10 +1,8 @@
 ﻿Friend Class Characters
     Implements ICharacters
-    Private ReadOnly connection As MySqlConnection
     Private ReadOnly store As IStore
 
-    Sub New(connection As MySqlConnection, store As IStore)
-        Me.connection = connection
+    Sub New(store As IStore)
         Me.store = store
     End Sub
 
@@ -154,30 +152,27 @@
     End Function
 
     Public Function FindForPlayerAndName(playerId As Integer, characterName As String) As Integer? Implements ICharacters.FindForPlayerAndName
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-SELECT 
-    `{Columns.CharacterId}`
-FROM 
-    `{Tables.Characters}` 
-WHERE 
-    `{Columns.PlayerId}`=@{Columns.PlayerId} AND 
-    `{Columns.CharacterName}`=@{Columns.CharacterName};"
-            command.Parameters.AddWithValue(Columns.CharacterName, characterName)
-            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
-            Dim result = command.ExecuteScalar
-            If result Is Nothing Then
-                Return Nothing
-            End If
-            Return CInt(result)
-        End Using
+        Dim result = store.ReadAll(
+            {
+                Columns.CharacterId
+            },
+            Tables.Characters,
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.PlayerId, playerId},
+                {Columns.CharacterName, characterName}
+            }).FirstOrDefault
+        If result Is Nothing Then
+            Return Nothing
+        End If
+        Return CInt(result(Columns.CharacterId))
     End Function
 
     Public Function HitDice(characterId As Integer) As ICharacterHitDice Implements ICharacters.HitDice
-        Return New CharacterHitDice(connection, store, characterId)
+        Return New CharacterHitDice(store, characterId)
     End Function
 
     Public Function Abilities(characterId As Integer) As ICharacterAbilities Implements ICharacters.Abilities
-        Return New CharacterAbilities(connection, store, characterId)
+        Return New CharacterAbilities(store, characterId)
     End Function
 End Class

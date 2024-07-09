@@ -1,12 +1,10 @@
 ﻿Friend Class CharacterAbilities
     Implements ICharacterAbilities
 
-    Private ReadOnly connection As MySqlConnection
     Private ReadOnly characterId As Integer
     Private ReadOnly store As IStore
 
-    Public Sub New(connection As MySqlConnection, store As IStore, characterId As Integer)
-        Me.connection = connection
+    Public Sub New(store As IStore, characterId As Integer)
         Me.characterId = characterId
         Me.store = store
     End Sub
@@ -31,34 +29,23 @@
     End Sub
 
     Public Function ReadAllDetailsForCharacter() As IEnumerable(Of CharacterAbilityDetails) Implements ICharacterAbilities.ReadAllDetailsForCharacter
-        Dim result As New List(Of CharacterAbilityDetails)
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-SELECT 
-    `{Columns.CharacterId}`, 
-    `{Columns.CharacterName}`, 
-    `{Columns.AbilityId}`, 
-    `{Columns.AbilityName}`, 
-    `{Columns.AbilityAbbreviation}`, 
-    `{Columns.AbilityScore}` 
-FROM 
-    `{Views.CharacterAbilityDetails}` 
-WHERE 
-    `{Columns.CharacterId}`=@{Columns.CharacterId};"
-            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    result.Add(
-                        New CharacterAbilityDetails(
-                            reader(Columns.CharacterId),
-                            reader(Columns.CharacterName),
-                            reader(Columns.AbilityId),
-                            reader(Columns.AbilityName),
-                            reader(Columns.AbilityAbbreviation),
-                            reader(Columns.AbilityScore)))
-                End While
-            End Using
-        End Using
-        Return result
+        Return store.ReadAll(
+            {
+                Columns.CharacterId,
+                Columns.CharacterName,
+                Columns.AbilityId,
+                Columns.AbilityName,
+                Columns.AbilityAbbreviation,
+                Columns.AbilityScore
+            },
+            Views.CharacterAbilityDetails,
+            New Dictionary(Of String, Object)).
+            Select(Function(x) New CharacterAbilityDetails(
+                x(Columns.CharacterId),
+                x(Columns.CharacterName),
+                x(Columns.AbilityId),
+                x(Columns.AbilityName),
+                x(Columns.AbilityAbbreviation),
+                x(Columns.AbilityScore)))
     End Function
 End Class

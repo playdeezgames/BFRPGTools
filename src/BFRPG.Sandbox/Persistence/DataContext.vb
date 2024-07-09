@@ -11,7 +11,7 @@
 
     Public ReadOnly Property Characters As ICharacters Implements IDataContext.Characters
         Get
-            Return New Characters(connection, store)
+            Return New Characters(store)
         End Get
     End Property
 
