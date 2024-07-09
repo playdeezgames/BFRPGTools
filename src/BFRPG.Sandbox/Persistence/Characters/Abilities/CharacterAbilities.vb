@@ -12,27 +12,18 @@
     End Sub
 
     Public Sub Write(abilityId As Integer, abilityScore As Integer) Implements ICharacterAbilities.Write
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-INSERT INTO `{Tables.CharacterAbilities}`
-(
-    `{Columns.CharacterId}`, 
-    `{Columns.AbilityId}`, 
-    `{Columns.AbilityScore}`
-) 
-VALUES
-(
-    @{Columns.CharacterId}, 
-    @{Columns.AbilityId}, 
-    @{Columns.AbilityScore}
-) 
-ON DUPLICATE KEY UPDATE 
-    `{Columns.AbilityScore}`=@{Columns.AbilityScore};"
-            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
-            command.Parameters.AddWithValue(Columns.AbilityId, abilityId)
-            command.Parameters.AddWithValue(Columns.AbilityScore, abilityScore)
-            command.ExecuteNonQuery()
-        End Using
+        store.Insert(
+            Tables.CharacterAbilities,
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.CharacterId, characterId},
+                {Columns.AbilityId, abilityId},
+                {Columns.CharacterId, characterId}
+            },
+            updateColumns:=
+            {
+                Columns.AbilityScore
+            })
     End Sub
 
     Public Sub DeleteForCharacter() Implements ICharacterAbilities.DeleteForCharacter

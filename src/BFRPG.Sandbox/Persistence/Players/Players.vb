@@ -27,7 +27,7 @@
     End Sub
 
     Public Function Create(playerName As String) As Integer? Implements IPlayers.Create
-        Dim result = store.InsertReturning(
+        Dim result = store.Insert(
             Tables.Players,
             New Dictionary(Of String, Object) From
             {

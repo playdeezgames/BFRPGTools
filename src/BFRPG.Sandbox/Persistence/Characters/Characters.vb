@@ -66,7 +66,7 @@
     End Sub
 
     Public Function Create(playerId As Integer, characterName As String, raceClassId As Integer, experiencePoints As Integer, characterDescription As String) As Integer? Implements ICharacters.Create
-        Dim result = store.InsertReturning(
+        Dim result = store.Insert(
             Tables.Characters,
             New Dictionary(Of String, Object) From
             {

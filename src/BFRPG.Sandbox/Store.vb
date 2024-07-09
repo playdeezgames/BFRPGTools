@@ -64,7 +64,7 @@ FROM
 UPDATE 
     `{tableName}` 
 SET 
-    {BuildUpdateList(updateColumns)}
+    {BuildUpdateList(updateColumns.Keys)}
     {BuildWhereClause(forColumns)};
 "
             AddParameters(command, updateColumns)
@@ -73,17 +73,18 @@ SET
         End Using
     End Sub
 
-    Private Shared Function BuildUpdateList(updateColumns As IReadOnlyDictionary(Of String, Object)) As Object
-        Return String.Join(",", updateColumns.Keys.Select(Function(x) $"`{x}`=@{x}"))
+    Private Shared Function BuildUpdateList(updateColumns As IEnumerable(Of String)) As Object
+        Return String.Join(",", updateColumns.Select(Function(x) $"`{x}`=@{x}"))
     End Function
 
-    Public Function InsertReturning(
-                                   tableName As String,
-                                   insertColumns As IReadOnlyDictionary(Of String, Object),
-                                   Optional returnColumns As IEnumerable(Of String) = Nothing) As IReadOnlyDictionary(Of String, Object) Implements IStore.InsertReturning
+    Public Function Insert(
+                        tableName As String,
+                        insertColumns As IReadOnlyDictionary(Of String, Object),
+                        Optional returnColumns As IEnumerable(Of String) = Nothing,
+                        Optional updateColumns As IEnumerable(Of String) = Nothing) As IReadOnlyDictionary(Of String, Object) Implements IStore.Insert
         Using command = connection.CreateCommand
             command.CommandText = $"
-INSERT IGNORE INTO {tableName}
+INSERT {If(updateColumns IsNot Nothing AndAlso updateColumns.Any, "", "IGNORE")} INTO {tableName}
 (
     {BuildInsertList(insertColumns)}
 ) 
@@ -91,6 +92,7 @@ VALUES
 (
     {BuildParameterList(insertColumns)}
 ) 
+    {BuildUpdateClause(updateColumns)}
     {BuildReturningList(returnColumns)};"
             AddParameters(command, insertColumns)
             If returnColumns IsNot Nothing AndAlso returnColumns.Any Then
@@ -99,6 +101,13 @@ VALUES
             command.ExecuteNonQuery()
             Return Nothing
         End Using
+    End Function
+
+    Private Function BuildUpdateClause(updateColumns As IEnumerable(Of String)) As Object
+        If updateColumns IsNot Nothing AndAlso updateColumns.Any Then
+            Return $"ON DUPLICATE KEY UPDATE {BuildUpdateList(updateColumns)}"
+        End If
+        Return String.Empty
     End Function
 
     Private Shared Function BuildInsertList(insertColumns As IReadOnlyDictionary(Of String, Object)) As Object

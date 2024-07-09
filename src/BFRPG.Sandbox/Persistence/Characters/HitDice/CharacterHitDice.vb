@@ -12,7 +12,7 @@
     End Sub
 
     Public Sub Write(die As Integer, dieRoll As Integer) Implements ICharacterHitDice.Write
-        store.InsertReturning(
+        store.Insert(
             Tables.CharacterHitDice,
             New Dictionary(Of String, Object) From
             {
