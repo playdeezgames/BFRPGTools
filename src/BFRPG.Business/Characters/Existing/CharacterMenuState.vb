@@ -20,7 +20,8 @@
                 (Mood.Info, $"Level: {details.Level}"),
                 (Mood.Info, $"Description: {details.CharacterDescription}"),
                 (Mood.Info, $"XP: {details.ExperiencePoints}"),
-                (Mood.Info, $"HP: {details.HitPoints}"))
+                (Mood.Info, $"HP: {details.HitPoints}"),
+                (Mood.Info, $"Attack Bonus: {details.AttackBonus}"))
         Dim abilityDetails = data.Characters.Abilities(characterId).ReadAllDetailsForCharacter()
         For Each abilityDetail In abilityDetails
             ui.Write((Mood.Info, $"{abilityDetail.AbilityAbbreviation}: {abilityDetail.AbilityScore} ({abilityDetail.Modifier})"))
