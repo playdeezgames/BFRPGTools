@@ -53,7 +53,7 @@ Friend Class ExportCharacterSheetState
             .Append("<table>")
             .Append($"<tr><td>AC: TODO</td></tr>")
             .Append($"<tr><td>HP: {details.HitPoints}</td></tr>")
-            .Append($"<tr><td>AB: TODO</td></tr>")
+            .Append($"<tr><td>AB: {details.AttackBonus}</td></tr>")
             .Append("</table>")
             .Append("</td>")
 
