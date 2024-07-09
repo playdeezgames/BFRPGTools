@@ -15,49 +15,54 @@
     End Sub
 
     Public Sub Rename(characterId As Integer, characterName As String) Implements ICharacters.Rename
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-UPDATE 
-    `{Tables.Characters}` 
-SET 
-    `{Columns.CharacterName}`=@{Columns.CharacterName} 
-WHERE 
-    `{Columns.CharacterId}`=@{Columns.CharacterId};"
-            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
-            command.Parameters.AddWithValue(Columns.CharacterName, characterName)
-            command.ExecuteNonQuery()
-        End Using
+        store.Update(
+            Tables.Characters,
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.CharacterName, characterName}
+            },
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.CharacterId, characterId}
+            })
     End Sub
 
     Public Sub Transfer(characterId As Integer, playerId As Integer) Implements ICharacters.Transfer
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-UPDATE 
-    `{Tables.Characters}` 
-SET 
-    `{Columns.PlayerId}`=@{Columns.PlayerId} 
-WHERE 
-    `{Columns.CharacterId}`=@{Columns.CharacterId};"
-            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
-            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
-            command.ExecuteNonQuery()
-        End Using
+        store.Update(
+            Tables.Characters,
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.PlayerId, playerId}
+            },
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.CharacterId, characterId}
+            })
     End Sub
 
     Public Sub AddXP(characterId As Integer, experiencePoints As Integer) Implements ICharacters.AddXP
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-UPDATE 
-    `{Tables.Characters}` 
-SET 
-    `{Columns.ExperiencePoints}`=`{Columns.ExperiencePoints}`+@{Columns.ExperiencePoints} 
-WHERE 
-    `{Columns.CharacterId}`=@{Columns.CharacterId};
-"
-            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
-            command.Parameters.AddWithValue(Columns.ExperiencePoints, experiencePoints)
-            command.ExecuteNonQuery()
-        End Using
+        Dim current =
+            store.ReadAll(
+                {
+                    Columns.ExperiencePoints
+                },
+                Tables.Characters,
+                New Dictionary(Of String, Object) From
+                {
+                    {Columns.CharacterId, characterId}
+                }).FirstOrDefault?(Columns.ExperiencePoints)
+        If current IsNot Nothing Then
+            store.Update(
+                Tables.Characters,
+                New Dictionary(Of String, Object) From
+                {
+                    {Columns.ExperiencePoints, CInt(current) + experiencePoints}
+                },
+                New Dictionary(Of String, Object) From
+                {
+                    {Columns.CharacterId, characterId}
+                })
+        End If
     End Sub
 
     Public Function Create(playerId As Integer, characterName As String, raceClassId As Integer, experiencePoints As Integer, characterDescription As String) As Integer? Implements ICharacters.Create
@@ -97,29 +102,25 @@ RETURNING
     End Function
 
     Public Function ReadDetails(characterId As Integer) As CharacterDetails Implements ICharacters.ReadDetails
-        Using command = connection.CreateCommand()
-            command.CommandText = $"
-SELECT 
-    `{Columns.CharacterId}`,
-    `{Columns.CharacterName}`,
-    `{Columns.RaceId}`,
-    `{Columns.RaceName}`,
-    `{Columns.PlayerId}`,
-    `{Columns.PlayerName}`,
-    `{Columns.ClassId}`,
-    `{Columns.ClassName}`,
-    `{Columns.ExperiencePoints}`,
-    `{Columns.Level}`,
-    `{Columns.HitPoints}`,
-    `{Columns.CharacterDescription}`
-FROM 
-    `{Views.CharacterDetails}` 
-WHERE 
-    `{Columns.CharacterId}`=@{Columns.CharacterId};"
-            command.Parameters.AddWithValue(Columns.CharacterId, characterId)
-            Using reader = command.ExecuteReader
-                reader.Read()
-                Return New CharacterDetails(
+        Return store.ReadAll(
+        {
+            Columns.CharacterId,
+            Columns.CharacterName,
+            Columns.RaceId,
+            Columns.RaceName,
+            Columns.PlayerId,
+            Columns.PlayerName,
+            Columns.ClassId,
+            Columns.ClassName,
+            Columns.ExperiencePoints,
+            Columns.Level,
+            Columns.HitPoints,
+            Columns.CharacterDescription
+        },
+        Views.CharacterDetails,
+        New Dictionary(Of String, Object) From
+        {{Columns.CharacterId, characterId}}).
+        Select(Function(reader) New CharacterDetails(
                     reader(Columns.CharacterId),
                     reader(Columns.CharacterName),
                     reader(Columns.RaceId),
@@ -131,53 +132,41 @@ WHERE
                     reader(Columns.ExperiencePoints),
                     reader(Columns.Level),
                     reader(Columns.HitPoints),
-                    reader(Columns.CharacterDescription))
-            End Using
-        End Using
+                    reader(Columns.CharacterDescription))).FirstOrDefault
     End Function
 
     Public Function AllForPlayer(playerId As Integer) As IEnumerable(Of CharacterDetails) Implements ICharacters.AllForPlayer
-        Dim result As New List(Of CharacterDetails)
-        Using command = connection.CreateCommand
-            command.CommandText = $"
-SELECT 
-    `{Columns.CharacterId}`,
-    `{Columns.CharacterName}`,
-    `{Columns.RaceId}`,
-    `{Columns.RaceName}`,
-    `{Columns.PlayerId}`,
-    `{Columns.PlayerName}`,
-    `{Columns.ClassId}`,
-    `{Columns.ClassName}`,
-    `{Columns.ExperiencePoints}`,
-    `{Columns.Level}`,
-    `{Columns.HitPoints}`,
-    `{Columns.CharacterDescription}`
-FROM 
-    `{Views.CharacterDetails}` 
-WHERE 
-    `{Columns.PlayerId}`=@{Columns.PlayerId};"
-            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
-            Using reader = command.ExecuteReader
-                While reader.Read()
-                    result.Add(
-                    New CharacterDetails(
-                        reader(Columns.CharacterId),
-                        reader(Columns.CharacterName),
-                        reader(Columns.RaceId),
-                        reader(Columns.RaceName),
-                        reader(Columns.PlayerId),
-                        reader(Columns.PlayerName),
-                        reader(Columns.ClassId),
-                        reader(Columns.ClassName),
-                        reader(Columns.ExperiencePoints),
-                        reader(Columns.Level),
-                        reader(Columns.HitPoints),
-                        reader(Columns.CharacterDescription)))
-                End While
-            End Using
-        End Using
-        Return result
+        Return store.ReadAll(
+        {
+            Columns.CharacterId,
+            Columns.CharacterName,
+            Columns.RaceId,
+            Columns.RaceName,
+            Columns.PlayerId,
+            Columns.PlayerName,
+            Columns.ClassId,
+            Columns.ClassName,
+            Columns.ExperiencePoints,
+            Columns.Level,
+            Columns.HitPoints,
+            Columns.CharacterDescription
+        },
+        Views.CharacterDetails,
+        New Dictionary(Of String, Object) From
+        {{Columns.PlayerId, playerId}}).
+        Select(Function(reader) New CharacterDetails(
+                    reader(Columns.CharacterId),
+                    reader(Columns.CharacterName),
+                    reader(Columns.RaceId),
+                    reader(Columns.RaceName),
+                    reader(Columns.PlayerId),
+                    reader(Columns.PlayerName),
+                    reader(Columns.ClassId),
+                    reader(Columns.ClassName),
+                    reader(Columns.ExperiencePoints),
+                    reader(Columns.Level),
+                    reader(Columns.HitPoints),
+                    reader(Columns.CharacterDescription)))
     End Function
 
     Public Function FindForPlayerAndName(playerId As Integer, characterName As String) As Integer? Implements ICharacters.FindForPlayerAndName

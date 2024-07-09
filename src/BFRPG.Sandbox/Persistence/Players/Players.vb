@@ -14,18 +14,16 @@
     End Sub
 
     Public Sub Rename(playerId As Integer, playerName As String) Implements IPlayers.Rename
-        Using command = connection.CreateCommand()
-            command.CommandText = $"
-UPDATE 
-    `{Tables.Players}` 
-SET 
-    `{Columns.PlayerName}`=@{Columns.PlayerName} 
-WHERE 
-    `{Columns.PlayerId}`=@{Columns.PlayerId};"
-            command.Parameters.AddWithValue(Columns.PlayerId, playerId)
-            command.Parameters.AddWithValue(Columns.PlayerName, playerName)
-            command.ExecuteNonQuery()
-        End Using
+        store.Update(
+            Tables.Players,
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.PlayerName, playerName}
+            },
+            New Dictionary(Of String, Object) From
+            {
+                {Columns.PlayerId, playerId}
+            })
     End Sub
 
     Public Function Create(playerName As String) As Integer? Implements IPlayers.Create
