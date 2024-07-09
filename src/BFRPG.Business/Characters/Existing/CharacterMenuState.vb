@@ -40,7 +40,7 @@
                     Return endState
                 End If
             Case Choices.Rename
-                RenameCharacter.Run(data, ui, characterId)
+                Return New RenameCharacterState(data, ui, Me, characterId)
             Case Choices.GoBack
                 Return endState
             Case Choices.Delete
