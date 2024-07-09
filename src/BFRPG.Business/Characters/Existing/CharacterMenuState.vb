@@ -49,7 +49,7 @@
                     Return endState
                 End If
             Case Choices.AddXP
-                AddExperiencePoints.Run(data, ui, characterId)
+                Return New AddExperiencePointsState(data, ui, Me, characterId)
             Case Choices.CharacterSheet
                 ExportCharacterSheet.Run(data, characterId)
         End Select
