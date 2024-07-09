@@ -11,11 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_stuff", "_stuff", "{8E54CC
 		..\Scaffold.sql = ..\Scaffold.sql
 	EndProjectSection
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Presentation", "BFRPG.Presentation\BFRPG.Presentation.vbproj", "{2DDC4066-FF7B-4D4B-98AE-E42C0EA2E81E}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Presentation", "BFRPG.Presentation\BFRPG.Presentation.vbproj", "{2DDC4066-FF7B-4D4B-98AE-E42C0EA2E81E}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Presentation.Spectre", "BFRPG.Presentation.Spectre\BFRPG.Presentation.Spectre.vbproj", "{9A1262F6-50BC-41F5-A643-187761D3CDA2}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Presentation.Spectre", "BFRPG.Presentation.Spectre\BFRPG.Presentation.Spectre.vbproj", "{9A1262F6-50BC-41F5-A643-187761D3CDA2}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Persistence", "BFRPG.Persistence\BFRPG.Persistence.vbproj", "{A90537DB-0229-4B10-A7A9-7A9B1E94B770}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Persistence", "BFRPG.Persistence\BFRPG.Persistence.vbproj", "{A90537DB-0229-4B10-A7A9-7A9B1E94B770}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Persistence.MySql", "BFRPG.Persistence.MySql\BFRPG.Persistence.MySql.vbproj", "{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A90537DB-0229-4B10-A7A9-7A9B1E94B770}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A90537DB-0229-4B10-A7A9-7A9B1E94B770}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A90537DB-0229-4B10-A7A9-7A9B1E94B770}.Release|Any CPU.Build.0 = Release|Any CPU
+		{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

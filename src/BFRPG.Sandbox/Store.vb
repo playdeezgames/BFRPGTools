@@ -1,4 +1,4 @@
-﻿Friend Class Store
+﻿Public Class Store
     Implements IStore
 
     Private ReadOnly connection As MySqlConnection

@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BFRPG.Persistence.MySql\BFRPG.Persistence.MySql.vbproj" />
     <ProjectReference Include="..\BFRPG.Persistence\BFRPG.Persistence.vbproj" />
     <ProjectReference Include="..\BFRPG.Presentation.Spectre\BFRPG.Presentation.Spectre.vbproj" />
     <ProjectReference Include="..\BFRPG.Presentation\BFRPG.Presentation.vbproj" />
