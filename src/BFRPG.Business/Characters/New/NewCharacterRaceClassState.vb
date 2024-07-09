@@ -32,7 +32,6 @@
             Return endState
         End If
         Dim raceClassId = qualifiedRaceClasses(ui.Choose((Mood.Prompt, Prompts.WhichRaceClass), qualifiedRaceClasses.Keys.ToArray))
-        NewCharacterDescription.Run(data, ui, playerId, characterName, raceClassId, abilityScores)
-        Return endState
+        Return New NewCharacterDescriptionState(data, ui, endState, playerId, characterName, raceClassId, abilityScores)
     End Function
 End Class

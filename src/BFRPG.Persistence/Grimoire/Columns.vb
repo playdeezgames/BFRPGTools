@@ -1,6 +1,7 @@
 ﻿Friend Module Columns
     Friend Const AbilityAbbreviation = "ability_abbreviation"
     Friend Const AbilityId = "ability_id"
+    Friend Const AttackBonus = "attack_bonus"
     Friend Const MaximumScore = "maximum_score"
     Friend Const MinimumScore = "minimum_score"
     Friend Const AbilityName = "ability_name"

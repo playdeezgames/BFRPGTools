@@ -15,11 +15,15 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Presentation.Spectre"
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Persistence", "BFRPG.Persistence\BFRPG.Persistence.vbproj", "{A90537DB-0229-4B10-A7A9-7A9B1E94B770}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Persistence.MySql", "BFRPG.Persistence.MySql\BFRPG.Persistence.MySql.vbproj", "{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Persistence.MySql", "BFRPG.Persistence.MySql\BFRPG.Persistence.MySql.vbproj", "{186AC963-22E7-4C5B-BE1E-4F0D20DFF724}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Business", "BFRPG.Business\BFRPG.Business.vbproj", "{5F340032-7BEC-46A2-85CC-6A08D36B3163}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Business", "BFRPG.Business\BFRPG.Business.vbproj", "{5F340032-7BEC-46A2-85CC-6A08D36B3163}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BFRPG.Tools", "BFRPG.Tools\BFRPG.Tools.vbproj", "{9A96AAE4-1D35-4116-89B7-819B76117677}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BFRPG.Tools", "BFRPG.Tools\BFRPG.Tools.vbproj", "{9A96AAE4-1D35-4116-89B7-819B76117677}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3F1B9498-499E-4F6F-BF74-0DE25607F0CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{95D7173D-F19A-425F-8973-F36BD4B243E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +58,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2DDC4066-FF7B-4D4B-98AE-E42C0EA2E81E} = {3F1B9498-499E-4F6F-BF74-0DE25607F0CE}
+		{9A1262F6-50BC-41F5-A643-187761D3CDA2} = {3F1B9498-499E-4F6F-BF74-0DE25607F0CE}
+		{A90537DB-0229-4B10-A7A9-7A9B1E94B770} = {95D7173D-F19A-425F-8973-F36BD4B243E4}
+		{186AC963-22E7-4C5B-BE1E-4F0D20DFF724} = {95D7173D-F19A-425F-8973-F36BD4B243E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C13385E-1560-4E94-B8B2-ABFA144F1474}

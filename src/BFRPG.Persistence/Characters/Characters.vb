@@ -97,7 +97,8 @@
             Columns.ExperiencePoints,
             Columns.Level,
             Columns.HitPoints,
-            Columns.CharacterDescription
+            Columns.CharacterDescription,
+            Columns.AttackBonus
         },
         Views.CharacterDetails,
         New Dictionary(Of String, Object) From
@@ -114,7 +115,8 @@
                     reader(Columns.ExperiencePoints),
                     reader(Columns.Level),
                     reader(Columns.HitPoints),
-                    reader(Columns.CharacterDescription))).FirstOrDefault
+                    reader(Columns.CharacterDescription),
+                    reader(Columns.AttackBonus))).FirstOrDefault
     End Function
 
     Public Function AllForPlayer(playerId As Integer) As IEnumerable(Of CharacterDetails) Implements ICharacters.AllForPlayer
@@ -131,24 +133,26 @@
             Columns.ExperiencePoints,
             Columns.Level,
             Columns.HitPoints,
-            Columns.CharacterDescription
+            Columns.CharacterDescription,
+            Columns.AttackBonus
         },
         Views.CharacterDetails,
         New Dictionary(Of String, Object) From
         {{Columns.PlayerId, playerId}}).
-        Select(Function(reader) New CharacterDetails(
-                    reader(Columns.CharacterId),
-                    reader(Columns.CharacterName),
-                    reader(Columns.RaceId),
-                    reader(Columns.RaceName),
-                    reader(Columns.PlayerId),
-                    reader(Columns.PlayerName),
-                    reader(Columns.ClassId),
-                    reader(Columns.ClassName),
-                    reader(Columns.ExperiencePoints),
-                    reader(Columns.Level),
-                    reader(Columns.HitPoints),
-                    reader(Columns.CharacterDescription)))
+        Select(Function(x) New CharacterDetails(
+                    x(Columns.CharacterId),
+                    x(Columns.CharacterName),
+                    x(Columns.RaceId),
+                    x(Columns.RaceName),
+                    x(Columns.PlayerId),
+                    x(Columns.PlayerName),
+                    x(Columns.ClassId),
+                    x(Columns.ClassName),
+                    x(Columns.ExperiencePoints),
+                    x(Columns.Level),
+                    x(Columns.HitPoints),
+                    x(Columns.CharacterDescription),
+                    x(Columns.AttackBonus)))
     End Function
 
     Public Function FindForPlayerAndName(playerId As Integer, characterName As String) As Integer? Implements ICharacters.FindForPlayerAndName
