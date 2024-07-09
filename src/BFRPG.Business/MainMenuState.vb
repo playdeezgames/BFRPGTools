@@ -1,7 +1,7 @@
 ﻿Public Class MainMenuState
     Inherits BaseState
     Implements IState
-    Sub New(data As IDataContext, ui As IUIContext)
+    Private Sub New(data As IDataContext, ui As IUIContext)
         MyBase.New(data, ui, Nothing)
     End Sub
     Public Overrides Function Run() As IState Implements IState.Run
@@ -20,4 +20,11 @@
         End Select
         Return Me
     End Function
+
+    Public Shared Sub Start(data As IDataContext, ui As IUIContext)
+        Dim state As IState = New MainMenuState(data, ui)
+        While state IsNot Nothing
+            state = state.Run()
+        End While
+    End Sub
 End Class

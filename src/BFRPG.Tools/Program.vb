@@ -15,10 +15,7 @@ Module Program
         Using connection As New MySqlConnection(Environment.GetEnvironmentVariable(ConnectionString))
             Try
                 connection.Open()
-                Dim state As IState = New MainMenuState(New DataContext(New Store(connection)), ui)
-                While state IsNot Nothing
-                    state = state.Run()
-                End While
+                MainMenuState.Start(New DataContext(New Store(connection)), ui)
             Catch ex As Exception
                 ui.WriteException(ex)
                 ui.Message((Mood.Info, String.Empty))
