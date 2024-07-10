@@ -48,7 +48,6 @@ Friend Class ExportCharacterSheetState
             .Append("<html>")
             .Append($"<head><title>{details.CharacterName} - {details.RaceName} - {details.ClassName} - {details.Level}</title></head>")
             .Append("<body>")
-            .Append("<table border=""border"">")
             .Append(TABLE(True,
                 TR(
                     TD($"Name: {details.CharacterName}", colSpan:=2),
@@ -71,39 +70,23 @@ Friend Class ExportCharacterSheetState
                             TR(TD($"AC: TODO")),
                             TR(TD($"HP: {details.HitPoints}")),
                             TR(TD($"AB: {details.AttackBonus}"))), htmlEncode:=False),
-                    TD(TABLE(False, TR(TD($"Movement: TODO")), TR(TD($"Money: {details.Money}"))), htmlEncode:=False))
-                    ))
+                    TD(TABLE(False, TR(TD($"Movement: TODO")), TR(TD($"Money: {details.Money}"))), htmlEncode:=False)),
+                TR(
+                    TD(
+                        TABLE(False,
+                              TR(
+                                TD("Spells/Abilities:", header:=True))), htmlEncode:=False, rowSpan:=2),
+                    TD(
+                        TABLE(False,
+                            TR(TD("Saving Throws:", header:=True))), colSpan:=2, htmlEncode:=False)),
+                TR(
+                    TD(
+                        TABLE(False,
+                              TR(
+                                TD("Weapon", header:=True),
+                                TD("Damage", header:=True),
+                                TD("Range", header:=True))), htmlEncode:=False, colSpan:=2))))
 
-            .Append("<tr>")
-
-            .Append("<td rowspan=""2"">")
-            .Append("<table>")
-            .Append("<tr><th>Spells/Abilities:</th></tr>")
-            'spells/abilities
-            .Append("</table>")
-            .Append("</td>")
-
-            .Append("<td colspan=""2"">")
-            .Append("<table>")
-            .Append("<tr><th>Saving Throws:</th></tr>")
-            'saving throws
-            .Append("</table>")
-            .Append("</td>")
-
-            .Append("</tr>")
-
-            .Append("<tr>")
-
-            .Append("<td colspan=""2"">")
-            .Append("<table>")
-            .Append("<tr><th>Weapon</th><th>AB</th><th>Damage</th><th>Range</th></tr>")
-            'weapons
-            .Append("</table>")
-            .Append("</td>")
-
-            .Append("</tr>")
-
-            .Append("</table>")
             .Append("</body>")
             .Append("</html>")
         End With
