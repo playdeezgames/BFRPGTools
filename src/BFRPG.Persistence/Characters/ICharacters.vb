@@ -15,7 +15,8 @@
             characterName As String,
             raceClassId As Integer,
             experiencePoints As Integer,
-            characterDescription As String) As Integer?
+            characterDescription As String,
+            money As Decimal) As Integer?
     Function ReadDetails(
                         characterId As Integer) As CharacterDetails
     Function AllForPlayer(

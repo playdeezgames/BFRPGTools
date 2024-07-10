@@ -24,19 +24,20 @@ CREATE TABLE IF NOT EXISTS `abilities` (
   `ability_id` int(11) NOT NULL AUTO_INCREMENT,
   `ability_name` varchar(50) NOT NULL,
   `ability_abbreviation` varchar(3) NOT NULL,
+  `affects_hit_dice` tinyint(1) NOT NULL,
   PRIMARY KEY (`ability_id`),
   UNIQUE KEY `ability_name` (`ability_name`),
   UNIQUE KEY `ability_abbreviation` (`ability_abbreviation`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.abilities: ~6 rows (approximately)
-INSERT INTO `abilities` (`ability_id`, `ability_name`, `ability_abbreviation`) VALUES
-	(1, 'Strength', 'STR'),
-	(2, 'Intelligence', 'INT'),
-	(3, 'Wisdom', 'WIS'),
-	(4, 'Dexterity', 'DEX'),
-	(5, 'Constitution', 'CON'),
-	(6, 'Charisma', 'CHA');
+INSERT INTO `abilities` (`ability_id`, `ability_name`, `ability_abbreviation`, `affects_hit_dice`) VALUES
+	(1, 'Strength', 'STR', 0),
+	(2, 'Intelligence', 'INT', 0),
+	(3, 'Wisdom', 'WIS', 0),
+	(4, 'Dexterity', 'DEX', 0),
+	(5, 'Constitution', 'CON', 1),
+	(6, 'Charisma', 'CHA', 0);
 
 -- Dumping structure for table basic_fantasy_rpg.characters
 CREATE TABLE IF NOT EXISTS `characters` (
@@ -46,13 +47,14 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `race_class_id` int(11) NOT NULL,
   `experience_points` int(11) NOT NULL,
   `character_description` varchar(500) NOT NULL,
+  `money` decimal(20,2) NOT NULL,
   PRIMARY KEY (`character_id`),
   UNIQUE KEY `character_name_player_id` (`character_name`,`player_id`),
   KEY `FK_characters_players` (`player_id`),
   KEY `FK_characters_race_classes` (`race_class_id`),
   CONSTRAINT `FK_characters_players` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_characters_race_classes` FOREIGN KEY (`race_class_id`) REFERENCES `race_classes` (`race_class_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.characters: ~1 rows (approximately)
 
@@ -67,9 +69,9 @@ CREATE TABLE IF NOT EXISTS `character_abilities` (
   KEY `FK_character_abilities_abilities` (`ability_id`),
   CONSTRAINT `FK_character_abilities_abilities` FOREIGN KEY (`ability_id`) REFERENCES `abilities` (`ability_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_character_abilities_characters` FOREIGN KEY (`character_id`) REFERENCES `characters` (`character_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.character_abilities: ~6 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.character_abilities: ~0 rows (approximately)
 
 -- Dumping structure for view basic_fantasy_rpg.character_ability_details
 -- Creating temporary table to overcome VIEW dependency errors
@@ -79,7 +81,9 @@ CREATE TABLE `character_ability_details` (
 	`ability_score` INT(11) NOT NULL,
 	`ability_id` INT(11) NOT NULL,
 	`ability_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
-	`ability_abbreviation` VARCHAR(3) NOT NULL COLLATE 'latin1_general_ci'
+	`ability_abbreviation` VARCHAR(3) NOT NULL COLLATE 'latin1_general_ci',
+	`ability_modifier` INT(11) NULL,
+	`affects_hit_dice` TINYINT(1) NOT NULL
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view basic_fantasy_rpg.character_details
@@ -96,8 +100,10 @@ CREATE TABLE `character_details` (
 	`experience_points` INT(11) NOT NULL,
 	`level` INT(11) NOT NULL,
 	`hit_die` INT(11) NOT NULL,
-	`hit_points` DECIMAL(33,0) NULL,
-	`character_description` VARCHAR(500) NOT NULL COLLATE 'latin1_general_ci'
+	`hit_points` DECIMAL(59,0) NULL,
+	`character_description` VARCHAR(500) NOT NULL COLLATE 'latin1_general_ci',
+	`attack_bonus` INT(11) NOT NULL,
+	`money` DECIMAL(20,2) NOT NULL
 ) ENGINE=MyISAM;
 
 -- Dumping structure for table basic_fantasy_rpg.character_hit_dice
@@ -109,9 +115,18 @@ CREATE TABLE IF NOT EXISTS `character_hit_dice` (
   PRIMARY KEY (`character_hit_dice_id`),
   UNIQUE KEY `character_id_index` (`character_id`,`die`) USING BTREE,
   CONSTRAINT `FK__characters` FOREIGN KEY (`character_id`) REFERENCES `characters` (`character_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=190 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.character_hit_dice: ~9 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.character_hit_dice: ~0 rows (approximately)
+
+-- Dumping structure for view basic_fantasy_rpg.character_hit_dice_details
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `character_hit_dice_details` (
+	`character_hit_dice_id` INT(11) NOT NULL,
+	`character_id` INT(11) NOT NULL,
+	`die` INT(11) NOT NULL,
+	`modified_die_roll` DECIMAL(36,0) NULL
+) ENGINE=MyISAM;
 
 -- Dumping structure for table basic_fantasy_rpg.classes
 CREATE TABLE IF NOT EXISTS `classes` (
@@ -175,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `class_levels` (
   `hit_dice` int(11) NOT NULL,
   `hit_point_bonus` int(11) NOT NULL,
   `experience_points` int(11) NOT NULL,
-  `attack_bonus` int(11) DEFAULT NULL,
+  `attack_bonus` int(11) NOT NULL,
   PRIMARY KEY (`class_level_id`),
   UNIQUE KEY `class_id_level` (`class_id`,`level`),
   CONSTRAINT `FK_class_levels_classes` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -316,6 +331,30 @@ CREATE TABLE `class_level_ranges` (
 	`maximum_experience_points` BIGINT(11) NULL
 ) ENGINE=MyISAM;
 
+-- Dumping structure for function basic_fantasy_rpg.get_ability_modifier
+DELIMITER //
+CREATE FUNCTION `get_ability_modifier`(`ability_score` INT
+) RETURNS int(11)
+BEGIN
+	CASE
+		WHEN ability_score=3 THEN
+			RETURN -3;
+		WHEN ability_score>=4 AND ability_score<=5 THEN
+			RETURN -2;
+		WHEN ability_score>=6 AND ability_score<=8 THEN
+			RETURN -1;
+		WHEN ability_score>=9 AND ability_score<=12 THEN
+			RETURN 0;
+		WHEN ability_score>=13 AND ability_score<=15 THEN
+			RETURN 1;
+		WHEN ability_score>=16 AND ability_score<=17 THEN
+			RETURN 2;
+		WHEN ability_score=18 THEN
+			RETURN 3;
+	END CASE;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure basic_fantasy_rpg.nuke_player_data
 DELIMITER //
 CREATE PROCEDURE `nuke_player_data`()
@@ -333,9 +372,9 @@ CREATE TABLE IF NOT EXISTS `players` (
   `player_name` varchar(50) NOT NULL,
   PRIMARY KEY (`player_id`),
   UNIQUE KEY `player_name` (`player_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.players: ~1 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.players: ~0 rows (approximately)
 
 -- Dumping structure for view basic_fantasy_rpg.player_details
 -- Creating temporary table to overcome VIEW dependency errors
@@ -477,7 +516,9 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `character_ability_details`
 	ca.ability_score,
 	a.ability_id,
 	a.ability_name,
-	a.ability_abbreviation
+	a.ability_abbreviation,
+	get_ability_modifier(ca.ability_score) AS ability_modifier,
+	a.affects_hit_dice
 FROM
 	characters c
 	JOIN character_abilities ca ON ca.character_id=c.character_id
@@ -497,8 +538,10 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `character_details` AS SELE
 	c.experience_points,
 	clr.`level`,
 	LEAST(r.maximum_hit_die, cl.hit_die) AS hit_die,
-	SUM(chd.die_roll)+clr.hit_point_bonus AS hit_points,
-	c.character_description
+	SUM(chd.modified_die_roll)+clr.hit_point_bonus AS hit_points,
+	c.character_description,
+	lvl.attack_bonus,
+	c.money
 FROM
 	characters c
 	JOIN race_classes rc ON c.race_class_id=rc.race_class_id
@@ -506,7 +549,8 @@ FROM
 	JOIN players p ON c.player_id=p.player_id 
 	JOIN classes cl ON rc.class_id=cl.class_id 
 	JOIN class_level_ranges clr ON clr.class_id=rc.class_id AND c.experience_points>=clr.minimum_experience_points AND c.experience_points<clr.maximum_experience_points 
-	JOIN character_hit_dice chd ON chd.character_id=c.character_id AND chd.die<=clr.hit_dice
+	JOIN character_hit_dice_details chd ON chd.character_id=c.character_id AND chd.die<=clr.hit_dice
+	JOIN class_levels lvl ON clr.class_level_id=lvl.class_level_id
 GROUP BY
 	c.character_id,
 	c.character_name,
@@ -519,6 +563,23 @@ GROUP BY
 	c.experience_points,
 	clr.`level`,
 	LEAST(r.maximum_hit_die, cl.hit_die) ;
+
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `character_hit_dice_details`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `character_hit_dice_details` AS SELECT
+	chd.character_hit_dice_id,
+	chd.character_id,
+	chd.die,
+	GREATEST(1,chd.die_roll + sum(a.affects_hit_dice * get_ability_modifier(ca.ability_score))) modified_die_roll
+FROM
+	character_hit_dice chd
+	LEFT JOIN character_abilities ca ON ca.character_id=chd.character_id
+	LEFT JOIN abilities a ON a.ability_id=ca.ability_id
+GROUP BY
+	chd.character_hit_dice_id,
+	chd.character_id,
+	chd.die,
+	chd.die_roll ;
 
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `class_ability_ranges`;

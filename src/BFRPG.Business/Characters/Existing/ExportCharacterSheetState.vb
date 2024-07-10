@@ -60,7 +60,7 @@ Friend Class ExportCharacterSheetState
             .Append("<td>")
             .Append("<table>")
             .Append($"<tr><td>Movement: TODO</td></tr>")
-            .Append($"<tr><td>Money: TODO</td></tr>")
+            .Append($"<tr><td>Money: {details.Money}</td></tr>")
             .Append("</table>")
             .Append("</td>")
 

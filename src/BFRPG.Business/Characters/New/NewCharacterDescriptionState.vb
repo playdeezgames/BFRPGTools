@@ -18,11 +18,12 @@
         Const startingExperiencePoints = 0
         Dim characterDescription = ui.Ask((Mood.Prompt, Prompts.CharacterDescription), String.Empty)
         Dim characterId = data.Characters.Create(
-            PlayerId,
-            CharacterName,
-            RaceClassId,
+            playerId,
+            characterName,
+            raceClassId,
             startingExperiencePoints,
-            characterDescription).Value
+            characterDescription,
+            RNG.RollDice(3, 6) * 10).Value
         For Each score In abilityScores
             data.Characters.Abilities(characterId).Write(score.Key, score.Value)
         Next

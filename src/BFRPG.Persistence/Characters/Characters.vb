@@ -1,4 +1,6 @@
-﻿Friend Class Characters
+﻿Imports System.Security.Cryptography
+
+Friend Class Characters
     Implements ICharacters
     Private ReadOnly store As IStore
 
@@ -63,7 +65,7 @@
         End If
     End Sub
 
-    Public Function Create(playerId As Integer, characterName As String, raceClassId As Integer, experiencePoints As Integer, characterDescription As String) As Integer? Implements ICharacters.Create
+    Public Function Create(playerId As Integer, characterName As String, raceClassId As Integer, experiencePoints As Integer, characterDescription As String, money As Decimal) As Integer? Implements ICharacters.Create
         Dim result = store.Create(
             Tables.Characters,
             New Dictionary(Of String, Object) From
@@ -72,7 +74,8 @@
                 {Columns.CharacterName, characterName},
                 {Columns.RaceClassId, raceClassId},
                 {Columns.ExperiencePoints, experiencePoints},
-                {Columns.CharacterDescription, characterDescription}
+                {Columns.CharacterDescription, characterDescription},
+                {Columns.Money, money}
             },
             {
                 Columns.CharacterId
@@ -83,8 +86,7 @@
         Return CInt(result(Columns.CharacterId))
     End Function
 
-    Public Function ReadDetails(characterId As Integer) As CharacterDetails Implements ICharacters.ReadDetails
-        Return store.Retrieve(
+    Private Shared ReadOnly characterDetailColumns As IEnumerable(Of String) =
         {
             Columns.CharacterId,
             Columns.CharacterName,
@@ -98,61 +100,26 @@
             Columns.Level,
             Columns.HitPoints,
             Columns.CharacterDescription,
-            Columns.AttackBonus
-        },
+            Columns.AttackBonus,
+            Columns.Money
+        }
+
+    Public Function ReadDetails(characterId As Integer) As CharacterDetails Implements ICharacters.ReadDetails
+        Return store.Retrieve(
+        characterDetailColumns,
         Views.CharacterDetails,
         New Dictionary(Of String, Object) From
         {{Columns.CharacterId, characterId}}).
-        Select(Function(reader) New CharacterDetails(
-                    reader(Columns.CharacterId),
-                    reader(Columns.CharacterName),
-                    reader(Columns.RaceId),
-                    reader(Columns.RaceName),
-                    reader(Columns.PlayerId),
-                    reader(Columns.PlayerName),
-                    reader(Columns.ClassId),
-                    reader(Columns.ClassName),
-                    reader(Columns.ExperiencePoints),
-                    reader(Columns.Level),
-                    reader(Columns.HitPoints),
-                    reader(Columns.CharacterDescription),
-                    reader(Columns.AttackBonus))).FirstOrDefault
+        Select(AddressOf CharacterDetails.FromRecord).FirstOrDefault
     End Function
 
     Public Function AllForPlayer(playerId As Integer) As IEnumerable(Of CharacterDetails) Implements ICharacters.AllForPlayer
         Return store.Retrieve(
-        {
-            Columns.CharacterId,
-            Columns.CharacterName,
-            Columns.RaceId,
-            Columns.RaceName,
-            Columns.PlayerId,
-            Columns.PlayerName,
-            Columns.ClassId,
-            Columns.ClassName,
-            Columns.ExperiencePoints,
-            Columns.Level,
-            Columns.HitPoints,
-            Columns.CharacterDescription,
-            Columns.AttackBonus
-        },
+        characterDetailColumns,
         Views.CharacterDetails,
         New Dictionary(Of String, Object) From
         {{Columns.PlayerId, playerId}}).
-        Select(Function(x) New CharacterDetails(
-                    x(Columns.CharacterId),
-                    x(Columns.CharacterName),
-                    x(Columns.RaceId),
-                    x(Columns.RaceName),
-                    x(Columns.PlayerId),
-                    x(Columns.PlayerName),
-                    x(Columns.ClassId),
-                    x(Columns.ClassName),
-                    x(Columns.ExperiencePoints),
-                    x(Columns.Level),
-                    x(Columns.HitPoints),
-                    x(Columns.CharacterDescription),
-                    x(Columns.AttackBonus)))
+        Select(AddressOf CharacterDetails.FromRecord)
     End Function
 
     Public Function FindForPlayerAndName(playerId As Integer, characterName As String) As Integer? Implements ICharacters.FindForPlayerAndName

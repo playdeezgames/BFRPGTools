@@ -12,6 +12,7 @@
     Public ReadOnly Property HitPoints As Integer
     Public ReadOnly Property CharacterDescription As String
     Public ReadOnly Property AttackBonus As Integer
+    Public ReadOnly Property Money As Decimal
     Public ReadOnly Property UniqueName As String
         Get
             Return $"{CharacterName}(Id={CharacterId})"
@@ -30,7 +31,8 @@
            level As Object,
            hitPoints As Object,
            characterDescription As Object,
-           attackBonus As Object)
+           attackBonus As Object,
+           money As Object)
         Me.CharacterId = CInt(characterId)
         Me.CharacterName = CStr(characterName)
         Me.RaceId = CInt(raceId)
@@ -44,5 +46,24 @@
         Me.HitPoints = CInt(hitPoints)
         Me.CharacterDescription = If(characterDescription IsNot Nothing, CStr(characterDescription), Nothing)
         Me.AttackBonus = CInt(attackBonus)
+        Me.Money = CDec(money)
     End Sub
+
+    Friend Shared Function FromRecord(record As IReadOnlyDictionary(Of String, Object)) As CharacterDetails
+        Return New CharacterDetails(
+                            record(Columns.CharacterId),
+                            record(Columns.CharacterName),
+                            record(Columns.RaceId),
+                            record(Columns.RaceName),
+                            record(Columns.PlayerId),
+                            record(Columns.PlayerName),
+                            record(Columns.ClassId),
+                            record(Columns.ClassName),
+                            record(Columns.ExperiencePoints),
+                            record(Columns.Level),
+                            record(Columns.HitPoints),
+                            record(Columns.CharacterDescription),
+                            record(Columns.AttackBonus),
+                            record(Columns.Money))
+    End Function
 End Class

@@ -19,6 +19,7 @@
     Friend Const HitPoints = "hit_points"
     Friend Const Level = "level"
     Friend Const MaximumHitDice = "maximum_hit_dice"
+    Friend Const Money = "money"
     Friend Const PlayerId = "player_id"
     Friend Const PlayerName = "player_name"
     Friend Const RaceClassId = "race_class_id"
