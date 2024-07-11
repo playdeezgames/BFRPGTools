@@ -26,6 +26,18 @@ Friend Class ExportCharacterSheetState
     Private Function TABLE(border As Boolean, ParamArray lines As String()) As String
         Return $"<table{If(border," border=""border""","")}>{String.Join(String.Empty, lines)}</table>"
     End Function
+    Private Function BODY(ParamArray lines As String()) As String
+        Return $"<body>{String.Join(String.Empty, lines)}</body>"
+    End Function
+    Private Function HTML(ParamArray lines As String()) As String
+        Return $"<html>{String.Join(String.Empty, lines)}</html>"
+    End Function
+    Private Function TITLE(text As String, Optional htmlEncode As Boolean = True) As String
+        Return $"<title>{If(htmlEncode, HttpUtility.HtmlEncode(text), text)}</title>"
+    End Function
+    Private Function HEAD(ParamArray lines As String()) As String
+        Return $"<head>{String.Join(String.Empty, lines)}</head>"
+    End Function
 
     Public Overrides Function Run() As IState
         Dim details = data.Characters.ReadDetails(characterId)
@@ -44,53 +56,70 @@ Friend Class ExportCharacterSheetState
                         TD($"{abilityDetail.AbilityAbbreviation}"),
                         TD($"{abilityDetail.AbilityScore}"),
                         TD($"{abilityDetail.Modifier}"))))
-        With builder
-            .Append("<html>")
-            .Append($"<head><title>{details.CharacterName} - {details.RaceName} - {details.ClassName} - {details.Level}</title></head>")
-            .Append("<body>")
-            .Append(TABLE(True,
-                TR(
-                    TD($"Name: {details.CharacterName}", colSpan:=2),
-                    TD($"Player: {details.PlayerName}")),
-                TR(
-                    TD($"Race: {details.RaceName}"),
-                    TD($"XP: {details.ExperiencePoints}"),
-                    TD($"Desc: {details.CharacterDescription}", rowSpan:=2)),
-                TR(
-                    TD($"Class: {details.ClassName}"),
-                    TD($"Level: {details.Level}")),
-                TR(
-                    TD(
-                        TABLE(
-                            True,
-                            abilityScoresTable.ToArray), htmlEncode:=False),
-                    TD(
-                        TABLE(
-                            False,
-                            TR(TD($"AC: TODO")),
-                            TR(TD($"HP: {details.HitPoints}")),
-                            TR(TD($"AB: {details.AttackBonus}"))), htmlEncode:=False),
-                    TD(TABLE(False, TR(TD($"Movement: TODO")), TR(TD($"Money: {details.Money}"))), htmlEncode:=False)),
-                TR(
-                    TD(
-                        TABLE(False,
-                              TR(
-                                TD("Spells/Abilities:", header:=True))), htmlEncode:=False, rowSpan:=2),
-                    TD(
-                        TABLE(False,
-                            TR(TD("Saving Throws:", header:=True))), colSpan:=2, htmlEncode:=False)),
-                TR(
-                    TD(
-                        TABLE(False,
-                              TR(
-                                TD("Weapon", header:=True),
-                                TD("Damage", header:=True),
-                                TD("Range", header:=True))), htmlEncode:=False, colSpan:=2))))
-
-            .Append("</body>")
-            .Append("</html>")
-        End With
-        File.WriteAllText(filename, builder.ToString)
+        File.WriteAllText(
+            filename,
+            HTML(
+                HEAD(
+                    TITLE($"{details.CharacterName} - {details.RaceName} - {details.ClassName} - {details.Level}")),
+                BODY(
+                    TABLE(
+                        True,
+                        TR(
+                            TD($"Name: {details.CharacterName}", colSpan:=2),
+                            TD($"Player: {details.PlayerName}")),
+                        TR(
+                            TD($"Race: {details.RaceName}"),
+                            TD($"XP: {details.ExperiencePoints}"),
+                            TD($"Desc: {details.CharacterDescription}", rowSpan:=2)),
+                        TR(
+                            TD($"Class: {details.ClassName}"),
+                            TD($"Level: {details.Level}")),
+                        TR(
+                            TD(
+                                TABLE(
+                                    True,
+                                    abilityScoresTable.ToArray), htmlEncode:=False),
+                            TD(
+                                TABLE(
+                                    False,
+                                    TR(TD($"AC: TODO")),
+                                    TR(TD($"HP: {details.HitPoints}")),
+                                    TR(TD($"AB: {details.AttackBonus}"))), htmlEncode:=False),
+                            TD(
+                                TABLE(
+                                    False,
+                                    TR(
+                                        TD($"Movement: TODO")),
+                                    TR(
+                                        TD($"Money: {details.Money}"))), htmlEncode:=False)),
+                        TR(
+                            TD(
+                                TABLE(
+                                    False,
+                                    TR(
+                                        TD("Spells/Abilities:", header:=True))), htmlEncode:=False, rowSpan:=2),
+                            TD(
+                                TABLE(
+                                    False,
+                                    TR(
+                                        TD("Saving Throws:", header:=True))), colSpan:=2, htmlEncode:=False)),
+                        TR(
+                            TD(
+                                TABLE(
+                                    False,
+                                    TR(
+                                        TD("Weapon", header:=True),
+                                        TD("Damage", header:=True),
+                                        TD("Range", header:=True))), htmlEncode:=False, colSpan:=2)),
+                        TR(
+                            TD(
+                                TABLE(
+                                    False,
+                                    TR(TD("Equipment:", header:=True))), htmlEncode:=False),
+                            TD(
+                                TABLE(
+                                    False,
+                                    TR(TD("Notes:", header:=True))), htmlEncode:=False, colSpan:=2))))))
         Dim p As New Process() With
             {
                 .StartInfo = New ProcessStartInfo(filename) With
