@@ -150,4 +150,8 @@ Friend Class Characters
     Public Function SavingThrows(characterId As Integer) As ICharacterSavingThrows Implements ICharacters.SavingThrows
         Return New CharacterSavingThrows(store, characterId)
     End Function
+
+    Public Function Perquisites(characterId As Integer) As ICharacterPerquisites Implements ICharacters.Perquisites
+        Return New CharacterPerquisites(store, characterId)
+    End Function
 End Class

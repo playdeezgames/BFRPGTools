@@ -69,6 +69,13 @@ Friend Class ExportCharacterSheetState
                 TD($"{savingThrowDetail.SavingThrowName}"),
                 TD($"{savingThrowDetail.SavingThrowBonus}"),
                 TD($"{savingThrowDetail.SavingThrow}"))))
+        Dim spellsAbilitiesTable As New List(Of String) From
+            {
+                TR(
+                    TD("Spells/Abilities", header:=True))
+            }
+        spellsAbilitiesTable.AddRange(
+            data.Characters.Perquisites(characterId).ReadAllDetailsForCharacter().Select(Function(x) TR(TD($"{x.PerquisiteName}"))))
         File.WriteAllText(
             filename,
             HTML(
@@ -109,8 +116,7 @@ Friend Class ExportCharacterSheetState
                             TD(
                                 TABLE(
                                     False,
-                                    TR(
-                                        TD("Spells/Abilities:", header:=True))), htmlEncode:=False, rowSpan:=2),
+                                    spellsAbilitiesTable.ToArray), htmlEncode:=False, rowSpan:=2),
                             TD(
                                 TABLE(
                                     True,
