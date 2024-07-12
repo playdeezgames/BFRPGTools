@@ -54,9 +54,9 @@ CREATE TABLE IF NOT EXISTS `characters` (
   KEY `FK_characters_race_classes` (`race_class_id`),
   CONSTRAINT `FK_characters_players` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_characters_race_classes` FOREIGN KEY (`race_class_id`) REFERENCES `race_classes` (`race_class_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.characters: ~0 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.characters: ~1 rows (approximately)
 
 -- Dumping structure for table basic_fantasy_rpg.character_abilities
 CREATE TABLE IF NOT EXISTS `character_abilities` (
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `character_abilities` (
   KEY `FK_character_abilities_abilities` (`ability_id`),
   CONSTRAINT `FK_character_abilities_abilities` FOREIGN KEY (`ability_id`) REFERENCES `abilities` (`ability_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_character_abilities_characters` FOREIGN KEY (`character_id`) REFERENCES `characters` (`character_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.character_abilities: ~6 rows (approximately)
 
@@ -103,7 +103,8 @@ CREATE TABLE `character_details` (
 	`hit_points` DECIMAL(59,0) NULL,
 	`character_description` VARCHAR(500) NOT NULL COLLATE 'latin1_general_ci',
 	`attack_bonus` INT(11) NOT NULL,
-	`money` DECIMAL(20,2) NOT NULL
+	`money` DECIMAL(20,2) NOT NULL,
+	`class_level_id` INT(11) NOT NULL
 ) ENGINE=MyISAM;
 
 -- Dumping structure for table basic_fantasy_rpg.character_hit_dice
@@ -115,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `character_hit_dice` (
   PRIMARY KEY (`character_hit_dice_id`),
   UNIQUE KEY `character_id_index` (`character_id`,`die`) USING BTREE,
   CONSTRAINT `FK__characters` FOREIGN KEY (`character_id`) REFERENCES `characters` (`character_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.character_hit_dice: ~9 rows (approximately)
 
@@ -126,6 +127,17 @@ CREATE TABLE `character_hit_dice_details` (
 	`character_id` INT(11) NOT NULL,
 	`die` INT(11) NOT NULL,
 	`modified_die_roll` DECIMAL(36,0) NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view basic_fantasy_rpg.character_saving_throw_details
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `character_saving_throw_details` (
+	`character_id` INT(11) NOT NULL,
+	`character_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
+	`saving_throw` INT(11) NOT NULL,
+	`saving_throw_id` INT(11) NOT NULL,
+	`saving_throw_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
+	`saving_throw_bonus` INT(11) NULL
 ) ENGINE=MyISAM;
 
 -- Dumping structure for table basic_fantasy_rpg.classes
@@ -339,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `class_level_saving_throws` (
   `saving_throw` int(11) NOT NULL,
   PRIMARY KEY (`class_level_saving_throw_id`),
   UNIQUE KEY `class_level_id_saving_throw_id` (`class_level_id`,`saving_throw_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=782 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=755 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.class_level_saving_throws: ~600 rows (approximately)
 INSERT INTO `class_level_saving_throws` (`class_level_saving_throw_id`, `class_level_id`, `saving_throw_id`, `saving_throw`) VALUES
@@ -985,9 +997,9 @@ CREATE TABLE IF NOT EXISTS `players` (
   `player_name` varchar(50) NOT NULL,
   PRIMARY KEY (`player_id`),
   UNIQUE KEY `player_name` (`player_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.players: ~0 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.players: ~1 rows (approximately)
 
 -- Dumping structure for view basic_fantasy_rpg.player_details
 -- Creating temporary table to overcome VIEW dependency errors
@@ -1121,6 +1133,35 @@ CREATE TABLE `race_class_details` (
 	`maximum_hit_dice` INT(11) NULL
 ) ENGINE=MyISAM;
 
+-- Dumping structure for table basic_fantasy_rpg.race_saving_throw_bonuses
+CREATE TABLE IF NOT EXISTS `race_saving_throw_bonuses` (
+  `race_saving_throw_bonus_id` int(11) NOT NULL AUTO_INCREMENT,
+  `race_id` int(11) NOT NULL,
+  `saving_throw_id` int(11) NOT NULL,
+  `saving_throw_bonus` int(11) NOT NULL,
+  PRIMARY KEY (`race_saving_throw_bonus_id`),
+  UNIQUE KEY `race_id_saving_throw_id` (`race_id`,`saving_throw_id`),
+  KEY `FK_race_saving_throw_bonuses_saving_throws` (`saving_throw_id`),
+  CONSTRAINT `FK_race_saving_throw_bonuses_races` FOREIGN KEY (`race_id`) REFERENCES `races` (`race_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_race_saving_throw_bonuses_saving_throws` FOREIGN KEY (`saving_throw_id`) REFERENCES `saving_throws` (`saving_throw_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table basic_fantasy_rpg.race_saving_throw_bonuses: ~13 rows (approximately)
+INSERT INTO `race_saving_throw_bonuses` (`race_saving_throw_bonus_id`, `race_id`, `saving_throw_id`, `saving_throw_bonus`) VALUES
+	(1, 1, 4, 3),
+	(2, 1, 1, 4),
+	(3, 1, 2, 4),
+	(4, 1, 3, 4),
+	(5, 1, 5, 4),
+	(6, 2, 3, 1),
+	(7, 2, 2, 2),
+	(8, 2, 5, 2),
+	(9, 3, 1, 4),
+	(10, 3, 4, 3),
+	(11, 3, 2, 4),
+	(12, 3, 3, 4),
+	(13, 3, 5, 4);
+
 -- Dumping structure for table basic_fantasy_rpg.saving_throws
 CREATE TABLE IF NOT EXISTS `saving_throws` (
   `saving_throw_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1129,7 +1170,7 @@ CREATE TABLE IF NOT EXISTS `saving_throws` (
   UNIQUE KEY `saving_throw_name` (`saving_throw_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.saving_throws: ~5 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.saving_throws: ~4 rows (approximately)
 INSERT INTO `saving_throws` (`saving_throw_id`, `saving_throw_name`) VALUES
 	(1, 'Death Ray or Poison'),
 	(4, 'Dragon Breath'),
@@ -1170,7 +1211,8 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `character_details` AS SELE
 	SUM(chd.modified_die_roll)+clr.hit_point_bonus AS hit_points,
 	c.character_description,
 	lvl.attack_bonus,
-	c.money
+	c.money,
+	lvl.class_level_id
 FROM
 	characters c
 	JOIN race_classes rc ON c.race_class_id=rc.race_class_id
@@ -1209,6 +1251,21 @@ GROUP BY
 	chd.character_id,
 	chd.die,
 	chd.die_roll ;
+
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `character_saving_throw_details`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `character_saving_throw_details` AS SELECT 
+	cd.character_id,
+	cd.character_name,
+	clst.saving_throw,
+	st.saving_throw_id,
+	st.saving_throw_name,
+	COALESCE(rstb.saving_throw_bonus,0) AS saving_throw_bonus
+FROM
+	character_details cd 
+	CROSS JOIN saving_throws st
+	JOIN class_level_saving_throws clst ON clst.class_level_id=cd.class_level_id AND clst.saving_throw_id=st.saving_throw_id 
+	LEFT JOIN race_saving_throw_bonuses rstb ON rstb.race_id=cd.race_id AND rstb.saving_throw_id=st.saving_throw_id ;
 
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `class_ability_ranges`;
