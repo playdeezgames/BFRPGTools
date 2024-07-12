@@ -26,4 +26,5 @@
                                  characterName As String) As Integer?
     Function HitDice(characterId As Integer) As ICharacterHitDice
     Function Abilities(characterId As Integer) As ICharacterAbilities
+    Function SavingThrows(characterId As Integer) As ICharacterSavingThrows
 End Interface

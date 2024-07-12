@@ -146,4 +146,8 @@ Friend Class Characters
     Public Function Abilities(characterId As Integer) As ICharacterAbilities Implements ICharacters.Abilities
         Return New CharacterAbilities(store, characterId)
     End Function
+
+    Public Function SavingThrows(characterId As Integer) As ICharacterSavingThrows Implements ICharacters.SavingThrows
+        Return New CharacterSavingThrows(store, characterId)
+    End Function
 End Class

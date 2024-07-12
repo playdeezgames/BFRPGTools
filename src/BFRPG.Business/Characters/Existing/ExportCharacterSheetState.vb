@@ -56,6 +56,19 @@ Friend Class ExportCharacterSheetState
                         TD($"{abilityDetail.AbilityAbbreviation}"),
                         TD($"{abilityDetail.AbilityScore}"),
                         TD($"{abilityDetail.Modifier}"))))
+        Dim savingThrowsTable As New List(Of String) From
+            {
+                TR(
+                    TD("Saving Throw", header:=True),
+                    TD("Bonus", header:=True),
+                    TD("Target", header:=True)
+                    )
+            }
+        savingThrowsTable.AddRange(
+            data.Characters.SavingThrows(characterId).ReadAllDetailsForCharacter().Select(Function(savingThrowDetail) TR(
+                TD($"{savingThrowDetail.SavingThrowName}"),
+                TD($"{savingThrowDetail.SavingThrowBonus}"),
+                TD($"{savingThrowDetail.SavingThrow}"))))
         File.WriteAllText(
             filename,
             HTML(
@@ -100,9 +113,8 @@ Friend Class ExportCharacterSheetState
                                         TD("Spells/Abilities:", header:=True))), htmlEncode:=False, rowSpan:=2),
                             TD(
                                 TABLE(
-                                    False,
-                                    TR(
-                                        TD("Saving Throws:", header:=True))), colSpan:=2, htmlEncode:=False)),
+                                    True,
+                                    savingThrowsTable.ToArray), colSpan:=2, htmlEncode:=False)),
                         TR(
                             TD(
                                 TABLE(

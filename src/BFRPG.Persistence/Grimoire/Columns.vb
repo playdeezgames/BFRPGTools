@@ -25,4 +25,8 @@
     Friend Const RaceClassId = "race_class_id"
     Friend Const RaceId = "race_id"
     Friend Const RaceName = "race_name"
+    Friend Const SavingThrow = "saving_throw"
+    Friend Const SavingThrowBonus = "saving_throw_bonus"
+    Friend Const SavingThrowId = "saving_throw_id"
+    Friend Const SavingThrowName = "saving_throw_name"
 End Module
