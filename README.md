@@ -1,10 +1,9 @@
 # YouTube Publish Tracking:
  
  
- - [ ] 20240714 - BFRPG Tools Interlude Episode 14 - 
- - [ ] 20240713 - BFRPG Tools Interlude Episode 13 - 
- - [ ] 20240712 - BFRPG Tools Interlude Episode 12 - 
- - [ ] 20240711 - BFRPG Tools Interlude Episode 11 - 
+ - [ ] 20240714 - BFRPG Tools Interlude Episode 13 - 
+ - [x] 20240712 - BFRPG Tools Interlude Episode 12 - 
+ - [x] 20240711 - BFRPG Tools Interlude Episode 11 - 
  - [x] 20240710 - BFRPG Tools Interlude Episode 10 - 
  - [x] 20240709 - BFRPG Tools Interlude Episode 9 - 
  - [x] 20240708 - BFRPG Tools Interlude Episode 8 - 

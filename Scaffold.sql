@@ -54,9 +54,9 @@ CREATE TABLE IF NOT EXISTS `characters` (
   KEY `FK_characters_race_classes` (`race_class_id`),
   CONSTRAINT `FK_characters_players` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_characters_race_classes` FOREIGN KEY (`race_class_id`) REFERENCES `race_classes` (`race_class_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.characters: ~1 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.characters: ~2 rows (approximately)
 
 -- Dumping structure for table basic_fantasy_rpg.character_abilities
 CREATE TABLE IF NOT EXISTS `character_abilities` (
@@ -69,9 +69,9 @@ CREATE TABLE IF NOT EXISTS `character_abilities` (
   KEY `FK_character_abilities_abilities` (`ability_id`),
   CONSTRAINT `FK_character_abilities_abilities` FOREIGN KEY (`ability_id`) REFERENCES `abilities` (`ability_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_character_abilities_characters` FOREIGN KEY (`character_id`) REFERENCES `characters` (`character_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=271 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.character_abilities: ~6 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.character_abilities: ~12 rows (approximately)
 
 -- Dumping structure for view basic_fantasy_rpg.character_ability_details
 -- Creating temporary table to overcome VIEW dependency errors
@@ -116,9 +116,9 @@ CREATE TABLE IF NOT EXISTS `character_hit_dice` (
   PRIMARY KEY (`character_hit_dice_id`),
   UNIQUE KEY `character_id_index` (`character_id`,`die`) USING BTREE,
   CONSTRAINT `FK__characters` FOREIGN KEY (`character_id`) REFERENCES `characters` (`character_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table basic_fantasy_rpg.character_hit_dice: ~9 rows (approximately)
+-- Dumping data for table basic_fantasy_rpg.character_hit_dice: ~18 rows (approximately)
 
 -- Dumping structure for view basic_fantasy_rpg.character_hit_dice_details
 -- Creating temporary table to overcome VIEW dependency errors
@@ -127,6 +127,16 @@ CREATE TABLE `character_hit_dice_details` (
 	`character_id` INT(11) NOT NULL,
 	`die` INT(11) NOT NULL,
 	`modified_die_roll` DECIMAL(36,0) NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view basic_fantasy_rpg.character_perquisite_details
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `character_perquisite_details` (
+	`character_id` INT(11) NOT NULL,
+	`character_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
+	`perquisite_id` INT(11) NOT NULL,
+	`perquisite_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
+	`perquisite_description` TEXT NULL COLLATE 'latin1_general_ci'
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view basic_fantasy_rpg.character_saving_throw_details
@@ -991,13 +1001,34 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for table basic_fantasy_rpg.perquisites
+CREATE TABLE IF NOT EXISTS `perquisites` (
+  `perquisite_id` int(11) NOT NULL AUTO_INCREMENT,
+  `perquisite_name` varchar(50) NOT NULL,
+  `perquisite_description` text DEFAULT NULL,
+  PRIMARY KEY (`perquisite_id`),
+  UNIQUE KEY `perquisite_name` (`perquisite_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table basic_fantasy_rpg.perquisites: ~9 rows (approximately)
+INSERT INTO `perquisites` (`perquisite_id`, `perquisite_name`, `perquisite_description`) VALUES
+	(1, 'Darkvision 60\'', 'allows them to see even in total darkness. Such vision is in black and white, but otherwise like normal sight. Magical darkness obstructs Darkvision just as it does normal vision. Darkvision is totally ineffective in any light greater than moonlight. '),
+	(2, 'Stonecunning', 'able to detect slanting passages, stonework traps, shifting walls and new construction on a roll of 1-2 on 1d6; a search must be performed before this roll may be made.'),
+	(3, 'Elf Eyes', 'able to find secret doors more often than normal (1-2 on 1d6 rather than the usual 1 on 1d6). An Elf is so observant that one has a 1 on 1d6 chance to find a secret door with a cursory look.'),
+	(4, 'Ghoul Immunity', 'immune to the paralyzing attack of ghouls. '),
+	(5, 'Reduced Surprise', 'less likely to be surprised in combat, reducing the chance of surprise by 1 in 1d6.'),
+	(6, 'Unusually Accurate', 'with all sorts of ranged weapons, gain a +1 attack bonus when employing them. '),
+	(7, 'Small Size', 'when attacked in melee by creatures larger than man-sized, Halflings gain a +2 bonus to their Armor Class. '),
+	(8, 'Quick Witted', 'adds +1 to Initiative die rolls.'),
+	(9, 'Effective Hiding', 'in their preferred forest terrain, they are able to hide very effectively; so long as they remain still there is only a 10% chance they will be detected. Even indoors, in dungeons or in nonpreferred terrain they are able to hide such that there is only a 30% chance of detection. Note that a Halfling Thief will roll only once, using either the Thief ability or the Halfling ability, whichever is better.');
+
 -- Dumping structure for table basic_fantasy_rpg.players
 CREATE TABLE IF NOT EXISTS `players` (
   `player_id` int(11) NOT NULL AUTO_INCREMENT,
   `player_name` varchar(50) NOT NULL,
   PRIMARY KEY (`player_id`),
   UNIQUE KEY `player_name` (`player_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.players: ~1 rows (approximately)
 
@@ -1133,6 +1164,31 @@ CREATE TABLE `race_class_details` (
 	`maximum_hit_dice` INT(11) NULL
 ) ENGINE=MyISAM;
 
+-- Dumping structure for table basic_fantasy_rpg.race_perquisites
+CREATE TABLE IF NOT EXISTS `race_perquisites` (
+  `race_perquisite_id` int(11) NOT NULL AUTO_INCREMENT,
+  `race_id` int(11) NOT NULL,
+  `perquisite_id` int(11) NOT NULL,
+  PRIMARY KEY (`race_perquisite_id`),
+  UNIQUE KEY `race_id_perquisite_id` (`race_id`,`perquisite_id`),
+  KEY `FK_race_perquisites_perquisites` (`perquisite_id`),
+  CONSTRAINT `FK_race_perquisites_perquisites` FOREIGN KEY (`perquisite_id`) REFERENCES `perquisites` (`perquisite_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_race_perquisites_races` FOREIGN KEY (`race_id`) REFERENCES `races` (`race_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table basic_fantasy_rpg.race_perquisites: ~10 rows (approximately)
+INSERT INTO `race_perquisites` (`race_perquisite_id`, `race_id`, `perquisite_id`) VALUES
+	(1, 1, 1),
+	(2, 1, 2),
+	(5, 2, 1),
+	(3, 2, 3),
+	(4, 2, 4),
+	(6, 2, 5),
+	(10, 3, 6),
+	(9, 3, 7),
+	(8, 3, 8),
+	(7, 3, 9);
+
 -- Dumping structure for table basic_fantasy_rpg.race_saving_throw_bonuses
 CREATE TABLE IF NOT EXISTS `race_saving_throw_bonuses` (
   `race_saving_throw_bonus_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1177,6 +1233,260 @@ INSERT INTO `saving_throws` (`saving_throw_id`, `saving_throw_name`) VALUES
 	(2, 'Magic Wands'),
 	(3, 'Paralysis or Petrify'),
 	(5, 'Spells');
+
+-- Dumping structure for table basic_fantasy_rpg.turning_table_hit_dice
+CREATE TABLE IF NOT EXISTS `turning_table_hit_dice` (
+  `turning_table_hit_die_id` int(11) NOT NULL AUTO_INCREMENT,
+  `turning_table_hit_die_name` varchar(50) NOT NULL,
+  `turning_table_hit_dice` int(11) NOT NULL,
+  PRIMARY KEY (`turning_table_hit_die_id`),
+  UNIQUE KEY `turning_table_hit_die_name` (`turning_table_hit_die_name`),
+  UNIQUE KEY `turning_table_hit_dice` (`turning_table_hit_dice`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table basic_fantasy_rpg.turning_table_hit_dice: ~9 rows (approximately)
+INSERT INTO `turning_table_hit_dice` (`turning_table_hit_die_id`, `turning_table_hit_die_name`, `turning_table_hit_dice`) VALUES
+	(1, 'Skeleton', 1),
+	(2, 'Zombie', 2),
+	(3, 'Ghoul', 3),
+	(4, 'Wight', 4),
+	(5, 'Wraith', 5),
+	(6, 'Mummy', 6),
+	(7, 'Spectre', 7),
+	(8, 'Vampire', 8),
+	(9, 'Ghost', 9);
+
+-- Dumping structure for table basic_fantasy_rpg.turning_table_indicators
+CREATE TABLE IF NOT EXISTS `turning_table_indicators` (
+  `turning_table_indicator_id` int(11) NOT NULL AUTO_INCREMENT,
+  `turning_table_indicator` varchar(50) NOT NULL,
+  PRIMARY KEY (`turning_table_indicator_id`),
+  UNIQUE KEY `turning_table_indicator` (`turning_table_indicator`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table basic_fantasy_rpg.turning_table_indicators: ~23 rows (approximately)
+INSERT INTO `turning_table_indicators` (`turning_table_indicator_id`, `turning_table_indicator`) VALUES
+	(1, '1'),
+	(10, '10'),
+	(11, '11'),
+	(12, '12'),
+	(13, '13'),
+	(14, '14'),
+	(15, '15'),
+	(16, '16'),
+	(17, '17'),
+	(18, '18'),
+	(19, '19'),
+	(2, '2'),
+	(20, '20'),
+	(3, '3'),
+	(4, '4'),
+	(5, '5'),
+	(6, '6'),
+	(7, '7'),
+	(8, '8'),
+	(9, '9'),
+	(23, 'D'),
+	(21, 'No'),
+	(22, 'T');
+
+-- Dumping structure for table basic_fantasy_rpg.turning_table_results
+CREATE TABLE IF NOT EXISTS `turning_table_results` (
+  `turning_table_result_id` int(11) NOT NULL AUTO_INCREMENT,
+  `class_level_id` int(11) NOT NULL,
+  `turning_table_hit_die_id` int(11) NOT NULL,
+  `turning_table_indicator_id` int(11) NOT NULL,
+  PRIMARY KEY (`turning_table_result_id`),
+  UNIQUE KEY `class_level_id_turning_table_hit_die_id` (`class_level_id`,`turning_table_hit_die_id`),
+  KEY `FK_turning_table_results_turning_table_hit_dice` (`turning_table_hit_die_id`),
+  KEY `FK_turning_table_results_turning_table_indicators` (`turning_table_indicator_id`),
+  CONSTRAINT `FK_turning_table_results_class_levels` FOREIGN KEY (`class_level_id`) REFERENCES `class_levels` (`class_level_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_turning_table_results_turning_table_hit_dice` FOREIGN KEY (`turning_table_hit_die_id`) REFERENCES `turning_table_hit_dice` (`turning_table_hit_die_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_turning_table_results_turning_table_indicators` FOREIGN KEY (`turning_table_indicator_id`) REFERENCES `turning_table_indicators` (`turning_table_indicator_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table basic_fantasy_rpg.turning_table_results: ~180 rows (approximately)
+INSERT INTO `turning_table_results` (`turning_table_result_id`, `class_level_id`, `turning_table_hit_die_id`, `turning_table_indicator_id`) VALUES
+	(1, 1, 1, 13),
+	(2, 1, 2, 17),
+	(3, 1, 3, 19),
+	(4, 1, 4, 21),
+	(5, 1, 5, 21),
+	(6, 1, 6, 21),
+	(7, 1, 7, 21),
+	(8, 1, 8, 21),
+	(9, 1, 9, 21),
+	(10, 2, 1, 11),
+	(11, 2, 2, 15),
+	(12, 2, 3, 18),
+	(13, 2, 4, 20),
+	(14, 2, 5, 21),
+	(15, 2, 6, 21),
+	(16, 2, 7, 21),
+	(17, 2, 8, 21),
+	(18, 2, 9, 21),
+	(19, 3, 1, 9),
+	(20, 3, 2, 13),
+	(21, 3, 3, 17),
+	(22, 3, 4, 19),
+	(23, 3, 5, 21),
+	(24, 3, 6, 21),
+	(25, 3, 7, 21),
+	(26, 3, 8, 21),
+	(27, 3, 9, 21),
+	(28, 4, 1, 7),
+	(29, 4, 2, 11),
+	(30, 4, 3, 15),
+	(31, 4, 4, 18),
+	(32, 4, 5, 20),
+	(33, 4, 6, 21),
+	(34, 4, 7, 21),
+	(35, 4, 8, 21),
+	(36, 4, 9, 21),
+	(37, 5, 1, 5),
+	(38, 5, 2, 9),
+	(39, 5, 3, 13),
+	(40, 5, 4, 17),
+	(41, 5, 5, 19),
+	(42, 5, 6, 21),
+	(43, 5, 7, 21),
+	(44, 5, 8, 21),
+	(45, 5, 9, 21),
+	(46, 6, 1, 3),
+	(47, 6, 2, 7),
+	(48, 6, 3, 11),
+	(49, 6, 4, 15),
+	(50, 6, 5, 18),
+	(51, 6, 6, 20),
+	(52, 6, 7, 21),
+	(53, 6, 8, 21),
+	(54, 6, 9, 21),
+	(55, 13, 1, 2),
+	(56, 13, 2, 5),
+	(57, 13, 3, 9),
+	(58, 13, 4, 13),
+	(59, 13, 5, 17),
+	(60, 13, 6, 19),
+	(61, 13, 7, 21),
+	(62, 13, 8, 21),
+	(63, 13, 9, 21),
+	(64, 14, 1, 22),
+	(65, 14, 2, 3),
+	(66, 14, 3, 7),
+	(67, 14, 4, 11),
+	(68, 14, 5, 15),
+	(69, 14, 6, 18),
+	(70, 14, 7, 20),
+	(71, 14, 8, 21),
+	(72, 14, 9, 21),
+	(73, 15, 1, 22),
+	(74, 15, 2, 2),
+	(75, 15, 3, 5),
+	(76, 15, 4, 9),
+	(77, 15, 5, 13),
+	(78, 15, 6, 17),
+	(79, 15, 7, 19),
+	(80, 15, 8, 21),
+	(81, 15, 9, 21),
+	(82, 16, 1, 22),
+	(83, 16, 2, 22),
+	(84, 16, 3, 3),
+	(85, 16, 4, 7),
+	(86, 16, 5, 11),
+	(87, 16, 6, 15),
+	(88, 16, 7, 18),
+	(89, 16, 8, 20),
+	(90, 16, 9, 21),
+	(91, 17, 1, 23),
+	(92, 17, 2, 22),
+	(93, 17, 3, 2),
+	(94, 17, 4, 5),
+	(95, 17, 5, 9),
+	(96, 17, 6, 13),
+	(97, 17, 7, 17),
+	(98, 17, 8, 19),
+	(99, 17, 9, 21),
+	(100, 18, 1, 23),
+	(101, 18, 2, 22),
+	(102, 18, 3, 22),
+	(103, 18, 4, 3),
+	(104, 18, 5, 7),
+	(105, 18, 6, 11),
+	(106, 18, 7, 15),
+	(107, 18, 8, 18),
+	(108, 18, 9, 20),
+	(109, 19, 1, 23),
+	(110, 19, 2, 23),
+	(111, 19, 3, 22),
+	(112, 19, 4, 2),
+	(113, 19, 5, 5),
+	(114, 19, 6, 9),
+	(115, 19, 7, 13),
+	(116, 19, 8, 17),
+	(117, 19, 9, 19),
+	(118, 20, 1, 23),
+	(119, 20, 2, 23),
+	(120, 20, 3, 22),
+	(121, 20, 4, 22),
+	(122, 20, 5, 3),
+	(123, 20, 6, 7),
+	(124, 20, 7, 11),
+	(125, 20, 8, 15),
+	(126, 20, 9, 18),
+	(127, 21, 1, 23),
+	(128, 21, 2, 23),
+	(129, 21, 3, 23),
+	(130, 21, 4, 22),
+	(131, 21, 5, 2),
+	(132, 21, 6, 5),
+	(133, 21, 7, 9),
+	(134, 21, 8, 13),
+	(135, 21, 9, 17),
+	(136, 22, 1, 23),
+	(137, 22, 2, 23),
+	(138, 22, 3, 23),
+	(139, 22, 4, 22),
+	(140, 22, 5, 22),
+	(141, 22, 6, 3),
+	(142, 22, 7, 7),
+	(143, 22, 8, 11),
+	(144, 22, 9, 15),
+	(145, 23, 1, 23),
+	(146, 23, 2, 23),
+	(147, 23, 3, 23),
+	(148, 23, 4, 23),
+	(149, 23, 5, 22),
+	(150, 23, 6, 2),
+	(151, 23, 7, 5),
+	(152, 23, 8, 9),
+	(153, 23, 9, 13),
+	(154, 24, 1, 23),
+	(155, 24, 2, 23),
+	(156, 24, 3, 23),
+	(157, 24, 4, 23),
+	(158, 24, 5, 22),
+	(159, 24, 6, 22),
+	(160, 24, 7, 3),
+	(161, 24, 8, 7),
+	(162, 24, 9, 11),
+	(163, 25, 1, 23),
+	(164, 25, 2, 23),
+	(165, 25, 3, 23),
+	(166, 25, 4, 23),
+	(167, 25, 5, 23),
+	(168, 25, 6, 22),
+	(169, 25, 7, 2),
+	(170, 25, 8, 5),
+	(171, 25, 9, 9),
+	(172, 26, 1, 23),
+	(173, 26, 2, 23),
+	(174, 26, 3, 23),
+	(175, 26, 4, 23),
+	(176, 26, 5, 23),
+	(177, 26, 6, 22),
+	(178, 26, 7, 22),
+	(179, 26, 8, 3),
+	(180, 26, 9, 7);
 
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `character_ability_details`;
@@ -1251,6 +1561,20 @@ GROUP BY
 	chd.character_id,
 	chd.die,
 	chd.die_roll ;
+
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `character_perquisite_details`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `character_perquisite_details` AS SELECT 
+	c.character_id,
+	c.character_name,
+	p.perquisite_id,
+	p.perquisite_name,
+	p.perquisite_description
+FROM
+	characters c
+	JOIN race_classes rc ON c.race_class_id=rc.race_class_id
+	JOIN race_perquisites rp ON rc.race_id=rp.race_id
+	JOIN perquisites p ON rp.perquisite_id=p.perquisite_id ;
 
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `character_saving_throw_details`;
