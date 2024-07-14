@@ -28,4 +28,5 @@
     Function Abilities(characterId As Integer) As ICharacterAbilities
     Function SavingThrows(characterId As Integer) As ICharacterSavingThrows
     Function Perquisites(characterId As Integer) As ICharacterPerquisites
+    Function TurningTableResults(characterId As Integer) As ICharacterTurningTableResults
 End Interface

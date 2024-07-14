@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   KEY `FK_characters_race_classes` (`race_class_id`),
   CONSTRAINT `FK_characters_players` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_characters_race_classes` FOREIGN KEY (`race_class_id`) REFERENCES `race_classes` (`race_class_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.characters: ~2 rows (approximately)
 
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `character_abilities` (
   KEY `FK_character_abilities_abilities` (`ability_id`),
   CONSTRAINT `FK_character_abilities_abilities` FOREIGN KEY (`ability_id`) REFERENCES `abilities` (`ability_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_character_abilities_characters` FOREIGN KEY (`character_id`) REFERENCES `characters` (`character_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=271 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.character_abilities: ~12 rows (approximately)
 
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `character_hit_dice` (
   PRIMARY KEY (`character_hit_dice_id`),
   UNIQUE KEY `character_id_index` (`character_id`,`die`) USING BTREE,
   CONSTRAINT `FK__characters` FOREIGN KEY (`character_id`) REFERENCES `characters` (`character_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.character_hit_dice: ~18 rows (approximately)
 
@@ -148,6 +148,16 @@ CREATE TABLE `character_saving_throw_details` (
 	`saving_throw_id` INT(11) NOT NULL,
 	`saving_throw_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
 	`saving_throw_bonus` INT(11) NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view basic_fantasy_rpg.character_turning_table_result_details
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `character_turning_table_result_details` (
+	`character_id` INT(11) NOT NULL,
+	`character_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
+	`turning_table_hit_dice` INT(11) NOT NULL,
+	`turning_table_hit_die_name` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci',
+	`turning_table_indicator` VARCHAR(50) NOT NULL COLLATE 'latin1_general_ci'
 ) ENGINE=MyISAM;
 
 -- Dumping structure for table basic_fantasy_rpg.classes
@@ -1028,7 +1038,7 @@ CREATE TABLE IF NOT EXISTS `players` (
   `player_name` varchar(50) NOT NULL,
   PRIMARY KEY (`player_id`),
   UNIQUE KEY `player_name` (`player_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table basic_fantasy_rpg.players: ~1 rows (approximately)
 
@@ -1590,6 +1600,20 @@ FROM
 	CROSS JOIN saving_throws st
 	JOIN class_level_saving_throws clst ON clst.class_level_id=cd.class_level_id AND clst.saving_throw_id=st.saving_throw_id 
 	LEFT JOIN race_saving_throw_bonuses rstb ON rstb.race_id=cd.race_id AND rstb.saving_throw_id=st.saving_throw_id ;
+
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `character_turning_table_result_details`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `character_turning_table_result_details` AS SELECT 
+	cd.character_id,
+	cd.character_name,
+	tthd.turning_table_hit_dice,
+	tthd.turning_table_hit_die_name,
+	tti.turning_table_indicator
+FROM
+	character_details cd
+	JOIN turning_table_results ttr ON ttr.class_level_id=cd.class_level_id
+	JOIN turning_table_hit_dice tthd ON ttr.turning_table_hit_die_id=tthd.turning_table_hit_die_id
+	JOIN turning_table_indicators tti ON ttr.turning_table_indicator_id=tti.turning_table_indicator_id ;
 
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `class_ability_ranges`;

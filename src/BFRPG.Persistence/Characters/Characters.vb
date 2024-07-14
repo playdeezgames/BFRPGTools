@@ -154,4 +154,8 @@ Friend Class Characters
     Public Function Perquisites(characterId As Integer) As ICharacterPerquisites Implements ICharacters.Perquisites
         Return New CharacterPerquisites(store, characterId)
     End Function
+
+    Public Function TurningTableResults(characterId As Integer) As ICharacterTurningTableResults Implements ICharacters.TurningTableResults
+        Return New CharacterTurningTableResults(store, characterId)
+    End Function
 End Class

@@ -32,4 +32,7 @@
     Friend Const SavingThrowBonus = "saving_throw_bonus"
     Friend Const SavingThrowId = "saving_throw_id"
     Friend Const SavingThrowName = "saving_throw_name"
+    Friend Const TurningTableHitDice = "turning_table_hit_dice"
+    Friend Const TurningTableHitDieName = "turning_table_hit_die_name"
+    Friend Const TurningTableIndicator = "turning_table_indicator"
 End Module

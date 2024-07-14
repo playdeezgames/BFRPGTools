@@ -76,6 +76,8 @@ Friend Class ExportCharacterSheetState
             }
         spellsAbilitiesTable.AddRange(
             data.Characters.Perquisites(characterId).ReadAllDetailsForCharacter().Select(Function(x) TR(TD($"{x.PerquisiteName}"))))
+        spellsAbilitiesTable.AddRange(
+            data.Characters.TurningTableResults(characterId).ReadAllDetailsForCharacter().Select(Function(x) TR(TD($"Turn {x.TurningTableHitDieName}({x.TurningTableHitDice} HD) {x.TurningTableIndicator}"))))
         File.WriteAllText(
             filename,
             HTML(
